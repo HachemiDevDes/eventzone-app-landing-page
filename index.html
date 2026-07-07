@@ -672,32 +672,40 @@
         }
 
         @media (max-width: 768px) {
-            nav { padding: 1.5rem 1rem; }
+            body { padding: 0; }
+            .app-container { border-radius: 0; border: none; }
+            nav { padding: 1.5rem 1.2rem; }
+            nav .logo img { height: 22px !important; }
+            nav .btn { display: none; }
             .nav-links { display: none; }
             .btn { white-space: nowrap; flex-shrink: 0; }
             
-            .hero { padding: 2rem 1.5rem 0rem; }
+            .hero { padding: 2rem 1.2rem 0rem; }
             .hero h1 { font-size: 2.2rem; }
-            .hero-buttons { flex-direction: column; width: 100%; max-width: 250px; margin: 0 auto; gap: 1rem; }
-            .hero-buttons .btn { width: 100%; justify-content: center; }
+            .hero-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; width: auto; max-width: none; gap: 1rem; }
+            .hero-buttons .btn { width: auto; justify-content: center; }
             
+            .features { padding: 3rem 1.2rem; }
             .features-grid { grid-template-columns: 1fr; gap: 1rem; }
             .feature-card { padding: 1.5rem; }
             
-            .app-cards-container { grid-template-columns: 1fr; }
+            .get-app-section { padding: 4rem 1.2rem; }
+            .app-cards-container { grid-template-columns: 1fr; gap: 1.5rem; }
             .app-card { padding: 2rem 1.5rem; }
             .app-card h2 { font-size: 1.8rem; }
             
-            .cta-container { grid-template-columns: 1fr; }
+            .cta { padding: 0 1.2rem 2rem; }
+            .cta-container { grid-template-columns: 1fr; border-radius: 20px; }
             .cta-left, .cta-right { padding: 2.5rem 1.5rem; align-items: center; text-align: center; }
             .cta-left h2 { font-size: 1.8rem; }
-            .cta-store-btns { flex-direction: column; width: 100%; max-width: 250px; gap: 1rem; }
-            .cta-store-btns .btn { width: 100%; justify-content: center; }
+            .cta-store-btns { flex-direction: row; flex-wrap: wrap; justify-content: center; width: auto; max-width: none; gap: 1rem; }
+            .cta-store-btns .btn { width: auto; justify-content: center; }
             .user-avatars { justify-content: center; }
             
+            .faq { padding: 4rem 1.2rem; }
             .faq-question { padding: 1.5rem; gap: 1rem; }
             .faq-answer { padding: 0 1.5rem 1.5rem 3.5rem; }
-            footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+            footer { padding: 2rem 1.2rem; flex-direction: column; gap: 1.5rem; text-align: center; }
         }
     </style>
 </head>
@@ -841,11 +849,11 @@
             </div>
             
             <div class="faq-list">
-                <div class="faq-item active">
+                <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <div class="faq-num">01</div>
                         <h3>Is my contact data secure?</h3>
-                        <div class="faq-toggle"><i data-lucide="minus" style="width: 16px; height: 16px;"></i></div>
+                        <div class="faq-toggle"><i data-lucide="plus" style="width: 16px; height: 16px;"></i></div>
                     </div>
                     <div class="faq-answer">
                         Yes, we use industry-standard encryption to ensure that your personal and professional details are secure. You have full control over what information is visible on your digital business card and who can access it.
