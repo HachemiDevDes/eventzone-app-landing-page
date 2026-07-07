@@ -474,6 +474,7 @@
         }
 
         .faq-num {
+            display: none;
             font-family: var(--font-heading);
             font-size: 0.85rem;
             font-weight: 700;
@@ -481,7 +482,6 @@
             background: rgba(255, 255, 255, 0.1);
             width: 32px;
             height: 32px;
-            display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
@@ -508,10 +508,11 @@
             justify-content: center;
             color: var(--accent-lime);
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .faq-answer {
-            padding: 0 2rem 0 5rem;
+            padding: 0 2rem 0 2rem;
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.7;
@@ -676,7 +677,7 @@
             .app-container { border-radius: 0; border: none; }
             nav { padding: 1.5rem 1.2rem; }
             nav .logo img { height: 22px !important; }
-            nav .btn { display: none; }
+            nav .btn { padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 50px; }
             .nav-links { display: none; }
             .btn { white-space: nowrap; flex-shrink: 0; }
             
@@ -684,6 +685,10 @@
             .hero h1 { font-size: 2.2rem; }
             .hero-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; width: auto; max-width: none; gap: 1rem; }
             .hero-buttons .btn { width: auto; justify-content: center; }
+            
+            .hero-mockup-container img { max-width: 250px; }
+            .glow-wave-container { width: 100vw; height: 150px; transform: translate(-50%, -60%); }
+            .glow-wave-core { height: 20px; filter: blur(20px); }
             
             .features { padding: 3rem 1.2rem; }
             .features-grid { grid-template-columns: 1fr; gap: 1rem; }
@@ -704,7 +709,7 @@
             
             .faq { padding: 4rem 1.2rem; }
             .faq-question { padding: 1.5rem; gap: 1rem; }
-            .faq-answer { padding: 0 1.5rem 1.5rem 3.5rem; }
+            .faq-answer { padding: 0 1.5rem 1.5rem 1.5rem; }
             footer { padding: 2rem 1.2rem; flex-direction: column; gap: 1.5rem; text-align: center; }
         }
     </style>
