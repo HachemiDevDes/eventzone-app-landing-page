@@ -672,9 +672,29 @@
         }
 
         @media (max-width: 768px) {
+            nav { padding: 1.5rem 1rem; }
             .nav-links { display: none; }
-            .hero h1 { font-size: 3rem; }
-            .features-grid { grid-template-columns: 1fr; }
+            .btn { white-space: nowrap; flex-shrink: 0; }
+            
+            .hero { padding: 2rem 1.5rem 0rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero-buttons { flex-direction: column; width: 100%; max-width: 250px; margin: 0 auto; gap: 1rem; }
+            .hero-buttons .btn { width: 100%; justify-content: center; }
+            
+            .features-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .feature-card { padding: 1.5rem; }
+            
+            .app-cards-container { grid-template-columns: 1fr; }
+            .app-card { padding: 2rem 1.5rem; }
+            .app-card h2 { font-size: 1.8rem; }
+            
+            .cta-container { grid-template-columns: 1fr; }
+            .cta-left, .cta-right { padding: 2.5rem 1.5rem; align-items: center; text-align: center; }
+            .cta-left h2 { font-size: 1.8rem; }
+            .cta-store-btns { flex-direction: column; width: 100%; max-width: 250px; gap: 1rem; }
+            .cta-store-btns .btn { width: 100%; justify-content: center; }
+            .user-avatars { justify-content: center; }
+            
             .faq-question { padding: 1.5rem; gap: 1rem; }
             .faq-answer { padding: 0 1.5rem 1.5rem 3.5rem; }
             footer { flex-direction: column; gap: 1.5rem; text-align: center; }
