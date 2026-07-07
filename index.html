@@ -47,16 +47,20 @@
             padding: 2rem;
         }
 
-        /* Main App Container mimicking the Dribbble shot */
+        /* Main App Container */
         .app-container {
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        nav, section, footer {
             background-color: var(--bg-container);
             border-radius: 32px;
             overflow: hidden;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -543,11 +547,7 @@
         }
         
         .section-divider {
-            height: 1px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            display: none;
         }
         
         .cta-container {
@@ -682,8 +682,9 @@
         }
 
         @media (max-width: 768px) {
-            body { padding: 0; }
-            .app-container { border-radius: 0; border: none; }
+            body { padding: 0.5rem; }
+            .app-container { gap: 1rem; }
+            nav, section, footer { border-radius: 24px; }
             nav { padding: 1.5rem 1.2rem; }
             nav .logo img { height: 22px !important; }
             nav .btn { padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 50px; }
