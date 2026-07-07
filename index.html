@@ -543,7 +543,11 @@
 
         /* Bottom CTA */
         .cta {
-            padding: 6rem 4rem;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            overflow: visible !important;
         }
         
         .section-divider {
@@ -650,12 +654,13 @@
 
         /* Footer */
         footer {
-            padding: 2rem 4rem 3rem;
+            padding: 2rem;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            border-top: 1px solid var(--border-light);
-            padding-top: 2rem;
+            gap: 1rem;
+            border-top: none;
         }
         
         .footer-links {
