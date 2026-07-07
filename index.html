@@ -509,19 +509,20 @@
             font-family: var(--font-heading);
             font-size: 1.1rem;
             flex-grow: 1;
+            margin: 0;
         }
 
         .faq-toggle {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: #FFFFFF;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-lime);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
             flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
         }
 
         .faq-answer {
@@ -878,7 +879,7 @@
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <div class="faq-num">01</div>
                         <h3>Is my contact data secure?</h3>
-                        <div class="faq-toggle"><i data-lucide="plus" style="width: 16px; height: 16px;"></i></div>
+                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
                     </div>
                     <div class="faq-answer">
                         Yes, we use industry-standard encryption to ensure that your personal and professional details are secure. You have full control over what information is visible on your digital business card and who can access it.
@@ -889,7 +890,7 @@
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <div class="faq-num">02</div>
                         <h3>Can I export my connections to Salesforce or Hubspot?</h3>
-                        <div class="faq-toggle"><i data-lucide="plus" style="width: 16px; height: 16px;"></i></div>
+                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
                     </div>
                     <div class="faq-answer">
                         Absolutely. Eventzone supports direct integrations with major CRMs including Salesforce, Hubspot, and Pipedrive. You can also export your connections as a standard CSV file at any time.
@@ -900,7 +901,7 @@
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <div class="faq-num">03</div>
                         <h3>Do people need the app to scan my card?</h3>
-                        <div class="faq-toggle"><i data-lucide="plus" style="width: 16px; height: 16px;"></i></div>
+                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
                     </div>
                     <div class="faq-answer">
                         No! Anyone with a standard smartphone camera can scan your Eventzone QR code. It will open a responsive web profile where they can save your contact details directly to their phone's address book.
@@ -910,7 +911,7 @@
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <div class="faq-num">04</div>
                         <h3>Can I create multiple profiles for different businesses?</h3>
-                        <div class="faq-toggle"><i data-lucide="plus" style="width: 16px; height: 16px;"></i></div>
+                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
                     </div>
                     <div class="faq-answer">
                         Yes, with our Pro plan you can create and manage multiple profiles from a single account. Easily switch between your main business, side hustle, or freelancer profile with just a tap.
@@ -921,7 +922,7 @@
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <div class="faq-num">05</div>
                         <h3>Is there a physical card option?</h3>
-                        <div class="faq-toggle"><i data-lucide="plus" style="width: 16px; height: 16px;"></i></div>
+                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
                     </div>
                     <div class="faq-answer">
                         Absolutely. While our app provides a complete digital experience, you can also order a custom-designed NFC-enabled metal or plastic card that links directly to your Eventzone profile.
@@ -985,24 +986,18 @@
         // FAQ Toggle Logic
         function toggleFaq(element) {
             const item = element.parentElement;
-            const toggleContainer = element.querySelector('.faq-toggle');
             
             if (item.classList.contains('active')) {
                 item.classList.remove('active');
-                toggleContainer.innerHTML = '<i data-lucide="plus" style="width: 16px; height: 16px;"></i>';
             } else {
                 // Close all others
                 document.querySelectorAll('.faq-item').forEach(faq => {
                     faq.classList.remove('active');
-                    faq.querySelector('.faq-toggle').innerHTML = '<i data-lucide="plus" style="width: 16px; height: 16px;"></i>';
                 });
                 
                 // Open clicked
                 item.classList.add('active');
-                toggleContainer.innerHTML = '<i data-lucide="minus" style="width: 16px; height: 16px;"></i>';
             }
-            // Re-render icons for the toggled state
-            lucide.createIcons();
         }
     </script>
 </body>
