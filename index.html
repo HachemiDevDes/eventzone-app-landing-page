@@ -786,12 +786,55 @@
             body { padding: 1rem; }
             .hero { grid-template-columns: 1fr; padding: 0 2rem; }
             .steps-connector { display: none; }
-            .steps-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            
+            .steps-grid { grid-template-columns: 1fr; gap: 2rem; position: relative; }
+            .steps-grid::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 40px;
+                width: 1px;
+                border-left: 2px dashed rgba(255, 255, 255, 0.15);
+                z-index: 0;
+            }
+            .step-card {
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+                padding: 0;
+                gap: 1.5rem;
+            }
+            .step-icon-container {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            .step-icon {
+                width: 80px;
+                height: 80px;
+            }
+            .step-icon i {
+                width: 32px;
+                height: 32px;
+            }
+            .step-badge {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+                left: -8px;
+            }
+            .step-card h3 {
+                margin-top: 10px;
+                margin-bottom: 0.5rem;
+                font-size: 1.3rem;
+            }
+            
             .features-grid { grid-template-columns: repeat(2, 1fr); }
             .cta-container { grid-template-columns: 1fr; }
             nav { padding: 2rem; }
             .mission { padding: 4rem 2rem 0; }
             .how-it-works { padding: 4rem 2rem; }
+            .faq-header h2 { font-size: 2.2rem; }
             .faq { padding: 4rem 2rem; }
             .cta { padding: 0 2rem 2rem; }
         }
@@ -820,6 +863,7 @@
             .glow-wave-bottom { height: 80px; filter: blur(25px); }
             
             .how-it-works { padding: 3rem 1.2rem; }
+            .faq-header h2 { font-size: 1.8rem; }
             .features { padding: 3rem 1.2rem; }
             .features-grid { grid-template-columns: 1fr; gap: 1rem; }
             .feature-card { padding: 1.5rem; }
