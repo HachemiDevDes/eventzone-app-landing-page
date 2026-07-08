@@ -375,13 +375,15 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--bg-container);
             border: 1px dashed rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--accent-lime);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
         }
 
         .step-icon i {
@@ -391,9 +393,10 @@
 
         .step-card:hover .step-icon {
             transform: scale(1.05);
-            background: rgba(26, 115, 232, 0.1);
+            background: #0D192C;
             border-color: var(--accent-lime);
             box-shadow: 0 0 30px rgba(26, 115, 232, 0.2);
+            border-style: solid;
         }
 
         .step-card h3 {
