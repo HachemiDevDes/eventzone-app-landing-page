@@ -391,7 +391,7 @@
         /* 2. REIMAGINED HERO & INTERACTIVE NFC TAP SIMULATOR   */
         /* ---------------------------------------------------- */
         .hero-section {
-            padding: 2rem 0 7rem;
+            padding: 2rem 0 6rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -436,11 +436,11 @@
             justify-content: center;
         }
 
-        /* Interactive NFC Tap Playground */
-        .nfc-tap-stage {
+        /* Spatial NFC Stage Presentation */
+        .nfc-spatial-stage {
             width: 100%;
-            max-width: 980px;
-            padding: 4rem 2.5rem;
+            max-width: 1040px;
+            padding: 4.5rem 3rem;
             background: #FFFFFF;
             border: 1px solid var(--border-light);
             border-radius: var(--radius-xl);
@@ -450,131 +450,209 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2.5rem;
+            gap: 3rem;
         }
 
-        .tap-instruction-pill {
+        .tap-interactive-trigger {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.88rem;
-            font-weight: 600;
+            gap: 0.6rem;
+            font-size: 0.92rem;
+            font-weight: 700;
             color: var(--accent-blue);
             background: var(--accent-blue-subtle);
-            padding: 0.5rem 1.4rem;
+            padding: 0.6rem 1.6rem;
             border-radius: var(--radius-full);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
         }
 
-        .tap-instruction-pill:hover {
-            background: rgba(37, 99, 235, 0.15);
-            transform: scale(1.03);
+        .tap-interactive-trigger:hover {
+            background: rgba(37, 99, 235, 0.16);
+            transform: scale(1.04);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.2);
         }
 
-        .nfc-devices-flex {
+        .nfc-composition-wrap {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 3.5rem;
+            gap: 4rem;
             position: relative;
             width: 100%;
         }
 
-        /* 3D Smart Card Mockup */
-        .nfc-card-interactive {
-            width: 290px;
-            height: 180px;
-            background: #0F172A;
-            border-radius: 16px;
-            padding: 1.4rem;
+        /* Floating 3D NFC Smart Card */
+        .hero-nfc-card {
+            width: 310px;
+            height: 195px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 1.6rem;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 25px 50px -10px rgba(15, 23, 42, 0.35), 0 0 30px rgba(37, 99, 235, 0.25);
             cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
             user-select: none;
-        }
-
-        .nfc-card-interactive:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.3);
-        }
-
-        .nfc-card-interactive::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-        }
-
-        /* Phone Screen Receiver Mockup */
-        .phone-receiver-mockup {
-            width: 260px;
-            height: 380px;
-            background: #0F172A;
-            border-radius: 28px;
-            border: 4px solid #1E293B;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Dynamic NFC Wave Ripple */
-        .nfc-ripple-wave {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-blue);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .nfc-ripple-wave.active {
-            animation: nfcWavePing 1.2s cubic-bezier(0, 0.2, 0.8, 1);
-        }
-
-        @keyframes nfcWavePing {
-            0% { width: 40px; height: 40px; opacity: 1; border-width: 4px; }
-            100% { width: 300px; height: 300px; opacity: 0; border-width: 1px; }
-        }
-
-        /* Live Toast Notification Inside Phone */
-        .phone-contact-toast {
-            position: absolute;
-            top: 20px;
-            left: 10px;
-            right: 10px;
-            background: #FFFFFF;
-            border-radius: 14px;
-            padding: 0.8rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            transform: translateY(-80px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: rotate(-6deg);
             z-index: 10;
         }
 
-        .phone-contact-toast.visible {
+        .hero-nfc-card:hover {
+            transform: rotate(-2deg) translateY(-8px) scale(1.03);
+            box-shadow: 0 35px 70px -10px rgba(37, 99, 235, 0.4);
+        }
+
+        .hero-nfc-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+        /* Authentic Titanium iPhone 16 Pro Frame */
+        .iphone-frame {
+            width: 300px;
+            height: 610px;
+            background: #0B0F19;
+            border-radius: 46px;
+            border: 10px solid #1E293B;
+            outline: 1px solid #334155;
+            box-shadow: 0 35px 80px -15px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            z-index: 5;
+        }
+
+        /* iPhone Top Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 96px;
+            height: 24px;
+            background: #000000;
+            border-radius: 20px;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 10px;
+        }
+
+        .camera-lens {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #0F172A;
+            box-shadow: 0 0 3px #38BDF8;
+        }
+
+        /* Screen App Image */
+        .phone-screen-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            border-radius: 36px;
+            display: block;
+        }
+
+        /* Glowing NFC Concentric Wave */
+        .nfc-wave-emitter {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-blue);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        .nfc-wave-emitter.active {
+            animation: nfcPulseWave 1.4s cubic-bezier(0, 0.2, 0.8, 1);
+        }
+
+        @keyframes nfcPulseWave {
+            0% { width: 40px; height: 40px; opacity: 1; border-width: 4px; border-color: #38BDF8; }
+            100% { width: 380px; height: 380px; opacity: 0; border-width: 1px; border-color: var(--accent-blue); }
+        }
+
+        /* iOS Dynamic Island Drop Notification */
+        .ios-contact-toast {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            background: rgba(15, 23, 42, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 0.85rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            color: #FFFFFF;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-110px);
+            opacity: 0;
+            transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 40;
+        }
+
+        .ios-contact-toast.visible {
             transform: translateY(0);
             opacity: 1;
+        }
+
+        /* Floating Contextual Badges */
+        .floating-feature-tag {
+            position: absolute;
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            padding: 0.7rem 1.2rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-card);
+            z-index: 15;
+            animation: floatBob 4s ease-in-out infinite;
+        }
+
+        .tag-top-left {
+            top: 10%;
+            left: 2%;
+        }
+
+        .tag-bottom-right {
+            bottom: 12%;
+            right: 2%;
+            animation-delay: 2s;
+        }
+
+        @keyframes floatBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         /* ---------------------------------------------------- */
@@ -1088,9 +1166,17 @@
                 padding: 5rem 0;
             }
 
-            .nfc-devices-flex {
+            .nfc-composition-wrap {
                 flex-direction: column;
-                gap: 2.5rem;
+                gap: 3rem;
+            }
+
+            .hero-nfc-card {
+                transform: none;
+            }
+
+            .tag-top-left, .tag-bottom-right {
+                display: none;
             }
 
             .comparison-grid {
@@ -1148,9 +1234,14 @@
                 font-size: 2.2rem;
             }
 
-            .nfc-card-interactive {
+            .hero-nfc-card {
                 width: 100%;
-                max-width: 280px;
+                max-width: 290px;
+            }
+
+            .iphone-frame {
+                width: 270px;
+                height: 550px;
             }
 
             footer {
@@ -1223,43 +1314,72 @@
                 </div>
             </div>
 
-            <!-- Live Interactive NFC Tap Simulation Stage -->
-            <div class="nfc-tap-stage card-surface" id="demo">
-                <div class="tap-instruction-pill" onclick="triggerNfcSimulation()">
-                    <i data-lucide="hand-metal" style="width: 16px; height: 16px;"></i> Click here or tap the card to simulate instant contact transfer!
+            <!-- Spatial Interactive NFC Stage -->
+            <div class="nfc-spatial-stage" id="demo">
+                
+                <!-- Floating Telemetry Chips -->
+                <div class="floating-feature-tag tag-top-left">
+                    <i data-lucide="zap" style="color: var(--accent-blue); width: 16px; height: 16px;"></i>
+                    <span>0.8s Tap &bull; No App Needed</span>
                 </div>
 
-                <div class="nfc-devices-flex">
-                    <!-- 3D Interactive Card -->
-                    <div class="nfc-card-interactive" id="nfcDemoCard" onclick="triggerNfcSimulation()">
+                <div class="floating-feature-tag tag-bottom-right">
+                    <i data-lucide="shield-check" style="color: var(--accent-emerald); width: 16px; height: 16px;"></i>
+                    <span>Auto-Syncs to Address Book</span>
+                </div>
+
+                <!-- Interactive Trigger Button -->
+                <div class="tap-interactive-trigger" onclick="triggerNfcSimulation()">
+                    <i data-lucide="hand-metal" style="width: 16px; height: 16px;"></i>
+                    Tap Card to Simulate Instant Handshake
+                </div>
+
+                <div class="nfc-composition-wrap">
+                    
+                    <!-- 3D Floating Smart Card -->
+                    <div class="hero-nfc-card" id="nfcDemoCard" onclick="triggerNfcSimulation()">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF;">Eventzone Pro</span>
-                            <i data-lucide="wifi" style="color: var(--accent-blue); width: 22px; height: 22px;"></i>
+                            <span style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #FFFFFF;">Eventzone Pro</span>
+                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(37, 99, 235, 0.2); display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="wifi" style="color: var(--accent-blue); width: 18px; height: 18px;"></i>
+                            </div>
                         </div>
                         <div>
-                            <p style="color: #94A3B8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;">Digital Member</p>
-                            <h4 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 700;">Hachemi Vance</h4>
+                            <p style="color: #94A3B8; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;">Digital Member</p>
+                            <h4 style="color: #FFFFFF; font-size: 1.25rem; font-weight: 700;">Hachemi Vance</h4>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.6rem;">
+                            <span style="font-size: 0.72rem; color: #64748B; letter-spacing: 0.05em;">TOUCHLESS NFC CHIP</span>
+                            <span style="font-size: 0.72rem; color: var(--accent-blue); font-weight: 700;">ACTIVE</span>
                         </div>
                     </div>
 
-                    <!-- Animated NFC Wave Ripple -->
-                    <div class="nfc-ripple-wave" id="nfcWave"></div>
+                    <!-- Authentic iPhone 16 Pro Device Frame -->
+                    <div class="iphone-frame" id="iphoneFrame">
+                        
+                        <!-- Glowing NFC Pulse Ripple at Top Antenna -->
+                        <div class="nfc-wave-emitter" id="nfcWave"></div>
 
-                    <!-- Phone Receiver Screen -->
-                    <div class="phone-receiver-mockup">
-                        <!-- Dynamic Contact Saved Toast -->
-                        <div class="phone-contact-toast" id="contactToast">
-                            <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--accent-emerald); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <!-- Dynamic Island -->
+                        <div class="dynamic-island">
+                            <div class="camera-lens"></div>
+                        </div>
+
+                        <!-- iOS Dynamic Island Drop Notification -->
+                        <div class="ios-contact-toast" id="contactToast">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent-emerald); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);">
                                 <i data-lucide="check" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div style="text-align: left;">
-                                <h5 style="font-size: 0.88rem; font-weight: 700; color: #0F172A;">Contact Saved!</h5>
-                                <p style="font-size: 0.75rem; color: #64748B;">Hachemi's card synced to Address Book</p>
+                                <h5 style="font-size: 0.88rem; font-weight: 700; color: #FFFFFF;">Contact Saved!</h5>
+                                <p style="font-size: 0.75rem; color: #94A3B8;">Hachemi Vance added to Contacts</p>
                             </div>
                         </div>
 
-                        <img src="./assets/hero-section.png" alt="App Screen" style="width: 90%; height: auto; border-radius: 16px;">
+                        <!-- Full Screen App Interface -->
+                        <img src="./assets/hero-section.png" alt="Eventzone App" class="phone-screen-img">
                     </div>
+
                 </div>
             </div>
         </section>
@@ -1646,31 +1766,33 @@
             }
         });
 
-        // 3. Interactive NFC Tap Simulator
+        // 3. Interactive NFC Tap Simulator with Realistic iPhone Handshake
         function triggerNfcSimulation() {
             const wave = document.getElementById('nfcWave');
             const toast = document.getElementById('contactToast');
             const card = document.getElementById('nfcDemoCard');
 
-            // Card bounce
+            // Card glides toward top of the iPhone NFC sensor
             if (card) {
-                card.style.transform = 'translateY(-12px) scale(1.05)';
-                setTimeout(() => { card.style.transform = 'none'; }, 300);
+                card.style.transform = 'rotate(-2deg) translate(30px, -20px) scale(1.05)';
+                setTimeout(() => { 
+                    card.style.transform = 'rotate(-6deg)'; 
+                }, 700);
             }
 
-            // Wave ripple
+            // Glowing NFC pulse ripple at the phone's top antenna
             if (wave) {
                 wave.classList.remove('active');
                 void wave.offsetWidth; // Trigger reflow
                 wave.classList.add('active');
             }
 
-            // Toast slide in
+            // iOS Dynamic Island Notification Drops Down Smoothly
             if (toast) {
                 toast.classList.add('visible');
                 setTimeout(() => {
                     toast.classList.remove('visible');
-                }, 3500);
+                }, 3800);
             }
         }
 
@@ -1828,7 +1950,7 @@
                     ease: 'power3.out'
                 });
 
-                gsap.from('.nfc-tap-stage', {
+                gsap.from('.nfc-spatial-stage', {
                     opacity: 0,
                     y: 50,
                     scale: 0.96,
