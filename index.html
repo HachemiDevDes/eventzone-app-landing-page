@@ -388,7 +388,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 2. REIMAGINED HERO & INTERACTIVE NFC TAP SIMULATOR   */
+        /* 2. REIMAGINED HERO & INTERACTIVE QR SCAN SIMULATOR   */
         /* ---------------------------------------------------- */
         .hero-section {
             padding: 2rem 0 6rem;
@@ -436,8 +436,8 @@
             justify-content: center;
         }
 
-        /* Spatial NFC Stage Presentation (Flush Bottom Alignment) */
-        .nfc-spatial-stage {
+        /* Spatial QR Stage Presentation (Flush Bottom Alignment) */
+        .qr-spatial-stage {
             width: 100%;
             max-width: 1040px;
             padding: 4.5rem 3rem 0; /* 0 bottom padding so the phone touches the bottom border flush */
@@ -453,7 +453,7 @@
             gap: 2rem;
         }
 
-        .tap-interactive-trigger {
+        .scan-interactive-trigger {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
@@ -461,7 +461,7 @@
             font-weight: 700;
             color: var(--accent-blue);
             background: var(--accent-blue-subtle);
-            padding: 0.6rem 1.6rem;
+            padding: 0.65rem 1.8rem;
             border-radius: var(--radius-full);
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -469,107 +469,121 @@
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
         }
 
-        .tap-interactive-trigger:hover {
+        .scan-interactive-trigger:hover {
             background: rgba(37, 99, 235, 0.16);
             transform: scale(1.04);
             box-shadow: 0 6px 18px rgba(37, 99, 235, 0.2);
         }
 
-        .nfc-composition-wrap {
+        .qr-composition-wrap {
             display: flex;
             align-items: flex-end; /* Phone rests directly on the bottom border */
             justify-content: center;
-            gap: 3.5rem;
+            gap: 4rem;
             position: relative;
             width: 100%;
         }
 
-        /* Floating 3D NFC Smart Card */
-        .hero-nfc-card {
-            width: 310px;
-            height: 195px;
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+        /* Interactive QR Scanner Viewfinder (Left Side) */
+        .qr-scanner-device {
+            width: 290px;
+            background: #0F172A;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 1.6rem;
+            border-radius: 24px;
+            padding: 1.8rem;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 25px 50px -10px rgba(15, 23, 42, 0.35), 0 0 30px rgba(37, 99, 235, 0.25);
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 25px 50px -10px rgba(15, 23, 42, 0.35);
             cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
             position: relative;
-            overflow: hidden;
             user-select: none;
-            transform: rotate(-6deg);
-            margin-bottom: 4rem; /* Lifted alongside the phone so it floats nicely */
+            margin-bottom: 4rem; /* Lifted alongside the phone */
             z-index: 10;
         }
 
-        .hero-nfc-card:hover {
-            transform: rotate(-2deg) translateY(-8px) scale(1.03);
-            box-shadow: 0 35px 70px -10px rgba(37, 99, 235, 0.4);
+        .qr-scanner-device:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 30px 60px -10px rgba(37, 99, 235, 0.35);
         }
 
-        .hero-nfc-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-        }
-
-        /* Clean Bezel-less Screen touching bottom border */
-        .iphone-frame {
-            width: 330px;
-            height: auto;
-            max-height: 520px;
-            background: transparent;
-            border-radius: 32px 32px 0 0;
-            border: none;
-            outline: none;
-            box-shadow: 0 -15px 40px -10px rgba(15, 23, 42, 0.18);
+        .scanner-viewfinder-box {
+            width: 100%;
+            height: 140px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(37, 99, 235, 0.5);
+            border-radius: 16px;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
+        }
+
+        .scanning-laser-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #38BDF8;
+            box-shadow: 0 0 12px #38BDF8;
+            opacity: 0;
+        }
+
+        .scanning-laser-line.active {
+            opacity: 1;
+            animation: laserSweep 1.6s ease-in-out infinite;
+        }
+
+        @keyframes laserSweep {
+            0% { top: 0%; }
+            50% { top: 95%; }
+            100% { top: 0%; }
+        }
+
+        /* Clean Borderless Phone Screen touching bottom border */
+        .phone-display-wrap {
+            width: 320px;
+            background: transparent;
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            align-items: center;
             z-index: 5;
             margin-bottom: 0;
         }
 
-        /* Screen App Image */
+        /* Screen App Image - Uncropped top */
         .phone-screen-img {
             width: 100%;
             height: auto;
-            object-fit: cover;
-            object-position: top center;
-            border-radius: 32px 32px 0 0;
             display: block;
+            border-radius: 28px 28px 0 0;
+            box-shadow: 0 -15px 40px -10px rgba(15, 23, 42, 0.15);
         }
 
-        /* Glowing NFC Concentric Wave */
-        .nfc-wave-emitter {
+        /* Dynamic Scan Target Lock on QR Code */
+        .qr-target-lock {
             position: absolute;
-            top: 0;
+            top: 42%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-blue);
-            opacity: 0;
+            width: 140px;
+            height: 140px;
+            border: 2px solid transparent;
+            border-radius: 12px;
             pointer-events: none;
-            z-index: 25;
+            transition: all 0.3s ease;
+            z-index: 20;
         }
 
-        .nfc-wave-emitter.active {
-            animation: nfcPulseWave 1.4s cubic-bezier(0, 0.2, 0.8, 1);
-        }
-
-        @keyframes nfcPulseWave {
-            0% { width: 40px; height: 40px; opacity: 1; border-width: 4px; border-color: #38BDF8; }
-            100% { width: 380px; height: 380px; opacity: 0; border-width: 1px; border-color: var(--accent-blue); }
+        .qr-target-lock.active {
+            border-color: var(--accent-emerald);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
         }
 
         /* iOS Dynamic Drop Notification */
@@ -598,40 +612,6 @@
         .ios-contact-toast.visible {
             transform: translateY(0);
             opacity: 1;
-        }
-
-        /* Floating Contextual Badges */
-        .floating-feature-tag {
-            position: absolute;
-            background: #FFFFFF;
-            border: 1px solid var(--border-light);
-            padding: 0.65rem 1.2rem;
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            box-shadow: var(--shadow-card);
-            z-index: 15;
-            animation: floatBob 4s ease-in-out infinite;
-        }
-
-        .tag-top-left {
-            top: 1.8rem;
-            left: 2rem;
-        }
-
-        .tag-top-right {
-            top: 1.8rem;
-            right: 2rem;
-            animation-delay: 2s;
-        }
-
-        @keyframes floatBob {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
         }
 
         /* ---------------------------------------------------- */
@@ -1145,19 +1125,14 @@
                 padding: 5rem 0;
             }
 
-            .nfc-composition-wrap {
+            .qr-composition-wrap {
                 flex-direction: column;
                 align-items: center;
                 gap: 2.5rem;
             }
 
-            .hero-nfc-card {
-                transform: none;
+            .qr-scanner-device {
                 margin-bottom: 0;
-            }
-
-            .tag-top-left, .tag-top-right {
-                display: none;
             }
 
             .comparison-grid {
@@ -1215,12 +1190,12 @@
                 font-size: 2.2rem;
             }
 
-            .hero-nfc-card {
+            .qr-scanner-device {
                 width: 100%;
                 max-width: 290px;
             }
 
-            .iphone-frame {
+            .phone-display-wrap {
                 width: 280px;
             }
 
@@ -1267,7 +1242,7 @@
             </nav>
         </header>
 
-        <!-- 2. Reimagined Hero & Interactive NFC Tap Simulator -->
+        <!-- 2. Reimagined Hero & Interactive QR Scan Simulator -->
         <section class="hero-section">
             <div class="hero-content">
                 <div class="badge-pill">
@@ -1279,7 +1254,7 @@
                 </h1>
                 
                 <p class="hero-lead">
-                    Tap NFC or scan dynamic QR to share your complete professional identity, links, and socials directly into anyone's phone in under a second.
+                    Scan dynamic QR to share your complete professional identity, links, and socials directly into anyone's phone in under a second.
                 </p>
 
                 <div class="hero-actions-row">
@@ -1294,51 +1269,40 @@
                 </div>
             </div>
 
-            <!-- Spatial Interactive NFC Stage (Flush Bottom Phone Design) -->
-            <div class="nfc-spatial-stage" id="demo">
+            <!-- Spatial Interactive QR Stage (Flush Bottom Phone Design) -->
+            <div class="qr-spatial-stage" id="demo">
                 
-                <!-- Floating Telemetry Chips -->
-                <div class="floating-feature-tag tag-top-left">
-                    <i data-lucide="zap" style="color: var(--accent-blue); width: 16px; height: 16px;"></i>
-                    <span>0.8s Tap &bull; No App Needed</span>
-                </div>
-
-                <div class="floating-feature-tag tag-top-right">
-                    <i data-lucide="shield-check" style="color: var(--accent-emerald); width: 16px; height: 16px;"></i>
-                    <span>Auto-Syncs to Address Book</span>
-                </div>
-
                 <!-- Interactive Trigger Button -->
-                <div class="tap-interactive-trigger" onclick="triggerNfcSimulation()">
-                    <i data-lucide="hand-metal" style="width: 16px; height: 16px;"></i>
-                    Tap Card to Simulate Instant Handshake
+                <div class="scan-interactive-trigger" onclick="triggerQrScanSimulation()">
+                    <i data-lucide="scan-line" style="width: 16px; height: 16px;"></i>
+                    Click to Simulate Instant QR Exchange
                 </div>
 
-                <div class="nfc-composition-wrap">
+                <div class="qr-composition-wrap">
                     
-                    <!-- 3D Floating Smart Card -->
-                    <div class="hero-nfc-card" id="nfcDemoCard" onclick="triggerNfcSimulation()">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #FFFFFF;">Eventzone Pro</span>
-                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(37, 99, 235, 0.2); display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="wifi" style="color: var(--accent-blue); width: 18px; height: 18px;"></i>
-                            </div>
+                    <!-- Interactive Camera QR Scanner Viewfinder (Left Side) -->
+                    <div class="qr-scanner-device" id="scannerDevice" onclick="triggerQrScanSimulation()">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <span style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">In-App Scanner</span>
+                            <span style="font-size: 0.72rem; font-weight: 700; color: var(--accent-blue); background: rgba(37,99,235,0.15); padding: 0.2rem 0.6rem; border-radius: 99px;">AI READY</span>
                         </div>
-                        <div>
-                            <p style="color: #94A3B8; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;">Digital Member</p>
-                            <h4 style="color: #FFFFFF; font-size: 1.25rem; font-weight: 700;">Hachemi Vance</h4>
+
+                        <div class="scanner-viewfinder-box">
+                            <i data-lucide="qr-code" style="color: rgba(255,255,255,0.2); width: 44px; height: 44px;"></i>
+                            <div class="scanning-laser-line" id="laserBeam"></div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.6rem;">
-                            <span style="font-size: 0.72rem; color: #64748B; letter-spacing: 0.05em;">TOUCHLESS NFC CHIP</span>
-                            <span style="font-size: 0.72rem; color: var(--accent-blue); font-weight: 700;">ACTIVE</span>
+
+                        <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: #94A3B8;">
+                            <i data-lucide="focus" style="width: 15px; height: 15px; color: var(--accent-emerald);"></i>
+                            <span id="scannerStatusText">Ready to scan visitor QR</span>
                         </div>
                     </div>
 
-                    <!-- Clean Borderless Phone Screen Touching Container Bottom Border -->
-                    <div class="iphone-frame" id="iphoneFrame">
+                    <!-- Clean Uncropped Phone Screen Touching Container Bottom Border -->
+                    <div class="phone-display-wrap" id="phoneWrapper">
                         
-                        <!-- Glowing NFC Pulse Ripple at Top Antenna -->
-                        <div class="nfc-wave-emitter" id="nfcWave"></div>
+                        <!-- Target Reticle Overlay on QR Code -->
+                        <div class="qr-target-lock" id="targetLock"></div>
 
                         <!-- iOS Dynamic Drop Notification -->
                         <div class="ios-contact-toast" id="contactToast">
@@ -1346,12 +1310,12 @@
                                 <i data-lucide="check" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div style="text-align: left;">
-                                <h5 style="font-size: 0.88rem; font-weight: 700; color: #FFFFFF;">Contact Saved!</h5>
-                                <p style="font-size: 0.75rem; color: #94A3B8;">Hachemi Vance added to Contacts</p>
+                                <h5 style="font-size: 0.88rem; font-weight: 700; color: #FFFFFF;">Instant Match!</h5>
+                                <p style="font-size: 0.75rem; color: #94A3B8;">Hachemi Mohamed connected to your Network</p>
                             </div>
                         </div>
 
-                        <!-- Full Screen App Interface -->
+                        <!-- Full Screen App Interface - Fully Visible Top to Bottom -->
                         <img src="./assets/hero-section.png" alt="Eventzone App" class="phone-screen-img">
                     </div>
 
@@ -1362,13 +1326,13 @@
         <!-- 3. Infinite Kinetic Marquee -->
         <div class="marquee-section">
             <div class="marquee-track">
-                <div class="marquee-item"><i data-lucide="zap" style="color: var(--accent-blue); width: 18px;"></i> 0.8s Instant Handshake</div>
+                <div class="marquee-item"><i data-lucide="zap" style="color: var(--accent-blue); width: 18px;"></i> 0.8s Instant QR Match</div>
                 <div class="marquee-item"><i data-lucide="shield-check" style="color: var(--accent-emerald); width: 18px;"></i> 100% End-to-End Encrypted</div>
                 <div class="marquee-item"><i data-lucide="leaf" style="color: #16A34A; width: 18px;"></i> 100% Eco-Friendly &amp; Zero Waste</div>
                 <div class="marquee-item"><i data-lucide="smartphone" style="color: var(--accent-purple); width: 18px;"></i> Apple &amp; Google Ready</div>
                 <div class="marquee-item"><i data-lucide="globe" style="color: var(--accent-cyan); width: 18px;"></i> No App Needed for Receivers</div>
                 <!-- Duplicate for Seamless Infinite Loop -->
-                <div class="marquee-item"><i data-lucide="zap" style="color: var(--accent-blue); width: 18px;"></i> 0.8s Instant Handshake</div>
+                <div class="marquee-item"><i data-lucide="zap" style="color: var(--accent-blue); width: 18px;"></i> 0.8s Instant QR Match</div>
                 <div class="marquee-item"><i data-lucide="shield-check" style="color: var(--accent-emerald); width: 18px;"></i> 100% End-to-End Encrypted</div>
                 <div class="marquee-item"><i data-lucide="leaf" style="color: #16A34A; width: 18px;"></i> 100% Eco-Friendly &amp; Zero Waste</div>
                 <div class="marquee-item"><i data-lucide="smartphone" style="color: var(--accent-purple); width: 18px;"></i> Apple &amp; Google Ready</div>
@@ -1472,7 +1436,7 @@
 
                     <div style="padding-top: 1rem; border-top: 1px solid var(--border-light); display: flex; gap: 1.5rem;">
                         <div>
-                            <span style="font-size: 1.3rem; font-weight: 800; color: var(--accent-blue);" id="cardTypeLabel">NFC + Dynamic QR</span>
+                            <span style="font-size: 1.3rem; font-weight: 800; color: var(--accent-blue);" id="cardTypeLabel">Dynamic QR Certified</span>
                             <p style="font-size: 0.82rem;">Works with all modern smartphones</p>
                         </div>
                     </div>
@@ -1500,7 +1464,7 @@
                                 <i data-lucide="globe" style="width: 16px; height: 16px;"></i>
                                 <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
                             </div>
-                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--custom-card-accent); letter-spacing: 0.05em;">NFC CERTIFIED</span>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--custom-card-accent); letter-spacing: 0.05em;">SMART QR SYNC</span>
                         </div>
                     </div>
                 </div>
@@ -1582,7 +1546,7 @@
                 <div class="step-timeline-card card-surface">
                     <div class="step-num-badge">02</div>
                     <h3 style="font-size: 1.35rem;">Tap or Scan</h3>
-                    <p style="font-size: 0.95rem;">Share your dynamic QR code or tap your NFC card. The recipient gets your full vCard saved without needing any app.</p>
+                    <p style="font-size: 0.95rem;">Share your dynamic QR code with any smartphone. The recipient gets your full vCard saved without needing any app.</p>
                 </div>
 
                 <div class="step-timeline-card card-surface">
@@ -1741,34 +1705,58 @@
             }
         });
 
-        // 3. Interactive NFC Tap Simulator with Seamless Touchless Handshake
-        function triggerNfcSimulation() {
-            const wave = document.getElementById('nfcWave');
+        // 3. Interactive QR Code Scan & Exchange Simulation
+        function triggerQrScanSimulation() {
+            const laser = document.getElementById('laserBeam');
+            const targetLock = document.getElementById('targetLock');
             const toast = document.getElementById('contactToast');
-            const card = document.getElementById('nfcDemoCard');
+            const status = document.getElementById('scannerStatusText');
+            const scannerDevice = document.getElementById('scannerDevice');
 
-            // Card glides toward top of the phone screen
-            if (card) {
-                card.style.transform = 'rotate(-2deg) translate(30px, -20px) scale(1.05)';
-                setTimeout(() => { 
-                    card.style.transform = 'rotate(-6deg)'; 
-                }, 700);
+            // Viewfinder bounce
+            if (scannerDevice) {
+                scannerDevice.style.transform = 'translateY(-10px) scale(1.04)';
+                setTimeout(() => { scannerDevice.style.transform = 'none'; }, 400);
             }
 
-            // Glowing NFC pulse ripple
-            if (wave) {
-                wave.classList.remove('active');
-                void wave.offsetWidth; // Trigger reflow
-                wave.classList.add('active');
+            // Laser beam active
+            if (laser) {
+                laser.classList.remove('active');
+                void laser.offsetWidth;
+                laser.classList.add('active');
             }
 
-            // iOS Dynamic Drop Notification
-            if (toast) {
-                toast.classList.add('visible');
-                setTimeout(() => {
-                    toast.classList.remove('visible');
-                }, 3800);
+            // Target lock green pulse on phone QR code
+            if (targetLock) {
+                targetLock.classList.add('active');
             }
+
+            if (status) {
+                status.textContent = 'Scanning QR Code...';
+                status.style.color = '#38BDF8';
+            }
+
+            // Toast slide down on matched connection
+            setTimeout(() => {
+                if (toast) {
+                    toast.classList.add('visible');
+                }
+                if (status) {
+                    status.textContent = '100% Match • Connected!';
+                    status.style.color = '#10B981';
+                }
+            }, 600);
+
+            // Reset after 4 seconds
+            setTimeout(() => {
+                if (toast) toast.classList.remove('visible');
+                if (laser) laser.classList.remove('active');
+                if (targetLock) targetLock.classList.remove('active');
+                if (status) {
+                    status.textContent = 'Ready to scan visitor QR';
+                    status.style.color = '#94A3B8';
+                }
+            }, 4200);
         }
 
         // 4. Interactive 3D Card Studio Theme Switcher
@@ -1925,7 +1913,7 @@
                     ease: 'power3.out'
                 });
 
-                gsap.from('.nfc-spatial-stage', {
+                gsap.from('.qr-spatial-stage', {
                     opacity: 0,
                     y: 50,
                     scale: 0.96,
