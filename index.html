@@ -30,31 +30,57 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
-            --bg-page: #000000;
-            --bg-container: #0B0F19;
-            --bg-white: #111827;
-            --text-main: #F9FAFB;
-            --text-muted: #9CA3AF;
-            --accent-lime: #1A73E8;
-            --accent-dark: #FFFFFF;
-            --bg-alternate: rgba(255, 255, 255, 0.02);
-            --border-light: rgba(255, 255, 255, 0.1);
+            --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             
-            --font-heading: 'Space Grotesk', sans-serif;
-            --font-body: 'Space Grotesk', sans-serif;
+            --bg-void: #05070D;
+            --bg-canvas: #080C16;
+            --bg-surface: #0E1424;
+            --bg-card: rgba(16, 24, 44, 0.65);
+            --bg-card-hover: rgba(22, 33, 58, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            
+            --accent-blue: #2563EB;
+            --accent-blue-light: #3B82F6;
+            --accent-blue-glow: rgba(37, 99, 235, 0.35);
+            --accent-cyan: #06B6D4;
+            --accent-emerald: #10B981;
+            
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.18);
+            --border-active: rgba(59, 130, 246, 0.5);
+            
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-elevation: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
+            --shadow-glow: 0 0 50px rgba(37, 99, 235, 0.25);
+            
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         html {
@@ -62,290 +88,576 @@
         }
 
         body {
+            background-color: var(--bg-void);
+            color: var(--text-primary);
             font-family: var(--font-body);
-            background-color: var(--bg-page);
-            color: var(--text-main);
             line-height: 1.6;
-            padding: 2rem;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* Main App Container */
-        .app-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        nav, section, footer {
-            background-color: var(--bg-container);
-            border-radius: 32px;
+        /* Ambient Background Lighting */
+        .ambient-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Reusable UI */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+
+        .glow-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(37, 99, 235, 0) 70%);
+            top: -150px;
+            right: -100px;
+        }
+
+        .glow-2 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(6, 182, 212, 0) 70%);
+            top: 40%;
+            left: -200px;
+        }
+
+        .glow-3 {
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%);
+            bottom: 5%;
+            right: 10%;
+        }
+
+        /* Mouse Cursor Spotlight */
+        .cursor-spotlight {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 65%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        /* App Wrapper */
+        .page-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            line-height: 1.15;
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.65;
+        }
+
+        /* Badges & Pills */
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 12px var(--accent-emerald);
+            animation: livePulse 2s infinite ease-in-out;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Glassmorphism Panels */
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.35s ease, 
+                        box-shadow 0.35s ease,
+                        background 0.35s ease;
+            box-shadow: var(--shadow-subtle), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .glass-card:hover {
+            border-color: var(--border-highlight);
+            box-shadow: var(--shadow-elevation), 0 0 30px rgba(37, 99, 235, 0.12);
+        }
+
+        /* Dynamic Card Spotlight Gradient */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255, 255, 255, 0.05), transparent 40%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.8rem 1.75rem;
-            border-radius: 50px;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.6rem;
+            border-radius: var(--radius-full);
             font-family: var(--font-heading);
+            font-size: 0.95rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
-            border: none;
-            font-size: 0.95rem;
+            border: 1px solid transparent;
+            position: relative;
+            user-select: none;
         }
 
-        .btn-dark {
-            background: var(--accent-dark);
-            color: #0B0F19;
-        }
-
-        .btn-dark:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
-        }
-
-        .btn-lime {
-            background: var(--accent-lime);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #1D4ED8 100%);
             color: #FFFFFF;
+            box-shadow: 0 8px 25px -4px var(--accent-blue-glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
-        .btn-lime:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(26, 115, 232, 0.4);
+            box-shadow: 0 12px 30px -2px rgba(37, 99, 235, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-main);
-            border: 1px solid var(--border-light);
-        }
-        
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(10px);
         }
 
-        .section-pill {
-            display: inline-block;
-            padding: 0.4rem 1.2rem;
-            border-radius: 50px;
-            border: 1px solid var(--border-light);
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--border-highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Navbar */
-        nav {
+        .btn-white {
+            background: #FFFFFF;
+            color: #05070D;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-white:hover {
+            background: #F1F5F9;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-store {
+            background: rgba(14, 20, 36, 0.85);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 0.75rem 1.4rem;
+            backdrop-filter: blur(12px);
+            font-size: 0.9rem;
+        }
+
+        .btn-store:hover {
+            background: rgba(26, 38, 68, 0.95);
+            border-color: var(--border-highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ---------------------------------------------------- */
+        /* NAVBAR                                               */
+        /* ---------------------------------------------------- */
+        header {
+            position: sticky;
+            top: 1.2rem;
+            z-index: 100;
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 2rem 4rem;
+            background: rgba(10, 15, 28, 0.75);
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.75rem 1.4rem;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-subtle), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: border-color 0.3s ease;
         }
 
-        .logo {
+        .nav-container:hover {
+            border-color: var(--border-highlight);
+        }
+
+        .logo-wrap {
             display: flex;
             align-items: center;
             text-decoration: none;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 4rem;
+        .logo-img {
+            height: 26px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
         }
 
-        .nav-links a {
-            color: var(--text-main);
+        .logo-wrap:hover .logo-img {
+            transform: scale(1.04);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.92rem;
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+            transition: color 0.25s ease;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-lime);
+        .nav-link:hover {
+            color: var(--text-primary);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 4rem 4rem 0rem;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--accent-blue-light);
+            border-radius: 2px;
+            transition: width 0.25s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta-btn {
+            padding: 0.6rem 1.25rem;
+            font-size: 0.88rem;
+        }
+
+        /* ---------------------------------------------------- */
+        /* HERO SECTION                                         */
+        /* ---------------------------------------------------- */
+        .hero-section {
+            padding: 4rem 0 6rem;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 3.5rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-text {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 1.5rem;
-            position: relative;
+            align-items: flex-start;
+            gap: 1.8rem;
         }
 
-        .hero h1 {
-            font-family: var(--font-heading);
-            font-size: 4.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            color: var(--text-main);
-            font-weight: 600;
-            letter-spacing: -1px;
+        .hero-headline {
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.04em;
         }
 
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 650px;
-            margin: 0 auto 2.5rem;
+        .hero-headline span {
+            background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 540px;
             line-height: 1.6;
         }
-        
-        .hero-buttons {
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid var(--border-subtle);
+            width: 100%;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .stat-num {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Hero 3D Stage */
+        .hero-stage {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
-            position: relative;
-            z-index: 10;
+            perspective: 1200px;
         }
 
-        .hero-mockup-container {
+        .mockup-3d-card {
             position: relative;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            margin: 0 auto;
-            margin-top: 2rem;
+            max-width: 440px;
+            border-radius: var(--radius-lg);
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            will-change: transform;
         }
 
-        .hero-mockup-container img {
-            position: relative;
-            z-index: 5;
-            width: 100%;
-            height: auto;
-            max-width: 380px;
-            filter: drop-shadow(0 -10px 40px rgba(0,0,0,0.8));
-        }
-
-        .glow-wave-container {
+        .mockup-aura {
             position: absolute;
             top: 50%;
             left: 50%;
+            width: 110%;
+            height: 110%;
             transform: translate(-50%, -50%);
-            width: 150vw;
-            height: 300px;
-            z-index: 0;
+            background: radial-gradient(circle, var(--accent-blue-glow) 0%, rgba(37, 99, 235, 0) 70%);
+            filter: blur(40px);
+            z-index: 1;
             pointer-events: none;
+            animation: auraBreath 6s infinite alternate ease-in-out;
+        }
+
+        @keyframes auraBreath {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.95); }
+            100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+        }
+
+        .mockup-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 2;
+            border-radius: 20px;
+            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Floating Feature Badges around Hero */
+        .floating-pill {
+            position: absolute;
+            background: rgba(14, 20, 36, 0.88);
+            border: 1px solid var(--border-highlight);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-full);
+            padding: 0.55rem 1.1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.6rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            z-index: 10;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            pointer-events: none;
+            animation: floatSlow 5s infinite ease-in-out;
         }
 
-        @keyframes wave-pulse-core {
-            0%, 100% { opacity: 0.8; transform: scaleY(1); }
-            50% { opacity: 1; transform: scaleY(1.2); }
+        .pill-pos-1 {
+            top: 10%;
+            left: -25px;
+            animation-delay: 0s;
         }
 
-        @keyframes wave-pulse-top {
-            0%, 100% { opacity: 0.5; transform: scale(1) translateY(0); }
-            50% { opacity: 0.7; transform: scale(1.05) translateY(-10px); }
+        .pill-pos-2 {
+            bottom: 12%;
+            right: -20px;
+            animation-delay: 2.5s;
         }
 
-        @keyframes wave-pulse-bottom {
-            0%, 100% { opacity: 0.6; transform: scale(1) translateY(0); }
-            50% { opacity: 0.8; transform: scale(1.05) translateY(10px); }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
-        .glow-wave-core {
-            position: absolute;
-            width: 100%;
-            height: 40px;
-            background: #FFFFFF;
-            filter: blur(30px);
-            opacity: 1;
-            animation: wave-pulse-core 4s ease-in-out infinite;
-        }
-        
-        .glow-wave-top {
-            position: absolute;
-            width: 60%;
-            height: 120px;
-            top: 20px;
-            background: #FFB067;
-            filter: blur(80px);
-            opacity: 0.6;
-            border-radius: 50%;
-            animation: wave-pulse-top 5s ease-in-out infinite alternate;
-        }
-        
-        .glow-wave-bottom {
-            position: absolute;
-            width: 80%;
-            height: 200px;
-            bottom: 0px;
-            background: #4A90E2;
-            filter: blur(90px);
-            opacity: 0.7;
-            border-radius: 50%;
-            animation: wave-pulse-bottom 6s ease-in-out infinite alternate-reverse;
+        /* ---------------------------------------------------- */
+        /* SECTION DIVIDERS & COMMON STYLES                     */
+        /* ---------------------------------------------------- */
+        .section {
+            padding: 5.5rem 0;
+            position: relative;
         }
 
-        /* Mission Section */
-        .mission {
+        .section-header {
             text-align: center;
-            padding: 6rem 4rem 0;
-        }
-        
-        .mission > * {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .mission h2 {
-            font-family: var(--font-heading);
-            font-size: 2.8rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
+            max-width: 680px;
+            margin: 0 auto 3.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .mission p {
-            color: var(--text-muted);
+        .section-title {
+            font-size: clamp(2rem, 3.8vw, 2.8rem);
+        }
+
+        .section-desc {
             font-size: 1.1rem;
         }
 
-        .mission-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            margin: 3rem auto 0 auto;
-            border-radius: 24px 24px 0 0;
-            display: block;
-        }
-
-        /* How it Works Section */
-        .how-it-works {
-            padding: 6rem 4rem;
-        }
-
-        .steps-container {
+        /* ---------------------------------------------------- */
+        /* MISSION SHOWCASE                                     */
+        /* ---------------------------------------------------- */
+        .mission-panel {
+            padding: 3.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             position: relative;
-            max-width: 1100px;
-            margin: 0 auto;
+            background: linear-gradient(180deg, rgba(14, 20, 36, 0.8) 0%, rgba(10, 14, 26, 0.95) 100%);
         }
 
-        .steps-connector {
-            position: absolute;
-            top: 25px;
-            left: 0;
+        .mission-lead {
+            font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+            font-weight: 700;
+            margin: 1.2rem 0 1rem;
+            max-width: 700px;
+        }
+
+        .mission-copy {
+            max-width: 640px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.8rem;
+        }
+
+        .mission-img-wrap {
             width: 100%;
-            height: 50px;
-            z-index: 0;
+            max-width: 920px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-elevation);
+            position: relative;
+        }
+
+        .mission-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mission-img-wrap:hover .mission-img {
+            transform: scale(1.02);
+        }
+
+        /* ---------------------------------------------------- */
+        /* HOW IT WORKS                                         */
+        /* ---------------------------------------------------- */
+        .steps-wrapper {
+            position: relative;
+        }
+
+        .steps-svg-line {
+            position: absolute;
+            top: 80px;
+            left: 5%;
+            width: 90%;
+            height: 80px;
             pointer-events: none;
+            z-index: 1;
         }
 
         .steps-grid {
@@ -353,854 +665,846 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .step-card {
-            text-align: center;
+        .step-item {
+            padding: 2.4rem 1.8rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0 1rem;
-            transition: transform 0.3s ease;
+            text-align: center;
+            gap: 1.2rem;
         }
 
-        .step-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .step-icon-container {
+        .step-icon-badge-box {
             position: relative;
-            margin-bottom: 2.5rem;
+            width: 90px;
+            height: 90px;
+            margin-bottom: 0.5rem;
         }
 
-        .step-badge {
+        .step-icon-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(14, 20, 36, 0.9) 100%);
+            border: 1px solid var(--border-highlight);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue-light);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.35s ease;
+        }
+
+        .step-item:hover .step-icon-circle {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #1D4ED8 100%);
+            color: #FFFFFF;
+            transform: scale(1.06);
+            box-shadow: 0 12px 30px var(--accent-blue-glow);
+        }
+
+        .step-number-tag {
             position: absolute;
-            top: 0;
-            left: -15px;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--text-main);
-            background: var(--bg-page);
+            top: -4px;
+            right: -4px;
             width: 28px;
             height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border-radius: 50%;
-            border: 1px solid var(--border-light);
-            z-index: 2;
-        }
-
-        .step-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: var(--bg-container);
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-lime);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-icon i {
-            width: 40px;
-            height: 40px;
-        }
-
-        .step-card:hover .step-icon {
-            transform: scale(1.05);
-            background: #0D192C;
-            border-color: var(--accent-lime);
-            box-shadow: 0 0 30px rgba(26, 115, 232, 0.2);
-            border-style: solid;
-        }
-
-        .step-card h3 {
+            background: var(--bg-void);
+            border: 1px solid var(--border-highlight);
+            color: var(--text-primary);
             font-family: var(--font-heading);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.6;
+        .step-heading {
+            font-size: 1.35rem;
+            font-weight: 600;
         }
 
-        /* Features Section */
-        .features {
-            padding: 6rem 4rem;
-        }
-        
-        .features-header {
-            text-align: center;
-            margin-bottom: 3rem;
+        .step-body {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
         }
 
+        /* ---------------------------------------------------- */
+        /* FEATURES BENTO                                       */
+        /* ---------------------------------------------------- */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
         }
 
-        .feature-card {
-            background: transparent;
-            border-radius: 16px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
+        .feature-box {
+            padding: 2.6rem 2.2rem;
             display: flex;
             flex-direction: column;
-            border: 1px solid var(--border-light);
+            align-items: flex-start;
+            gap: 1.2rem;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .feature-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-sm);
+            background: rgba(37, 99, 235, 0.12);
+            border: 1px solid rgba(37, 99, 235, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-main);
-        }
-        
-        .feature-icon svg {
-            width: 20px;
-            height: 20px;
+            color: var(--accent-blue-light);
+            transition: all 0.3s ease;
         }
 
-        .feature-card h3 {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-bottom: 0.8rem;
-            color: var(--text-main);
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 0;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
-        .learn-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            background: var(--accent-lime);
-            border-radius: 8px;
-            text-decoration: none;
+        .feature-box:hover .feature-icon-wrap {
+            background: var(--accent-blue);
             color: #FFFFFF;
-            width: fit-content;
-        }
-        
-        .feature-card.highlight .learn-btn {
-            background: var(--accent-dark);
-            color: #0B0F19;
+            transform: scale(1.08) rotate(3deg);
+            box-shadow: 0 8px 20px var(--accent-blue-glow);
         }
 
-        /* Get the App Section */
-        .get-app-section {
-            padding: 6rem 4rem;
+        .feature-title {
+            font-size: 1.4rem;
         }
-        
-        .app-cards-container {
+
+        .feature-desc {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+        }
+
+        /* ---------------------------------------------------- */
+        /* GET THE APP (DUAL PLATFORM)                          */
+        /* ---------------------------------------------------- */
+        .platform-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
-        .app-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 32px;
-            padding: 4rem;
+        .platform-card {
+            padding: 3.2rem 2.6rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            transition: transform 0.3s ease;
+            justify-content: space-between;
+            min-height: 340px;
         }
 
-        .app-card:hover {
-            transform: translateY(-5px);
+        .platform-top {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
         }
 
-        .app-card-icon {
-            margin-bottom: 1rem;
+        .platform-icon-large {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
         }
 
-        .app-card h2 {
-            font-size: 2.5rem;
-            line-height: 1.2;
-            font-family: var(--font-heading);
+        .platform-card h3 {
+            font-size: 1.7rem;
         }
 
-        .app-card p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
+        .platform-card h3 span {
+            color: var(--accent-blue-light);
         }
 
-        .ios-card {
-            border-top: 4px solid var(--accent-lime);
-            background: linear-gradient(180deg, rgba(26,115,232,0.1) 0%, rgba(26,115,232,0) 100%);
-        }
-        
-        .android-card {
-            border-top: 4px solid #3DDC84;
-            background: linear-gradient(180deg, rgba(61,220,132,0.1) 0%, rgba(61,220,132,0) 100%);
+        .platform-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
         }
 
-        .ios-card h2 span { color: var(--accent-lime); }
-        .android-card h2 span { color: #3DDC84; }
-
-        /* FAQ Section */
-        .faq {
-            padding: 6rem 4rem;
+        .platform-bottom {
+            margin-top: 2.5rem;
         }
 
-        .faq-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .faq-header h2 {
-            font-family: var(--font-heading);
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .faq-list {
-            max-width: 900px;
-            margin: 0 auto;
+        /* ---------------------------------------------------- */
+        /* FAQ ACCORDION                                        */
+        /* ---------------------------------------------------- */
+        .faq-accordion {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            max-width: 840px;
+            margin: 0 auto;
         }
 
         .faq-item {
-            background: var(--bg-white);
-            border-radius: 16px;
-            border: 1px solid var(--border-light);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 1.5rem 2rem;
-            display: flex;
-            align-items: center;
             cursor: pointer;
-            gap: 1.5rem;
+            transition: all 0.3s ease;
         }
 
-        .faq-num {
-            display: none;
-            font-family: var(--font-heading);
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.1);
-            width: 32px;
-            height: 32px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .faq-item.active .faq-num {
-            background: var(--accent-dark);
-            color: #0B0F19;
-        }
-
-        .faq-question h3 {
-            font-family: var(--font-heading);
-            font-size: 1.1rem;
-            flex-grow: 1;
-            margin: 0;
-        }
-
-        .faq-toggle {
-            color: white;
+        .faq-question-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
+            justify-content: space-between;
+            padding: 1.4rem 1.8rem;
+            gap: 1.2rem;
+            user-select: none;
+        }
+
+        .faq-num-title {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .faq-seq {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-blue-light);
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .faq-question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .faq-chevron {
+            color: var(--text-muted);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
             flex-shrink: 0;
         }
 
-        .faq-item.active .faq-toggle {
+        .faq-item.active {
+            border-color: var(--border-active);
+            background: var(--bg-card-hover);
+        }
+
+        .faq-item.active .faq-chevron {
             transform: rotate(180deg);
+            color: var(--accent-blue-light);
         }
 
-        .faq-answer {
-            padding: 0 2rem 0 2rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
+        .faq-answer-panel {
             max-height: 0;
-            opacity: 0;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .faq-item.active .faq-answer {
-            max-height: 400px;
-            padding-bottom: 1.5rem;
-            opacity: 1;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.4s ease;
+            opacity: 0;
+            padding: 0 1.8rem;
         }
 
-        /* Bottom CTA */
-        .cta {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            overflow: visible !important;
+        .faq-item.active .faq-answer-panel {
+            max-height: 250px;
+            opacity: 1;
+            padding: 0 1.8rem 1.6rem;
         }
-        
-        .section-divider {
-            display: none;
+
+        .faq-answer-content {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 1rem;
         }
-        
-        .cta-container {
+
+        /* ---------------------------------------------------- */
+        /* BOTTOM CTA BANNER                                    */
+        /* ---------------------------------------------------- */
+        .cta-banner {
+            padding: 4rem 3.5rem;
+            background: linear-gradient(135deg, rgba(20, 30, 58, 0.9) 0%, rgba(10, 15, 28, 0.95) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            background: var(--bg-white);
-            border-radius: 24px;
-            border: 1px solid var(--border-light);
-            overflow: hidden;
-        }
-        
-        .cta-left {
-            padding: 4rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        
-        .cta-left h2 {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .cta-right {
-            background: var(--accent-lime);
-            padding: 4rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
             position: relative;
             overflow: hidden;
-        }
-        
-        .cta-right h3 {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            z-index: 2;
-            color: #FFFFFF;
-        }
-        
-        .user-avatars {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-            z-index: 2;
-        }
-        
-        .user-avatars img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-lime);
-            margin-left: -15px;
-        }
-        
-        .user-avatars img:first-child {
-            margin-left: 0;
-        }
-        
-        .user-count {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--bg-container);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.8rem;
-            margin-left: -15px;
-            border: 2px solid var(--accent-lime);
-            z-index: 2;
-            color: var(--text-main);
-        }
-        
-        .cta-store-btns {
-            display: flex;
-            gap: 1rem;
-            z-index: 2;
-        }
-        
-        .cta-store-btns .btn {
-            background: var(--accent-dark);
-            color: #0B0F19;
-            padding: 0.6rem 1.2rem;
-        }
-        
-        /* Decorative chart line in CTA right */
-        .chart-line {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            opacity: 0.3;
-            z-index: 1;
+            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.7), 0 0 50px rgba(37, 99, 235, 0.15);
         }
 
-        /* Footer */
-        footer {
-            padding: 2rem;
+        .cta-banner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-blue-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            align-items: flex-start;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-heading {
+            font-size: clamp(2rem, 3.5vw, 2.6rem);
+            font-weight: 700;
+        }
+
+        .cta-interactive {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .community-proof {
+            display: flex;
             align-items: center;
             gap: 1rem;
-            border-top: none;
         }
-        
-        .footer-links {
+
+        .avatar-stack {
             display: flex;
-            gap: 2rem;
+            align-items: center;
         }
-        
-        .footer-links a {
+
+        .avatar-stack img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-void);
+            margin-left: -12px;
+            object-fit: cover;
+        }
+
+        .avatar-stack img:first-child {
+            margin-left: 0;
+        }
+
+        .avatar-count {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            color: #FFFFFF;
+            border: 2px solid var(--bg-void);
+            margin-left: -12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+        }
+
+        .proof-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .cta-buttons-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ---------------------------------------------------- */
+        /* FOOTER                                               */
+        /* ---------------------------------------------------- */
+        footer {
+            padding: 4rem 0 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 4rem;
+        }
+
+        .footer-copyright {
             color: var(--text-muted);
-            text-decoration: none;
             font-size: 0.9rem;
         }
 
-        /* Responsive */
+        /* ---------------------------------------------------- */
+        /* RESPONSIVE DESIGN                                    */
+        /* ---------------------------------------------------- */
         @media (max-width: 1024px) {
-            body { padding: 1rem; }
-            .hero { grid-template-columns: 1fr; padding: 0 2rem; }
-            .steps-connector { display: none; }
-            
-            .steps-grid { grid-template-columns: 1fr; gap: 1.5rem; position: relative; }
-            .steps-grid::before { display: none; }
-            .step-card {
-                flex-direction: column;
+            .hero-section {
+                grid-template-columns: 1fr;
                 text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-text {
                 align-items: center;
-                background: rgba(255, 255, 255, 0.02);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                border-radius: 24px;
-                padding: 2.5rem 1.5rem;
-                gap: 0;
             }
-            .step-icon-container {
-                margin-bottom: 1.5rem;
+
+            .hero-actions {
+                justify-content: center;
             }
-            .step-icon {
-                width: 70px;
-                height: 70px;
+
+            .hero-stats {
+                justify-content: center;
             }
-            .step-icon i {
-                width: 28px;
-                height: 28px;
+
+            .steps-svg-line {
+                display: none;
             }
-            .step-badge {
-                width: 24px;
-                height: 24px;
-                font-size: 0.8rem;
-                left: -8px;
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
-            .step-card h3 {
-                margin-top: 0;
-                margin-bottom: 0.5rem;
-                font-size: 1.4rem;
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .cta-container { grid-template-columns: 1fr; }
-            nav { padding: 2rem; }
-            .mission { padding: 4rem 2rem 0; }
-            .how-it-works { padding: 4rem 2rem; }
-            .faq-header h2 { font-size: 2.2rem; }
-            .faq { padding: 4rem 2rem; }
-            .cta { padding: 0 2rem 2rem; }
+
+            .platform-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-banner {
+                grid-template-columns: 1fr;
+                padding: 3rem 2rem;
+                text-align: center;
+            }
+
+            .cta-content {
+                align-items: center;
+            }
+
+            .community-proof {
+                justify-content: center;
+            }
+
+            .cta-buttons-row {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 768px) {
-            body { padding: 0.5rem; }
-            .app-container { gap: 1rem; }
-            nav, section, footer { border-radius: 24px; }
-            nav { padding: 1.5rem 1.2rem; }
-            nav .logo img { height: 22px !important; }
-            nav .btn { padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 50px; }
-            .nav-links { display: none; }
-            .btn { white-space: nowrap; flex-shrink: 0; }
-            
-            .mission { padding: 4rem 1.2rem 0; }
-            .mission-image { width: 85%; }
-            .hero { padding: 2rem 1.2rem 0rem; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; width: auto; max-width: none; gap: 1.2rem; }
-            .hero-buttons .btn { width: auto; justify-content: center; padding: 0.8rem 1.25rem; font-size: 0.95rem; }
-            
-            .hero-mockup-container img { max-width: 250px; }
-            .glow-wave-container { width: 150vw; height: 200px; transform: translate(-50%, -50%); }
-            .glow-wave-core { height: 20px; filter: blur(15px); }
-            .glow-wave-top { height: 60px; filter: blur(20px); }
-            .glow-wave-bottom { height: 80px; filter: blur(25px); }
-            
-            .how-it-works { padding: 3rem 1.2rem; }
-            .faq-header h2 { font-size: 1.8rem; }
-            .features { padding: 3rem 1.2rem; }
-            .features-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .feature-card { padding: 1.5rem; }
-            
-            .get-app-section { padding: 4rem 1.2rem; }
-            .app-cards-container { grid-template-columns: 1fr; gap: 1.5rem; }
-            .app-card { padding: 2rem 1.5rem; }
-            .app-card h2 { font-size: 1.8rem; }
-            
-            .cta { padding: 0 1.2rem 2rem; }
-            .cta-container { grid-template-columns: 1fr; border-radius: 20px; }
-            .cta-left, .cta-right { padding: 2.5rem 1.5rem; align-items: center; text-align: center; }
-            .cta-left h2 { font-size: 1.8rem; }
-            .cta-store-btns { flex-direction: row; flex-wrap: nowrap; justify-content: center; width: auto; max-width: none; gap: 0.5rem; }
-            .cta-store-btns .btn { width: auto; justify-content: center; padding: 0.75rem 1rem; font-size: 0.9rem; }
-            .user-avatars { justify-content: center; }
-            
-            .faq { padding: 4rem 1.2rem; }
-            .faq-question { padding: 1.2rem 1.5rem; gap: 1rem; }
-            .faq-answer { padding: 0 1.5rem; }
-            footer { padding: 2rem 1.2rem; flex-direction: column; gap: 1.5rem; text-align: center; }
-        }
+            .nav-menu {
+                display: none; /* Modern compact nav on mobile */
+            }
 
-        /* Scroll Animations */
-        .animate-on-scroll {
-            opacity: 0;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
+            .hero-headline {
+                font-size: 2.3rem;
+            }
 
-        .slide-up { transform: translateY(30px); }
-        .slide-in-left { transform: translateX(-30px); }
-        .slide-in-right { transform: translateX(30px); }
-        
-        .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translate(0, 0);
+            .mission-panel {
+                padding: 2.2rem 1.4rem;
+            }
+
+            .platform-card {
+                padding: 2.2rem 1.6rem;
+            }
+
+            .floating-pill {
+                display: none;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- Navbar -->
-        <nav>
-            <a href="#" class="logo">
-                <img src="./assets/logo.png" alt="Eventzone" style="height: 28px; width: auto; filter: brightness(0) invert(1);" />
-            </a>
-            <div class="nav-links">
-                <a href="#about">About us</a>
-                <a href="#features">Features</a>
-                <a href="#faq">FAQ</a>
-            </div>
-            <a href="#download" class="btn btn-dark">Get the App</a>
-        </nav>
+    <!-- Ambient Canvas Glows -->
+    <div class="ambient-canvas">
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        <div class="ambient-glow glow-3"></div>
+    </div>
+
+    <!-- Mouse Cursor Spotlight -->
+    <div class="cursor-spotlight" id="cursorSpotlight"></div>
+
+    <div class="page-wrapper">
+
+        <!-- Sticky Floating Navigation -->
+        <header>
+            <nav class="nav-container">
+                <a href="#" class="logo-wrap">
+                    <img src="./assets/logo.png" alt="Eventzone" class="logo-img">
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="#about" class="nav-link">About us</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How it works</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                </ul>
+
+                <a href="#download" class="btn btn-primary nav-cta-btn">
+                    Get the App <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+                </a>
+            </nav>
+        </header>
 
         <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Network Anytime, Anywhere<br>Right At Your Fingertips</h1>
-                <div class="hero-buttons">
-                    <a href="#" class="btn btn-outline">
-                        <img src="./assets/apple.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
-                        Available soon
-                    </a>
-                    <a href="#" class="btn btn-outline">
-                        <img src="./assets/googleplay.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain;">
-                        Google Play
-                    </a>
+        <section class="hero-section">
+            <div class="hero-text">
+                <div class="badge-pill">
+                    <span class="pulse-dot"></span> Next-Gen Smart Networking
                 </div>
-            </div>
-            <div class="hero-mockup-container">
-                <div class="glow-wave-container">
-                    <div class="glow-wave-core"></div>
-                    <div class="glow-wave-top"></div>
-                    <div class="glow-wave-bottom"></div>
-                </div>
-                <img src="./assets/hero-section.png" alt="Eventzone App Mockup" class="hero-mockup">
-            </div>
-        </section>
-        
-        <div class="section-divider"></div>
-
-        <!-- Mission -->
-        <section class="mission" id="about">
-            <div class="section-pill">Our Mission</div>
-            <h2>Never lose a contact again.</h2>
-            <p>We believe in a seamlessly connected professional future where individuals have complete control over their business identity and relationships.</p>
-            <img src="./assets/Our%20Mission.png" alt="Eventzone App Dashboard" class="mission-image">
-        </section>
-        
-        <div class="section-divider"></div>
-
-        <!-- How it Works -->
-        <section class="how-it-works" id="how-it-works">
-            <div class="faq-header">
-                <div class="section-pill">How it works</div>
-                <h2>Simple in 3 steps</h2>
-                <p style="color: var(--text-muted);">Start networking in minutes</p>
-            </div>
-            <div class="steps-container">
-                <svg class="steps-connector" viewBox="0 0 1000 100" preserveAspectRatio="none">
-                    <path d="M 166 50 Q 333 100 500 50 Q 666 0 833 50" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-dasharray="8 8"/>
-                </svg>
-                <div class="steps-grid">
-                    
-                    <div class="step-card">
-                        <div class="step-icon-container">
-                            <div class="step-badge">1</div>
-                            <div class="step-icon">
-                                <i data-lucide="user"></i>
-                            </div>
-                        </div>
-                        <h3>Create your profile</h3>
-                        <p>Set up your digital identity with your professional details, social links, and custom digital card.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-icon-container">
-                            <div class="step-badge">2</div>
-                            <div class="step-icon">
-                                <i data-lucide="qr-code"></i>
-                            </div>
-                        </div>
-                        <h3>Scan or share</h3>
-                        <p>Share your dynamic QR code with others, or instantly scan their physical business cards to connect.</p>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-icon-container">
-                            <div class="step-badge">3</div>
-                            <div class="step-icon">
-                                <i data-lucide="users-round"></i>
-                            </div>
-                        </div>
-                        <h3>Stay connected</h3>
-                        <p>Organize your contacts with tags, chat seamlessly in-app, and sync effortlessly with your CRM.</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        
-        <div class="section-divider"></div>
-
-        <!-- Features -->
-        <section class="features" id="features">
-            <div class="faq-header">
-                <h2>Features</h2>
-                <p style="color: var(--text-muted);">Everything you need to network effectively</p>
-            </div>
-            <div class="features-grid">
                 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="qr-code"></i>
-                    </div>
-                    <h3>Digital Cards</h3>
-                    <p>Generate a dynamic QR code to instantly share your details with a single scan.</p>
-                </div>
+                <h1 class="hero-headline">
+                    Turn Every Handshake Into A <span>Lasting Connection.</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    The all-in-one digital business card and smart contact hub. Share your professional identity in seconds with dynamic QR, NFC, or direct smart link.
+                </p>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="users-round"></i>
-                    </div>
-                    <h3>Connect Fast</h3>
-                    <p>Build your professional network faster. Connect and chat seamlessly within the app.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="database"></i>
-                    </div>
-                    <h3>Contact CRM</h3>
-                    <p>Organize your connections with tags, and easily export them to your existing CRM.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="scan-line"></i>
-                    </div>
-                    <h3>Quick Scanner</h3>
-                    <p>Use the built-in smart scanner to instantly capture and digitize paper business cards.</p>
-                </div>
-
-            </div>
-        </section>
-        
-        <div class="section-divider"></div>
-
-        <!-- Get the App Section -->
-        <section class="get-app-section" id="download">
-            <div class="faq-header">
-                <h2>Get the App</h2>
-                <p style="color: var(--text-muted);">Available now on iOS and Android</p>
-            </div>
-            <div class="app-cards-container">
-                <div class="app-card ios-card">
-                    <div class="app-card-icon">
-                        <img src="./assets/apple.svg" alt="Apple" style="width: 64px; height: 64px;">
-                    </div>
-                    <h2>Experience networking on <span>iOS</span>.</h2>
-                    <p>Beautifully designed for your iPhone. Share your digital card with a simple tap.</p>
-                    <a href="#" class="btn btn-outline" style="margin-top: auto; width: fit-content;">
+                <div class="hero-actions">
+                    <a href="#download" class="btn btn-store">
                         <img src="./assets/apple.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
                         Available soon
                     </a>
-                </div>
-
-                <div class="app-card android-card">
-                    <div class="app-card-icon">
-                        <img src="./assets/android.svg" alt="Android" style="width: 64px; height: 64px;">
-                    </div>
-                    <h2>Unleash your network on <span>Android</span>.</h2>
-                    <p>Built perfectly for Android devices. Connect instantly, manage your connections with our gorgeous interface, and never lose a lead.</p>
-                    <a href="#" class="btn btn-outline" style="margin-top: auto; width: fit-content;">
+                    <a href="#download" class="btn btn-store">
                         <img src="./assets/googleplay.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain;">
                         Google Play
                     </a>
                 </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-num">&lt; 1s</span>
+                        <span class="stat-label">Instant Scan Speed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">100%</span>
+                        <span class="stat-label">Eco-Friendly &amp; Paperless</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">Unlimited</span>
+                        <span class="stat-label">Dynamic Links &amp; Profiles</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D Interactive Hero Card -->
+            <div class="hero-stage" id="heroStage">
+                <div class="mockup-3d-card" id="mockupCard">
+                    <div class="mockup-aura"></div>
+                    <img src="./assets/hero-section.png" alt="Eventzone App Interface" class="mockup-img">
+                    
+                    <div class="floating-pill pill-pos-1">
+                        <i data-lucide="zap" style="width: 16px; height: 16px; color: #F59E0B;"></i>
+                        <span>Dynamic Live QR</span>
+                    </div>
+
+                    <div class="floating-pill pill-pos-2">
+                        <i data-lucide="shield-check" style="width: 16px; height: 16px; color: #10B981;"></i>
+                        <span>End-to-End Secure</span>
+                    </div>
+                </div>
             </div>
         </section>
-        
-        <div class="section-divider"></div>
+
+        <!-- Mission Section -->
+        <section class="section" id="about">
+            <div class="glass-card mission-panel">
+                <div class="badge-pill">
+                    <i data-lucide="compass" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
+                    Our Mission
+                </div>
+                
+                <h2 class="mission-lead">Never lose a contact again.</h2>
+                <p class="mission-copy">
+                    We believe in a seamlessly connected professional future where individuals have complete control over their business identity, relationships, and networking velocity.
+                </p>
+
+                <div class="mission-img-wrap">
+                    <img src="./assets/Our%20Mission.png" alt="Eventzone Mission Dashboard" class="mission-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="section" id="how-it-works">
+            <div class="section-header">
+                <div class="badge-pill">
+                    <i data-lucide="sparkles" style="width: 14px; height: 14px; color: var(--accent-cyan);"></i>
+                    How It Works
+                </div>
+                <h2 class="section-title">Simple in 3 Steps</h2>
+                <p class="section-desc">Start networking smarter in less than two minutes</p>
+            </div>
+
+            <div class="steps-wrapper">
+                <svg class="steps-svg-line" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                    <path d="M 160 50 Q 330 100 500 50 Q 670 0 840 50" fill="none" stroke="rgba(37, 99, 235, 0.35)" stroke-width="2" stroke-dasharray="8 8"/>
+                </svg>
+
+                <div class="steps-grid">
+                    <div class="glass-card step-item">
+                        <div class="step-icon-badge-box">
+                            <div class="step-icon-circle">
+                                <i data-lucide="user" style="width: 32px; height: 32px;"></i>
+                            </div>
+                            <span class="step-number-tag">01</span>
+                        </div>
+                        <h3 class="step-heading">Create your profile</h3>
+                        <p class="step-body">Set up your digital identity with professional details, custom themes, and unlimited social links.</p>
+                    </div>
+
+                    <div class="glass-card step-item">
+                        <div class="step-icon-badge-box">
+                            <div class="step-icon-circle">
+                                <i data-lucide="qr-code" style="width: 32px; height: 32px;"></i>
+                            </div>
+                            <span class="step-number-tag">02</span>
+                        </div>
+                        <h3 class="step-heading">Scan or share</h3>
+                        <p class="step-body">Share your dynamic QR code instantly, or capture others' cards with the high-speed camera scanner.</p>
+                    </div>
+
+                    <div class="glass-card step-item">
+                        <div class="step-icon-badge-box">
+                            <div class="step-icon-circle">
+                                <i data-lucide="users-round" style="width: 32px; height: 32px;"></i>
+                            </div>
+                            <span class="step-number-tag">03</span>
+                        </div>
+                        <h3 class="step-heading">Stay connected</h3>
+                        <p class="step-body">Organize connections with smart tags, chat in-app, and sync effortlessly across all your devices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Showcase -->
+        <section class="section" id="features">
+            <div class="section-header">
+                <div class="badge-pill">
+                    <i data-lucide="layers" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
+                    Core Capabilities
+                </div>
+                <h2 class="section-title">Built for Modern Professionals</h2>
+                <p class="section-desc">Everything you need to leave a powerful first impression</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="glass-card feature-box">
+                    <div class="feature-icon-wrap">
+                        <i data-lucide="qr-code" style="width: 26px; height: 26px;"></i>
+                    </div>
+                    <h3 class="feature-title">Dynamic Digital Cards</h3>
+                    <p class="feature-desc">Generate instant, customizable QR codes to share your phone, email, socials, and portfolio with a single tap. No app required for receivers.</p>
+                </div>
+
+                <div class="glass-card feature-box">
+                    <div class="feature-icon-wrap">
+                        <i data-lucide="zap" style="width: 26px; height: 26px;"></i>
+                    </div>
+                    <h3 class="feature-title">Instant Connection &amp; Chat</h3>
+                    <p class="feature-desc">Build your professional circle faster. Direct messaging, shared notes, and live relationship timeline built right into your contacts.</p>
+                </div>
+
+                <div class="glass-card feature-box">
+                    <div class="feature-icon-wrap">
+                        <i data-lucide="tags" style="width: 26px; height: 26px;"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Contact Tagging</h3>
+                    <p class="feature-desc">Categorize leads, partners, and colleagues with color-coded custom tags and contextual meeting notes so you never forget where you met.</p>
+                </div>
+
+                <div class="glass-card feature-box">
+                    <div class="feature-icon-wrap">
+                        <i data-lucide="scan-line" style="width: 26px; height: 26px;"></i>
+                    </div>
+                    <h3 class="feature-title">AI Business Card Scanner</h3>
+                    <p class="feature-desc">Transform physical paper business cards into clean, organized digital contacts with our optical character recognition scanner.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Download Cards -->
+        <section class="section" id="download">
+            <div class="section-header">
+                <div class="badge-pill">
+                    <i data-lucide="smartphone" style="width: 14px; height: 14px; color: var(--accent-emerald);"></i>
+                    Mobile Apps
+                </div>
+                <h2 class="section-title">Get Eventzone On Your Device</h2>
+                <p class="section-desc">Experience frictionless networking wherever you go</p>
+            </div>
+
+            <div class="platform-grid">
+                <!-- iOS Card -->
+                <div class="glass-card platform-card">
+                    <div class="platform-top">
+                        <div class="platform-icon-large">
+                            <img src="./assets/apple.svg" alt="Apple" style="width: 48px; height: 48px;">
+                        </div>
+                        <h3>Experience networking on <span>iOS</span>.</h3>
+                        <p>Beautifully designed for your iPhone. Share your digital business card with a simple tap and integrate with Apple Wallet.</p>
+                    </div>
+                    <div class="platform-bottom">
+                        <a href="#" class="btn btn-store">
+                            <img src="./assets/apple.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
+                            Available soon
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Android Card -->
+                <div class="glass-card platform-card">
+                    <div class="platform-top">
+                        <div class="platform-icon-large">
+                            <img src="./assets/android.svg" alt="Android" style="width: 48px; height: 48px;">
+                        </div>
+                        <h3>Unleash your network on <span>Android</span>.</h3>
+                        <p>Built natively for Android devices. Connect instantly, organize leads with smart tags, and manage your contacts flawlessly.</p>
+                    </div>
+                    <div class="platform-bottom">
+                        <a href="#" class="btn btn-primary">
+                            <img src="./assets/googleplay.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain; filter: brightness(0) invert(1);">
+                            Google Play
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- FAQ Section -->
-        <section class="faq" id="faq">
-            <div class="faq-header">
-                <h2>Frequently asked questions</h2>
-                <p style="color: var(--text-muted);">We have given answers to the most popular questions below</p>
+        <section class="section" id="faq">
+            <div class="section-header">
+                <div class="badge-pill">
+                    <i data-lucide="help-circle" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
+                    FAQ
+                </div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-desc">Clear answers to everything you need to know</p>
             </div>
-            
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <div class="faq-num">01</div>
-                        <h3>Is my contact data secure?</h3>
-                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
+
+            <div class="faq-accordion">
+                <!-- Item 1 -->
+                <div class="glass-card faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question-row">
+                        <div class="faq-num-title">
+                            <span class="faq-seq">01</span>
+                            <h4 class="faq-question-text">Is my contact data secure?</h4>
+                        </div>
+                        <i data-lucide="chevron-down" class="faq-chevron"></i>
                     </div>
-                    <div class="faq-answer">
-                        Yes, we use industry-standard encryption to ensure that your personal and professional details are secure. You have full control over what information is visible on your digital business card and who can access it.
+                    <div class="faq-answer-panel">
+                        <div class="faq-answer-content">
+                            Yes, we use industry-standard encryption to ensure that your personal and professional details are secure. You have full control over what information is visible on your digital business card and who can access it.
+                        </div>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <div class="faq-num">02</div>
-                        <h3>Do people need the app to scan my card?</h3>
-                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
+                <!-- Item 2 -->
+                <div class="glass-card faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question-row">
+                        <div class="faq-num-title">
+                            <span class="faq-seq">02</span>
+                            <h4 class="faq-question-text">Do people need the app to scan my card?</h4>
+                        </div>
+                        <i data-lucide="chevron-down" class="faq-chevron"></i>
                     </div>
-                    <div class="faq-answer">
-                        No! Anyone with a standard smartphone camera can scan your Eventzone QR code. It will open a responsive web profile where they can save your contact details directly to their phone's address book.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <div class="faq-num">03</div>
-                        <h3>Can I customize the design of my digital business card?</h3>
-                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
-                    </div>
-                    <div class="faq-answer">
-                        Yes, Eventzone allows you to fully personalize your card. You can choose custom colors, upload your profile picture, and add your social media links to match your personal brand perfectly.
+                    <div class="faq-answer-panel">
+                        <div class="faq-answer-content">
+                            No! Anyone with a standard smartphone camera can scan your Eventzone QR code. It will open a responsive web profile where they can save your contact details directly to their phone's address book with one tap.
+                        </div>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <div class="faq-num">04</div>
-                        <h3>How do I share my Eventzone profile with someone?</h3>
-                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
+                <!-- Item 3 -->
+                <div class="glass-card faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question-row">
+                        <div class="faq-num-title">
+                            <span class="faq-seq">03</span>
+                            <h4 class="faq-question-text">Can I customize the design of my digital business card?</h4>
+                        </div>
+                        <i data-lucide="chevron-down" class="faq-chevron"></i>
                     </div>
-                    <div class="faq-answer">
-                        Sharing is effortless. You can let them scan your unique QR code directly from the app, or send your personalized profile link via text, email, or any social media platform.
+                    <div class="faq-answer-panel">
+                        <div class="faq-answer-content">
+                            Yes, Eventzone allows you to fully personalize your card. You can choose custom colors, upload your profile picture, and add your social media links to match your personal brand perfectly.
+                        </div>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <div class="faq-num">05</div>
-                        <h3>Is there a limit to how many links I can add to my profile?</h3>
-                        <div class="faq-toggle"><i data-lucide="chevron-down" style="width: 24px; height: 24px;"></i></div>
+                <!-- Item 4 -->
+                <div class="glass-card faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question-row">
+                        <div class="faq-num-title">
+                            <span class="faq-seq">04</span>
+                            <h4 class="faq-question-text">How do I share my Eventzone profile with someone?</h4>
+                        </div>
+                        <i data-lucide="chevron-down" class="faq-chevron"></i>
                     </div>
-                    <div class="faq-answer">
-                        No limits! You can add as many contact methods, websites, portfolios, and social media profiles as you need to showcase your complete professional identity.
+                    <div class="faq-answer-panel">
+                        <div class="faq-answer-content">
+                            Sharing is effortless. You can let them scan your unique QR code directly from the app, or send your personalized profile link via text, email, or any social media platform.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="glass-card faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question-row">
+                        <div class="faq-num-title">
+                            <span class="faq-seq">05</span>
+                            <h4 class="faq-question-text">Is there a limit to how many links I can add to my profile?</h4>
+                        </div>
+                        <i data-lucide="chevron-down" class="faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer-panel">
+                        <div class="faq-answer-content">
+                            No limits! You can add as many contact methods, websites, portfolios, and social media profiles as you need to showcase your complete professional identity.
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <div class="section-divider"></div>
 
         <!-- Bottom CTA -->
-        <section class="cta">
-            <div class="cta-container">
-                <div class="cta-left">
-                    <div class="section-pill">Let's start now</div>
-                    <h2>Start Building Your Smart Network Today.</h2>
-                    <a href="#download" class="btn btn-lime">
-                        Get Started <i data-lucide="arrow-up-right" style="width: 18px; height: 18px;"></i>
+        <section class="section">
+            <div class="glass-card cta-banner">
+                <div class="cta-content">
+                    <div class="badge-pill">
+                        <i data-lucide="rocket" style="width: 14px; height: 14px; color: var(--accent-cyan);"></i>
+                        Let's start now
+                    </div>
+                    <h2 class="cta-heading">Start Building Your Smart Network Today.</h2>
+                    <a href="#download" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.05rem;">
+                        Get Started <i data-lucide="arrow-up-right" style="width: 20px; height: 20px;"></i>
                     </a>
                 </div>
-                <div class="cta-right">
-                    <!-- Abstract SVG Background Line -->
-                    <svg class="chart-line" viewBox="0 0 500 200" preserveAspectRatio="none">
-                        <path d="M0,100 C150,200 250,0 500,100 L500,200 L0,200 Z" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
-                    </svg>
 
-                    <h3>Our users have already used our mobile app. Try it too!</h3>
-                    <div class="user-avatars">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent-lime); margin-left: 0; object-fit: cover;">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent-lime); margin-left: -15px; object-fit: cover;">
-                        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="User" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent-lime); margin-left: -15px; object-fit: cover;">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="User" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent-lime); margin-left: -15px; object-fit: cover;">
-                        <div class="user-count">+1k</div>
+                <div class="cta-interactive">
+                    <div class="community-proof">
+                        <div class="avatar-stack">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User Avatar">
+                            <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="User Avatar">
+                            <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="User Avatar">
+                            <div class="avatar-count">+1k</div>
+                        </div>
+                        <p class="proof-text">Joined by 1,000+ professionals worldwide.</p>
                     </div>
-                    <div class="cta-store-btns">
-                        <a href="#" class="btn">
-                            <img src="./assets/apple-black.svg" alt="App Store" style="width: 16px; height: 16px; object-fit: contain;"> Available soon
+
+                    <div class="cta-buttons-row">
+                        <a href="#download" class="btn btn-store">
+                            <img src="./assets/apple-black.svg" alt="App Store" style="width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1);"> Available soon
                         </a>
-                        <a href="#" class="btn">
-                            <img src="./assets/googleplay-black.svg" alt="Google Play" style="width: 16px; height: 16px; object-fit: contain;"> Google Play
+                        <a href="#download" class="btn btn-store">
+                            <img src="./assets/googleplay-black.svg" alt="Google Play" style="width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1);"> Google Play
                         </a>
                     </div>
                 </div>
@@ -1209,83 +1513,185 @@
 
         <!-- Footer -->
         <footer>
-            <a href="#" class="logo">
-                <img src="./assets/logo.png" alt="Eventzone" style="height: 24px; width: auto; filter: brightness(0) invert(1);" />
+            <a href="#" class="logo-wrap">
+                <img src="./assets/logo.png" alt="Eventzone" class="logo-img" style="height: 24px;">
             </a>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Eventzone. All rights reserved.</p>
+            <p class="footer-copyright">&copy; 2026 Eventzone. All rights reserved.</p>
         </footer>
 
     </div>
 
     <script>
-        // Initialize Icons
+        // 1. Initialize Icons
         lucide.createIcons();
 
-        // FAQ Toggle Logic
-        function toggleFaq(element) {
-            const item = element.parentElement;
+        // 2. Mouse Spotlight Tracking on Canvas & Cards
+        const spotlight = document.getElementById('cursorSpotlight');
+        const cards = document.querySelectorAll('.glass-card');
+
+        window.addEventListener('pointermove', (e) => {
+            const { clientX: x, clientY: y } = e;
             
-            if (item.classList.contains('active')) {
-                item.classList.remove('active');
-            } else {
-                // Close all others
-                document.querySelectorAll('.faq-item').forEach(faq => {
-                    faq.classList.remove('active');
-                });
+            // Move cursor spotlight
+            if (spotlight) {
+                spotlight.style.left = `${x}px`;
+                spotlight.style.top = `${y}px`;
+            }
+
+            // Update card internal gradients
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardX = x - rect.left;
+                const cardY = y - rect.top;
+                card.style.setProperty('--mouse-x', `${cardX}px`);
+                card.style.setProperty('--mouse-y', `${cardY}px`);
+            });
+        });
+
+        // 3. 3D Card Interactive Tilt in Hero
+        const stage = document.getElementById('heroStage');
+        const card = document.getElementById('mockupCard');
+
+        if (stage && card) {
+            stage.addEventListener('mousemove', (e) => {
+                const rect = stage.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
                 
-                // Open clicked
+                const rotateX = (-y / rect.height) * 18;
+                const rotateY = (x / rect.width) * 18;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+
+            stage.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        }
+
+        // 4. FAQ Accordion Logic
+        function toggleFaq(item) {
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                faq.classList.remove('active');
+            });
+            
+            // Toggle clicked
+            if (!isActive) {
                 item.classList.add('active');
             }
         }
 
-        // Scroll Animations
+        // 5. GSAP Scroll Animations
         document.addEventListener('DOMContentLoaded', () => {
-            const animSelectors = [
-                { s: '.hero h1', c: 'slide-up', d: 0 },
-                { s: '.hero p', c: 'slide-up', d: 100 },
-                { s: '.hero-buttons', c: 'slide-up', d: 200 },
-                { s: '.hero-mockup-container', c: 'slide-up', d: 300 },
-                { s: '.mission .section-pill', c: 'slide-up', d: 0 },
-                { s: '.mission h2', c: 'slide-up', d: 100 },
-                { s: '.mission p', c: 'slide-up', d: 200 },
-                { s: '.mission-image', c: 'slide-up', d: 300 },
-                { s: '.features .faq-header', c: 'slide-up', d: 0 },
-                { s: '.get-app-section .faq-header', c: 'slide-up', d: 0 },
-                { s: '.faq .faq-header', c: 'slide-up', d: 0 },
-                { s: '.cta-left', c: 'slide-in-left', d: 0 },
-                { s: '.cta-right', c: 'slide-in-right', d: 200 }
-            ];
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
 
-            animSelectors.forEach(({s, c, d}) => {
-                document.querySelectorAll(s).forEach(el => {
-                    el.classList.add('animate-on-scroll', c);
-                    if(d) el.style.transitionDelay = `${d}ms`;
+                // Hero Entrance Animation
+                const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
+                
+                heroTl.from('.badge-pill', { opacity: 0, y: -20, delay: 0.1 })
+                      .from('.hero-headline', { opacity: 0, y: 30 }, '-=0.6')
+                      .from('.hero-subtitle', { opacity: 0, y: 25 }, '-=0.6')
+                      .from('.hero-actions', { opacity: 0, y: 20 }, '-=0.5')
+                      .from('.hero-stats', { opacity: 0, y: 20 }, '-=0.5')
+                      .from('#mockupCard', { opacity: 0, scale: 0.9, rotateY: -15, duration: 1.2 }, '-=0.9')
+                      .from('.floating-pill', { opacity: 0, scale: 0.8, stagger: 0.2 }, '-=0.6');
+
+                // Scroll Trigger Batches for Sections
+                gsap.utils.toArray('.section-header').forEach(header => {
+                    gsap.from(header, {
+                        scrollTrigger: {
+                            trigger: header,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none'
+                        },
+                        opacity: 0,
+                        y: 35,
+                        duration: 0.8,
+                        ease: 'power2.out'
+                    });
                 });
-            });
 
-            // Staggered lists
-            const staggerLists = [
-                '.features-grid .feature-card',
-                '.app-cards-container .app-card',
-                '.faq-list .faq-item'
-            ];
-
-            staggerLists.forEach(selector => {
-                document.querySelectorAll(selector).forEach((el, i) => {
-                    el.classList.add('animate-on-scroll', 'slide-up');
-                    el.style.transitionDelay = `${i * 100}ms`;
+                // Mission Panel Reveal
+                gsap.from('.mission-panel', {
+                    scrollTrigger: {
+                        trigger: '.mission-panel',
+                        start: 'top 80%'
+                    },
+                    opacity: 0,
+                    y: 40,
+                    scale: 0.98,
+                    duration: 1,
+                    ease: 'power3.out'
                 });
-            });
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
+                // How it works Cards Stagger
+                gsap.from('.step-item', {
+                    scrollTrigger: {
+                        trigger: '.steps-grid',
+                        start: 'top 80%'
+                    },
+                    opacity: 0,
+                    y: 40,
+                    stagger: 0.18,
+                    duration: 0.85,
+                    ease: 'power2.out'
                 });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+                // Feature Cards Stagger
+                gsap.from('.feature-box', {
+                    scrollTrigger: {
+                        trigger: '.features-grid',
+                        start: 'top 80%'
+                    },
+                    opacity: 0,
+                    y: 35,
+                    stagger: 0.15,
+                    duration: 0.85,
+                    ease: 'power2.out'
+                });
+
+                // Platform Cards Stagger
+                gsap.from('.platform-card', {
+                    scrollTrigger: {
+                        trigger: '.platform-grid',
+                        start: 'top 80%'
+                    },
+                    opacity: 0,
+                    y: 35,
+                    stagger: 0.2,
+                    duration: 0.9,
+                    ease: 'power2.out'
+                });
+
+                // FAQ Items Stagger
+                gsap.from('.faq-item', {
+                    scrollTrigger: {
+                        trigger: '.faq-accordion',
+                        start: 'top 85%'
+                    },
+                    opacity: 0,
+                    y: 25,
+                    stagger: 0.1,
+                    duration: 0.7,
+                    ease: 'power2.out'
+                });
+
+                // CTA Banner Reveal
+                gsap.from('.cta-banner', {
+                    scrollTrigger: {
+                        trigger: '.cta-banner',
+                        start: 'top 85%'
+                    },
+                    opacity: 0,
+                    y: 40,
+                    duration: 1,
+                    ease: 'power3.out'
+                });
+            }
         });
     </script>
 </body>
