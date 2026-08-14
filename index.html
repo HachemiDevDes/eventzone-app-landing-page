@@ -30,7 +30,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -44,45 +44,46 @@
             --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             
-            /* Luminous Light Mode Palette */
+            /* High-Craft Luminous Canvas */
             --bg-canvas: #F8FAFC;
             --bg-surface: #FFFFFF;
-            --bg-card: rgba(255, 255, 255, 0.88);
-            --bg-card-hover: rgba(255, 255, 255, 0.98);
-            --bg-glass: rgba(255, 255, 255, 0.75);
             --bg-subtle: #F1F5F9;
+            --bg-contrast: #0F172A;
             
-            --text-primary: #0F172A;     /* Slate 900 */
-            --text-secondary: #475569;   /* Slate 600 */
-            --text-muted: #94A3B8;       /* Slate 400 */
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
             
-            --accent-blue: #2563EB;      /* Cobalt Blue */
+            --accent-blue: #2563EB;
             --accent-blue-dark: #1D4ED8;
             --accent-blue-light: #3B82F6;
             --accent-blue-subtle: rgba(37, 99, 235, 0.08);
-            --accent-blue-glow: rgba(37, 99, 235, 0.25);
+            --accent-blue-glow: rgba(37, 99, 235, 0.22);
             
-            --accent-cyan: #0891B2;
             --accent-emerald: #10B981;
+            --accent-cyan: #0891B2;
             --accent-purple: #7C3AED;
+            --accent-amber: #D97706;
             
-            --border-subtle: #E2E8F0;
-            --border-highlight: #CBD5E1;
+            --border-light: #E2E8F0;
+            --border-hover: #CBD5E1;
             --border-active: #3B82F6;
             
-            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-            --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
-            --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 8px 16px -4px rgba(15, 23, 42, 0.04);
-            --shadow-elevation: 0 25px 60px -15px rgba(15, 23, 42, 0.12);
+            --shadow-subtle: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+            --shadow-card: 0 12px 32px -4px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+            --shadow-float: 0 25px 60px -12px rgba(15, 23, 42, 0.12), 0 8px 24px -4px rgba(15, 23, 42, 0.06);
+            --shadow-elevation: 0 35px 80px -20px rgba(15, 23, 42, 0.18);
             
             --radius-sm: 12px;
             --radius-md: 18px;
             --radius-lg: 24px;
+            --radius-xl: 32px;
             --radius-full: 9999px;
 
-            /* Interactive Card Studio Var */
-            --card-accent: #2563EB;
-            --card-glow: rgba(37, 99, 235, 0.25);
+            /* Interactive Studio Color Var */
+            --custom-card-bg: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            --custom-card-accent: #2563EB;
+            --custom-card-glow: rgba(37, 99, 235, 0.35);
         }
 
         * {
@@ -104,11 +105,10 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
-            min-height: 100vh;
         }
 
-        /* Top Scroll Progress Bar */
-        .scroll-progress-bar {
+        /* Top Scroll Progress Line */
+        .scroll-progress-line {
             position: fixed;
             top: 0;
             left: 0;
@@ -119,7 +119,7 @@
             transition: width 0.1s linear;
         }
 
-        /* Ambient Background Mesh */
+        /* Ambient Diffusion Background */
         .ambient-mesh {
             position: fixed;
             top: 0;
@@ -135,35 +135,34 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(140px);
-            opacity: 0.6;
-            will-change: transform;
+            opacity: 0.65;
         }
 
         .orb-1 {
-            width: 650px;
-            height: 650px;
-            background: radial-gradient(circle, rgba(219, 234, 254, 0.8) 0%, rgba(219, 234, 254, 0) 70%);
-            top: -150px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(219, 234, 254, 0.9) 0%, transparent 70%);
+            top: -100px;
             right: -100px;
         }
 
         .orb-2 {
             width: 750px;
             height: 750px;
-            background: radial-gradient(circle, rgba(224, 242, 254, 0.7) 0%, rgba(224, 242, 254, 0) 70%);
-            top: 35%;
+            background: radial-gradient(circle, rgba(224, 242, 254, 0.8) 0%, transparent 70%);
+            top: 40%;
             left: -200px;
         }
 
         .orb-3 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(237, 233, 254, 0.7) 0%, rgba(237, 233, 254, 0) 70%);
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(243, 232, 255, 0.7) 0%, transparent 70%);
             bottom: 5%;
-            right: 5%;
+            right: 0%;
         }
 
-        /* Page Layout Container */
+        /* Page Container */
         .page-wrapper {
             position: relative;
             z-index: 2;
@@ -177,7 +176,7 @@
             font-family: var(--font-heading);
             letter-spacing: -0.035em;
             color: var(--text-primary);
-            line-height: 1.15;
+            line-height: 1.12;
             font-weight: 700;
         }
 
@@ -187,21 +186,21 @@
             line-height: 1.65;
         }
 
-        /* Badges & Pills */
+        /* Badges */
         .badge-pill {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 1.1rem;
             background: #FFFFFF;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-full);
             font-size: 0.82rem;
             font-weight: 600;
             color: var(--accent-blue);
             letter-spacing: 0.03em;
             text-transform: uppercase;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-subtle);
         }
 
         .pulse-dot {
@@ -218,25 +217,22 @@
             50% { opacity: 0.4; transform: scale(0.8); }
         }
 
-        /* Luminous Glass Cards */
-        .glass-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: var(--radius-lg);
+        /* Modern Tactile Cards */
+        .card-surface {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card);
             position: relative;
             overflow: hidden;
             transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
-                        border-color 0.35s ease, 
-                        box-shadow 0.35s ease,
-                        background 0.35s ease;
-            box-shadow: var(--shadow-md);
+                        box-shadow 0.35s ease, 
+                        border-color 0.35s ease;
         }
 
-        .glass-card:hover {
-            border-color: var(--border-highlight);
-            box-shadow: var(--shadow-lg), 0 0 25px rgba(37, 99, 235, 0.06);
+        .card-surface:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-float);
         }
 
         /* Buttons */
@@ -245,7 +241,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.6rem;
-            padding: 0.85rem 1.6rem;
+            padding: 0.9rem 1.8rem;
             border-radius: var(--radius-full);
             font-family: var(--font-heading);
             font-size: 0.95rem;
@@ -262,45 +258,33 @@
         .btn-primary {
             background: var(--accent-blue);
             color: #FFFFFF;
-            box-shadow: 0 8px 20px -4px var(--accent-blue-glow);
+            box-shadow: 0 8px 25px -4px var(--accent-blue-glow);
         }
 
         .btn-primary:hover {
             background: var(--accent-blue-dark);
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px -2px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn-dark {
-            background: #0F172A;
-            color: #FFFFFF;
-            box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.3);
-        }
-
-        .btn-dark:hover {
-            background: #1E293B;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px -2px rgba(15, 23, 42, 0.45);
+            box-shadow: 0 12px 30px -2px rgba(37, 99, 235, 0.4);
         }
 
         .btn-store {
             background: #FFFFFF;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-light);
             color: var(--text-primary);
-            padding: 0.75rem 1.4rem;
-            box-shadow: var(--shadow-sm);
+            padding: 0.8rem 1.5rem;
+            box-shadow: var(--shadow-subtle);
             font-size: 0.9rem;
         }
 
         .btn-store:hover {
             background: var(--bg-subtle);
-            border-color: var(--border-highlight);
+            border-color: var(--border-hover);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-card);
         }
 
         /* ---------------------------------------------------- */
-        /* NAVBAR                                               */
+        /* 1. STICKY FLOATING NAVBAR                            */
         /* ---------------------------------------------------- */
         header {
             position: sticky;
@@ -313,13 +297,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid var(--border-subtle);
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--border-light);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 0.75rem 1.4rem;
             border-radius: var(--radius-full);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-subtle);
         }
 
         .logo-wrap {
@@ -331,17 +315,12 @@
         .logo-img {
             height: 26px;
             width: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-wrap:hover .logo-img {
-            transform: scale(1.04);
         }
 
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 2.2rem;
             list-style: none;
         }
 
@@ -358,814 +337,546 @@
             color: var(--accent-blue);
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--accent-blue);
-            border-radius: 2px;
-            transition: width 0.25s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
         .nav-cta-btn {
-            padding: 0.6rem 1.25rem;
+            padding: 0.6rem 1.3rem;
             font-size: 0.88rem;
         }
 
         /* ---------------------------------------------------- */
-        /* HERO SECTION                                         */
+        /* 2. REIMAGINED HERO & INTERACTIVE NFC TAP SIMULATOR   */
         /* ---------------------------------------------------- */
         .hero-section {
-            padding: 4rem 0 6rem;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 3.5rem;
+            padding: 3rem 0 5rem;
+            display: flex;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
+            gap: 2.8rem;
             position: relative;
         }
 
-        .hero-text {
+        .hero-content {
+            max-width: 820px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 1.8rem;
+            align-items: center;
+            gap: 1.6rem;
         }
 
-        .hero-headline {
-            font-size: clamp(2.5rem, 5vw, 3.8rem);
-            font-weight: 700;
-            line-height: 1.08;
+        .hero-title {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.05;
             letter-spacing: -0.04em;
-            color: var(--text-primary);
         }
 
-        .hero-headline span {
+        .hero-title span {
             background: linear-gradient(135deg, var(--accent-blue) 0%, #1D4ED8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-subtitle {
-            font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+        .hero-lead {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             color: var(--text-secondary);
-            max-width: 540px;
+            max-width: 620px;
             line-height: 1.6;
         }
 
-        .hero-actions {
+        .hero-actions-row {
             display: flex;
             align-items: center;
             gap: 1rem;
             flex-wrap: wrap;
-            margin-top: 0.5rem;
-        }
-
-        .hero-stats {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            padding-top: 1.8rem;
-            border-top: 1px solid var(--border-subtle);
-            width: 100%;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .stat-num {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            letter-spacing: -0.02em;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* Hero 3D Stage */
-        .hero-stage {
-            position: relative;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            perspective: 1200px;
         }
 
-        .mockup-3d-card {
-            position: relative;
+        /* Interactive NFC Tap Playground */
+        .nfc-tap-stage {
             width: 100%;
-            max-width: 440px;
-            border-radius: var(--radius-lg);
-            transform-style: preserve-3d;
-            transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
-            will-change: transform;
-        }
-
-        .mockup-aura {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 110%;
-            height: 110%;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0) 70%);
-            filter: blur(40px);
-            z-index: 1;
-            pointer-events: none;
-            animation: auraBreath 6s infinite alternate ease-in-out;
-        }
-
-        @keyframes auraBreath {
-            0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.95); }
-            100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.08); }
-        }
-
-        .mockup-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            position: relative;
-            z-index: 2;
-            border-radius: 20px;
-            filter: drop-shadow(0 20px 40px rgba(15, 23, 42, 0.15));
-        }
-
-        .floating-pill {
-            position: absolute;
+            max-width: 980px;
+            padding: 3.5rem 2rem;
             background: #FFFFFF;
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-full);
-            padding: 0.55rem 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            box-shadow: var(--shadow-lg);
-            z-index: 10;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            pointer-events: none;
-            animation: floatSlow 5s infinite ease-in-out;
-        }
-
-        .pill-pos-1 {
-            top: 10%;
-            left: -25px;
-            animation-delay: 0s;
-        }
-
-        .pill-pos-2 {
-            bottom: 12%;
-            right: -20px;
-            animation-delay: 2.5s;
-        }
-
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* ---------------------------------------------------- */
-        /* SECTION COMMON HEADERS                               */
-        /* ---------------------------------------------------- */
-        .section {
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 680px;
-            margin: 0 auto 3.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 3.8vw, 2.8rem);
-        }
-
-        .section-desc {
-            font-size: 1.1rem;
-        }
-
-        /* ---------------------------------------------------- */
-        /* 1. BESPOKE MISSION SECTION (Interactive Product Hub) */
-        /* ---------------------------------------------------- */
-        .mission-hub-container {
-            padding: 3.5rem 3rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-elevation);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-            border: 1px solid var(--border-subtle);
+            gap: 2rem;
         }
 
-        .mission-hub-top {
-            text-align: center;
-            max-width: 750px;
-            margin-bottom: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Interactive Tabs */
-        .hub-tabs-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: #F1F5F9;
-            border: 1px solid var(--border-subtle);
-            padding: 0.35rem;
-            border-radius: var(--radius-full);
-            margin-bottom: 2.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hub-tab-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            font-family: var(--font-heading);
-            font-size: 0.88rem;
-            font-weight: 600;
-            padding: 0.55rem 1.2rem;
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
+        .tap-instruction-pill {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .hub-tab-btn:hover {
-            color: var(--text-primary);
-        }
-
-        .hub-tab-btn.active {
-            background: #FFFFFF;
-            color: var(--accent-blue);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Spatial Showcase Frame */
-        .hub-showcase-stage {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-subtle);
-            background: #FFFFFF;
-            box-shadow: var(--shadow-elevation);
-            overflow: visible;
-        }
-
-        .hub-app-screenshot {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: calc(var(--radius-lg) - 1px);
-        }
-
-        /* Floating Telemetry Badges on Mission Showcase */
-        .telemetry-chip {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(18px);
-            border-radius: var(--radius-md);
-            padding: 0.9rem 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            box-shadow: var(--shadow-lg);
-            z-index: 10;
-            pointer-events: none;
-            animation: floatSlow 6s infinite ease-in-out;
-        }
-
-        .chip-left {
-            top: 20%;
-            left: -40px;
-            animation-delay: 0.5s;
-        }
-
-        .chip-right {
-            top: 45%;
-            right: -40px;
-            animation-delay: 3s;
-        }
-
-        .chip-bottom {
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation-delay: 1.5s;
-        }
-
-        .telemetry-icon-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .telemetry-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.15rem;
-        }
-
-        .telemetry-val {
-            font-family: var(--font-heading);
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .telemetry-sub {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        /* ---------------------------------------------------- */
-        /* 2. BESPOKE "HOW IT WORKS" (Interactive Micro-Demos)  */
-        /* ---------------------------------------------------- */
-        .steps-interactive-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            position: relative;
-        }
-
-        .step-journey-card {
-            padding: 2.2rem 1.8rem;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1.5rem;
-            min-height: 420px;
-            background: #FFFFFF;
-        }
-
-        .step-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .step-seq-pill {
-            font-family: var(--font-heading);
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-size: 0.88rem;
+            font-weight: 600;
             color: var(--accent-blue);
             background: var(--accent-blue-subtle);
-            padding: 0.3rem 0.8rem;
+            padding: 0.45rem 1.2rem;
             border-radius: var(--radius-full);
-            border: 1px solid rgba(37, 99, 235, 0.15);
-        }
-
-        /* Interactive Micro-Widgets Inside Steps */
-        .step-preview-widget {
-            width: 100%;
-            height: 160px;
-            background: #F8FAFC;
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Step 1: Interactive Profile Switcher */
-        .mini-profile-card {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: #FFFFFF;
-            border: 1px solid var(--border-subtle);
-            padding: 0.8rem 1rem;
-            border-radius: var(--radius-sm);
-            width: 85%;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .mini-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: #fff;
-        }
-
-        .mini-role-tag {
-            font-size: 0.75rem;
-            color: var(--accent-blue);
-            background: var(--accent-blue-subtle);
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 2px;
-            font-weight: 600;
-        }
-
-        /* Step 2: Animated Laser QR Code Scanner */
-        .qr-scanner-box {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            background: #FFFFFF;
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .scanner-laser-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue);
-            animation: laserScan 2.4s infinite ease-in-out;
-        }
-
-        @keyframes laserScan {
-            0%, 100% { top: 5%; opacity: 0.3; }
-            50% { top: 90%; opacity: 1; }
-        }
-
-        /* Step 3: Auto-Sync Stack Widget */
-        .sync-stack-box {
-            display: flex;
-            flex-direction: column;
-            gap: 0.45rem;
-            width: 85%;
-        }
-
-        .sync-item-pill {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #FFFFFF;
-            border: 1px solid var(--border-subtle);
-            padding: 0.45rem 0.8rem;
-            border-radius: 8px;
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .sync-item-pill.synced {
-            border-color: rgba(16, 185, 129, 0.4);
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        /* ---------------------------------------------------- */
-        /* 3. BESPOKE ASYMMETRIC BENTO GRID (Live Interactive)  */
-        /* ---------------------------------------------------- */
-        .bento-showcase-grid {
-            display: grid;
-            grid-template-columns: 1.25fr 0.75fr;
-            grid-template-rows: auto auto;
-            gap: 1.8rem;
-        }
-
-        /* Card 1: 3D Interactive Business Card Studio (Large Bento) */
-        .bento-card-studio {
-            grid-column: 1 / 2;
-            grid-row: 1 / 3;
-            padding: 2.8rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 2rem;
-            background: radial-gradient(circle at 80% 20%, rgba(219, 234, 254, 0.6), transparent 60%), #FFFFFF;
-        }
-
-        .studio-top-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .studio-theme-swatches {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-top: 0.5rem;
-        }
-
-        .swatch-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
             cursor: pointer;
-            border: 2px solid #FFFFFF;
-            box-shadow: var(--shadow-sm);
             transition: all 0.25s ease;
+            user-select: none;
         }
 
-        .swatch-dot:hover, .swatch-dot.active {
-            transform: scale(1.25);
-            border-color: #0F172A;
-            box-shadow: 0 0 10px currentColor;
+        .tap-instruction-pill:hover {
+            background: rgba(37, 99, 235, 0.15);
+            transform: scale(1.03);
         }
 
-        /* Live 3D Interactive Card */
-        .live-card-viewport {
-            perspective: 1000px;
-            width: 100%;
-            height: 240px;
+        .nfc-devices-flex {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 3rem;
             position: relative;
-            z-index: 2;
+            width: 100%;
         }
 
-        .hologram-card {
-            width: 100%;
-            max-width: 380px;
-            height: 210px;
+        /* 3D Smart Card Mockup */
+        .nfc-card-interactive {
+            width: 290px;
+            height: 180px;
             background: #0F172A;
+            border-radius: 16px;
+            padding: 1.4rem;
             color: #FFFFFF;
-            border: 1px solid var(--card-accent);
-            border-radius: 18px;
-            padding: 1.6rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25), 0 0 30px var(--card-glow);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
             cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            user-select: none;
         }
 
-        .hologram-card::after {
+        .nfc-card-interactive:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.3);
+        }
+
+        .nfc-card-interactive::after {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
         }
 
-        .hologram-card:hover {
-            transform: translateY(-6px) rotateX(6deg) rotateY(-6deg);
-        }
-
-        .card-inner-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .card-user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .card-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid var(--card-accent);
-            object-fit: cover;
-        }
-
-        .card-name-title h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #FFFFFF;
-        }
-
-        .card-name-title span {
-            font-size: 0.8rem;
-            color: #94A3B8;
-        }
-
-        .card-qr-mini {
-            width: 44px;
-            height: 44px;
-            background: #FFFFFF;
-            border-radius: 8px;
-            padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card-inner-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding-top: 0.9rem;
-        }
-
-        .card-social-icons {
-            display: flex;
-            gap: 0.75rem;
-            color: #94A3B8;
-        }
-
-        .card-badge-nfc {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--card-accent);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Card 2: AI OCR Camera Scanner */
-        .bento-scanner-card {
-            padding: 2.2rem;
+        /* Phone Screen Receiver Mockup */
+        .phone-receiver-mockup {
+            width: 260px;
+            height: 380px;
+            background: #0F172A;
+            border-radius: 28px;
+            border: 4px solid #1E293B;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            gap: 1.4rem;
-            background: #FFFFFF;
-        }
-
-        .ai-scanner-visual {
-            height: 120px;
-            background: #F8FAFC;
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-sm);
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.2);
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 1rem;
-            gap: 0.5rem;
         }
 
-        .ai-detection-tag {
-            font-size: 0.75rem;
-            font-family: monospace;
-            background: rgba(8, 145, 178, 0.1);
-            color: var(--accent-cyan);
-            border-left: 2px solid var(--accent-cyan);
-            padding: 0.2rem 0.5rem;
-            width: fit-content;
-            border-radius: 0 4px 4px 0;
-            font-weight: 600;
-            animation: pulseFade 2s infinite alternate;
-        }
-
-        @keyframes pulseFade {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        .ai-laser-sweep {
+        /* Dynamic NFC Wave Ripple */
+        .nfc-ripple-wave {
             position: absolute;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 8px var(--accent-cyan);
-            animation: laserScan 2s infinite ease-in-out;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-blue);
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* Card 3: Interactive Tags & CRM Filter */
-        .bento-tags-card {
-            padding: 2.2rem;
+        .nfc-ripple-wave.active {
+            animation: nfcWavePing 1.2s cubic-bezier(0, 0.2, 0.8, 1);
+        }
+
+        @keyframes nfcWavePing {
+            0% { width: 40px; height: 40px; opacity: 1; border-width: 4px; }
+            100% { width: 300px; height: 300px; opacity: 0; border-width: 1px; }
+        }
+
+        /* Live Toast Notification Inside Phone */
+        .phone-contact-toast {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            right: 10px;
+            background: #FFFFFF;
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(-80px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+        }
+
+        .phone-contact-toast.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 3. INFINITE KINETIC MARQUEE                          */
+        /* ---------------------------------------------------- */
+        .marquee-section {
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            background: #FFFFFF;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 5rem;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 3.5rem;
+            width: max-content;
+            animation: marqueeSlide 28s linear infinite;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        @keyframes marqueeSlide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ---------------------------------------------------- */
+        /* 4. OLD WAY VS THE EVENTZONE WAY (Impact Matrix)      */
+        /* ---------------------------------------------------- */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3.5rem;
+        }
+
+        .comparison-card {
+            padding: 3rem;
+            border-radius: var(--radius-xl);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            gap: 1.4rem;
-            background: #FFFFFF;
-        }
-
-        .tags-interactive-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .interactive-tag {
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            padding: 0.35rem 0.8rem;
-            border-radius: var(--radius-full);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
-        }
-
-        .interactive-tag:hover {
-            border-color: var(--border-highlight);
-            color: var(--text-primary);
-        }
-
-        .interactive-tag.selected {
-            background: var(--accent-blue);
-            color: #FFFFFF;
-            border-color: var(--accent-blue);
-            box-shadow: 0 4px 12px var(--accent-blue-glow);
-        }
-
-        /* ---------------------------------------------------- */
-        /* GET THE APP (DUAL PLATFORM)                          */
-        /* ---------------------------------------------------- */
-        .platform-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
         }
 
-        .platform-card {
-            padding: 3.2rem 2.6rem;
+        .card-old-way {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            opacity: 0.9;
+        }
+
+        .card-new-way {
+            background: #0F172A;
+            color: #FFFFFF;
+            border: 1px solid #1E293B;
+            box-shadow: var(--shadow-elevation);
+            position: relative;
+        }
+
+        .card-new-way h3, .card-new-way h4 {
+            color: #FFFFFF;
+        }
+
+        .card-new-way p {
+            color: #94A3B8;
+        }
+
+        .comparison-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.35rem 1rem;
+            border-radius: var(--radius-full);
+            width: fit-content;
+        }
+
+        .badge-old {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .badge-new {
+            background: var(--accent-blue);
+            color: #FFFFFF;
+        }
+
+        .comparison-points-list {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 340px;
+            gap: 1.2rem;
+            list-style: none;
+        }
+
+        .comparison-point-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            font-size: 1rem;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 5. INTERACTIVE 3D LIVE CARD CUSTOMIZER STUDIO        */
+        /* ---------------------------------------------------- */
+        .studio-stage-box {
+            padding: 4rem 3.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
             background: #FFFFFF;
         }
 
-        .platform-top {
+        .studio-controls-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .studio-finish-picker {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .finish-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .finish-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .finish-btn:hover {
+            border-color: var(--border-hover);
+        }
+
+        .finish-btn.active {
+            background: #FFFFFF;
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .finish-swatch-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        /* 3D Hologram Interactive Canvas */
+        .studio-3d-viewport {
+            perspective: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 320px;
+        }
+
+        .custom-live-card {
+            width: 360px;
+            height: 220px;
+            background: var(--custom-card-bg);
+            border-radius: 20px;
+            padding: 1.6rem;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 30px 60px -10px rgba(15, 23, 42, 0.3), 0 0 40px var(--custom-card-glow);
+            border: 1px solid var(--custom-card-accent);
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1), box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 6. KINETIC CAPABILITIES SHOWCASE (Interactive Tabs)  */
+        /* ---------------------------------------------------- */
+        .kinetic-tabs-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .kinetic-tab-btn {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-full);
+            padding: 0.7rem 1.4rem;
+            font-family: var(--font-heading);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .kinetic-tab-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+        }
+
+        .kinetic-tab-btn.active {
+            background: var(--accent-blue);
+            color: #FFFFFF;
+            border-color: var(--accent-blue);
+            box-shadow: 0 6px 20px var(--accent-blue-glow);
+        }
+
+        .kinetic-display-panel {
+            padding: 3.5rem;
+            background: #FFFFFF;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        .kinetic-info-col {
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
         }
 
-        .platform-icon-large {
-            width: 60px;
-            height: 60px;
+        .kinetic-widget-col {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 7. ASYMMETRICAL 3-STEP JOURNEY                       */
+        /* ---------------------------------------------------- */
+        .steps-timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            margin-top: 3.5rem;
+        }
+
+        .step-timeline-card {
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.4rem;
+            background: #FFFFFF;
+        }
+
+        .step-num-badge {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            background: var(--accent-blue-subtle);
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .platform-card h3 {
-            font-size: 1.7rem;
-        }
-
-        .platform-card h3 span {
-            color: var(--accent-blue);
-        }
-
-        .platform-bottom {
-            margin-top: 2.5rem;
         }
 
         /* ---------------------------------------------------- */
-        /* FAQ ACCORDION                                        */
+        /* 8. SEARCHABLE FAQ ACCORDION                          */
         /* ---------------------------------------------------- */
-        .faq-accordion {
+        .faq-search-wrapper {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .faq-search-input {
+            width: 100%;
+            padding: 1rem 1.4rem 1rem 3.2rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+            background: #FFFFFF;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-card);
+            outline: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .faq-search-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--accent-blue-subtle);
+        }
+
+        .faq-search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .faq-items-stack {
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -1173,144 +884,113 @@
             margin: 0 auto;
         }
 
-        .faq-item {
+        .faq-accordion-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: #FFFFFF;
         }
 
-        .faq-question-row {
+        .faq-header-row {
+            padding: 1.4rem 1.8rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1.4rem 1.8rem;
-            gap: 1.2rem;
+            gap: 1rem;
             user-select: none;
         }
 
-        .faq-num-title {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-
-        .faq-seq {
-            font-family: var(--font-heading);
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            background: var(--accent-blue-subtle);
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-        }
-
         .faq-question-text {
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             font-weight: 600;
         }
 
-        .faq-chevron {
+        .faq-chevron-icon {
             color: var(--text-muted);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
-            flex-shrink: 0;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        .faq-item.active {
-            border-color: var(--accent-blue-light);
-            box-shadow: var(--shadow-md);
+        .faq-accordion-card.active {
+            border-color: var(--accent-blue);
+            box-shadow: var(--shadow-card);
         }
 
-        .faq-item.active .faq-chevron {
+        .faq-accordion-card.active .faq-chevron-icon {
             transform: rotate(180deg);
             color: var(--accent-blue);
         }
 
-        .faq-answer-panel {
+        .faq-body-panel {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.4s ease;
             opacity: 0;
+            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.35s ease;
             padding: 0 1.8rem;
         }
 
-        .faq-item.active .faq-answer-panel {
+        .faq-accordion-card.active .faq-body-panel {
             max-height: 250px;
             opacity: 1;
-            padding: 0 1.8rem 1.6rem;
+            padding: 0 1.8rem 1.5rem;
         }
 
-        .faq-answer-content {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            border-top: 1px solid var(--border-subtle);
+        .faq-answer-inner {
+            border-top: 1px solid var(--border-light);
             padding-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.98rem;
         }
 
         /* ---------------------------------------------------- */
-        /* BOTTOM CTA BANNER (High-Contrast Heroic Card)        */
+        /* 9. GRAND FINALE HEROIC CTA                           */
         /* ---------------------------------------------------- */
-        .cta-banner {
-            padding: 4.5rem 3.5rem;
+        .cta-grand-card {
+            padding: 5rem 4rem;
             background: #0F172A;
             color: #FFFFFF;
-            border: 1px solid #1E293B;
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-xl);
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 3rem;
+            gap: 3.5rem;
             align-items: center;
+            box-shadow: var(--shadow-elevation);
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-elevation);
+            margin-top: 4rem;
         }
 
-        .cta-banner::after {
+        .cta-grand-card::after {
             content: '';
             position: absolute;
             top: -50%;
             right: -20%;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, transparent 70%);
             pointer-events: none;
         }
 
-        .cta-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .cta-heading {
-            font-size: clamp(2rem, 3.5vw, 2.6rem);
-            font-weight: 700;
+        .cta-heading-text {
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 800;
             color: #FFFFFF;
+            line-height: 1.1;
         }
 
-        .cta-interactive {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .community-proof {
+        .community-avatars-row {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
 
-        .avatar-stack {
+        .avatar-group {
             display: flex;
             align-items: center;
         }
 
-        .avatar-stack img {
+        .avatar-group img {
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -1319,11 +999,11 @@
             object-fit: cover;
         }
 
-        .avatar-stack img:first-child {
+        .avatar-group img:first-child {
             margin-left: 0;
         }
 
-        .avatar-count {
+        .avatar-plus-count {
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -1334,90 +1014,61 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             font-family: var(--font-heading);
         }
 
-        .proof-text {
-            font-size: 0.95rem;
-            color: #94A3B8;
-            line-height: 1.4;
-        }
-
-        .cta-buttons-row {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
         /* ---------------------------------------------------- */
-        /* FOOTER                                               */
+        /* 10. FOOTER                                           */
         /* ---------------------------------------------------- */
         footer {
             padding: 4rem 0 3rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-top: 1px solid var(--border-subtle);
+            border-top: 1px solid var(--border-light);
             margin-top: 4rem;
-        }
-
-        .footer-copyright {
-            color: var(--text-muted);
-            font-size: 0.9rem;
         }
 
         /* ---------------------------------------------------- */
         /* RESPONSIVE DESIGN                                    */
         /* ---------------------------------------------------- */
         @media (max-width: 1024px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 3rem;
+            .nfc-devices-flex {
+                flex-direction: column;
+                gap: 2rem;
             }
 
-            .hero-text {
-                align-items: center;
-            }
-
-            .hero-actions, .hero-stats {
-                justify-content: center;
-            }
-
-            .steps-interactive-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .bento-showcase-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
-
-            .bento-card-studio {
-                grid-column: 1 / -1;
-                grid-row: auto;
-            }
-
-            .platform-grid {
+            .comparison-grid {
                 grid-template-columns: 1fr;
             }
 
-            .cta-banner {
+            .studio-stage-box {
                 grid-template-columns: 1fr;
-                padding: 3rem 2rem;
+            }
+
+            .kinetic-display-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-timeline-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-grand-card {
+                grid-template-columns: 1fr;
+                padding: 3.5rem 2rem;
                 text-align: center;
             }
 
-            .cta-content, .community-proof, .cta-buttons-row {
+            .cta-grand-card .cta-actions-col {
                 align-items: center;
                 justify-content: center;
             }
 
-            .telemetry-chip {
-                display: none;
+            .community-avatars-row {
+                justify-content: center;
             }
         }
 
@@ -1426,20 +1077,17 @@
                 display: none;
             }
 
-            .hero-headline {
-                font-size: 2.3rem;
+            .hero-title {
+                font-size: 2.5rem;
             }
 
-            .mission-hub-container {
-                padding: 2.2rem 1.4rem;
+            .cta-heading-text {
+                font-size: 2.2rem;
             }
 
-            .platform-card {
-                padding: 2.2rem 1.6rem;
-            }
-
-            .floating-pill {
-                display: none;
+            .nfc-card-interactive {
+                width: 100%;
+                max-width: 280px;
             }
 
             footer {
@@ -1452,8 +1100,8 @@
 </head>
 <body>
 
-    <!-- Top Scroll Progress Bar -->
-    <div class="scroll-progress-bar" id="progressBar"></div>
+    <!-- Top Scroll Progress Line -->
+    <div class="scroll-progress-line" id="progressLine"></div>
 
     <!-- Luminous Ambient Background Orbs -->
     <div class="ambient-mesh">
@@ -1464,7 +1112,7 @@
 
     <div class="page-wrapper">
 
-        <!-- Sticky Floating Navigation -->
+        <!-- 1. Sticky Floating Navbar -->
         <header>
             <nav class="nav-container">
                 <a href="#" class="logo-wrap">
@@ -1472,9 +1120,10 @@
                 </a>
                 
                 <ul class="nav-menu">
-                    <li><a href="#about" class="nav-link">About us</a></li>
-                    <li><a href="#how-it-works" class="nav-link">How it works</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#demo" class="nav-link">Live Demo</a></li>
+                    <li><a href="#matrix" class="nav-link">Why Eventzone</a></li>
+                    <li><a href="#studio" class="nav-link">Card Studio</a></li>
+                    <li><a href="#features" class="nav-link">Capabilities</a></li>
                     <li><a href="#faq" class="nav-link">FAQ</a></li>
                 </ul>
 
@@ -1484,22 +1133,22 @@
             </nav>
         </header>
 
-        <!-- Hero Section -->
+        <!-- 2. Reimagined Hero & Interactive NFC Tap Simulator -->
         <section class="hero-section">
-            <div class="hero-text">
+            <div class="hero-content">
                 <div class="badge-pill">
-                    <span class="pulse-dot"></span> Next-Gen Smart Networking
+                    <span class="pulse-dot"></span> The Future of Smart Contact Sharing
                 </div>
                 
-                <h1 class="hero-headline">
-                    Turn Every Handshake Into A <span>Lasting Connection.</span>
+                <h1 class="hero-title">
+                    The Last Business Card <span>You’ll Ever Need.</span>
                 </h1>
                 
-                <p class="hero-subtitle">
-                    The all-in-one digital business card and smart contact hub. Share your professional identity in seconds with dynamic QR, NFC, or direct smart link.
+                <p class="hero-lead">
+                    Tap NFC or scan dynamic QR to share your complete professional identity, links, and socials directly into anyone's phone in under a second.
                 </p>
 
-                <div class="hero-actions">
+                <div class="hero-actions-row">
                     <a href="#download" class="btn btn-store">
                         <img src="./assets/apple-black.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
                         Available soon
@@ -1509,343 +1158,284 @@
                         Google Play
                     </a>
                 </div>
-
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-num">&lt; 1s</span>
-                        <span class="stat-label">Instant Scan Speed</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-num">100%</span>
-                        <span class="stat-label">Eco-Friendly &amp; Paperless</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-num">Unlimited</span>
-                        <span class="stat-label">Dynamic Links &amp; Profiles</span>
-                    </div>
-                </div>
             </div>
 
-            <!-- 3D Interactive Hero Card -->
-            <div class="hero-stage" id="heroStage">
-                <div class="mockup-3d-card" id="mockupCard">
-                    <div class="mockup-aura"></div>
-                    <img src="./assets/hero-section.png" alt="Eventzone App Interface" class="mockup-img">
-                    
-                    <div class="floating-pill pill-pos-1">
-                        <i data-lucide="zap" style="width: 16px; height: 16px; color: #D97706;"></i>
-                        <span>Dynamic Live QR</span>
-                    </div>
-
-                    <div class="floating-pill pill-pos-2">
-                        <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--accent-emerald);"></i>
-                        <span>End-to-End Secure</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 1. BESPOKE MISSION SECTION (Interactive Product Hub) -->
-        <section class="section" id="about">
-            <div class="glass-card mission-hub-container">
-                <div class="mission-hub-top">
-                    <div class="badge-pill">
-                        <i data-lucide="compass" style="width: 14px; height: 14px;"></i>
-                        Our Mission
-                    </div>
-                    <h2 class="section-title">Never lose a valuable contact again.</h2>
-                    <p class="section-desc">
-                        We believe in a seamlessly connected professional future where individuals have complete control over their business identity, relationships, and networking velocity.
-                    </p>
+            <!-- Live Interactive NFC Tap Simulation Stage -->
+            <div class="nfc-tap-stage card-surface" id="demo">
+                <div class="tap-instruction-pill" onclick="triggerNfcSimulation()">
+                    <i data-lucide="hand-metal" style="width: 16px; height: 16px;"></i> Click here or tap the card to simulate instant contact transfer!
                 </div>
 
-                <!-- Interactive Feature Filter Tabs -->
-                <div class="hub-tabs-row">
-                    <button class="hub-tab-btn active" onclick="switchHubTab(this, 'Analytics & Growth')">
-                        <i data-lucide="bar-chart-3" style="width: 15px; height: 15px;"></i> Analytics &amp; Growth
-                    </button>
-                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'Contact Leaderboard')">
-                        <i data-lucide="users" style="width: 15px; height: 15px;"></i> Contact Leaderboard
-                    </button>
-                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'Direct Messaging')">
-                        <i data-lucide="message-square" style="width: 15px; height: 15px;"></i> Direct Messaging
-                    </button>
-                </div>
-
-                <!-- Spatial Device Stage with Floating Telemetry Chips -->
-                <div class="hub-showcase-stage">
-                    <!-- Telemetry Chip 1 -->
-                    <div class="telemetry-chip chip-left">
-                        <div class="telemetry-icon-circle" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald);">
-                            <i data-lucide="trending-up" style="width: 20px; height: 20px;"></i>
+                <div class="nfc-devices-flex">
+                    <!-- 3D Interactive Card -->
+                    <div class="nfc-card-interactive" id="nfcDemoCard" onclick="triggerNfcSimulation()">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF;">Eventzone Pro</span>
+                            <i data-lucide="wifi" style="color: var(--accent-blue); width: 22px; height: 22px;"></i>
                         </div>
-                        <div class="telemetry-info">
-                            <span class="telemetry-val">+48 Connections</span>
-                            <span class="telemetry-sub">This week &bull; 92% Acceptance</span>
+                        <div>
+                            <p style="color: #94A3B8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;">Digital Member</p>
+                            <h4 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 700;">Hachemi Vance</h4>
                         </div>
                     </div>
 
-                    <!-- Telemetry Chip 2 -->
-                    <div class="telemetry-chip chip-right">
-                        <div class="telemetry-icon-circle" style="background: rgba(245, 158, 11, 0.12); color: #D97706;">
-                            <i data-lucide="award" style="width: 20px; height: 20px;"></i>
-                        </div>
-                        <div class="telemetry-info">
-                            <span class="telemetry-val">Top 1% Networker</span>
-                            <span class="telemetry-sub">Tech &amp; Design Category</span>
-                        </div>
-                    </div>
+                    <!-- Animated NFC Wave Ripple -->
+                    <div class="nfc-ripple-wave" id="nfcWave"></div>
 
-                    <!-- Telemetry Chip 3 -->
-                    <div class="telemetry-chip chip-bottom">
-                        <div class="telemetry-icon-circle" style="background: var(--accent-blue-subtle); color: var(--accent-blue);">
-                            <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
+                    <!-- Phone Receiver Screen -->
+                    <div class="phone-receiver-mockup">
+                        <!-- Dynamic Contact Saved Toast -->
+                        <div class="phone-contact-toast" id="contactToast">
+                            <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--accent-emerald); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div style="text-align: left;">
+                                <h5 style="font-size: 0.88rem; font-weight: 700; color: #0F172A;">Contact Saved!</h5>
+                                <p style="font-size: 0.75rem; color: #64748B;">Hachemi's card synced to Address Book</p>
+                            </div>
                         </div>
-                        <div class="telemetry-info">
-                            <span class="telemetry-val">0.8s Tap Handshake</span>
-                            <span class="telemetry-sub">Instant NFC &amp; QR sync speed</span>
-                        </div>
-                    </div>
 
-                    <img src="./assets/Our%20Mission.png" alt="Eventzone App Showcase" class="hub-app-screenshot">
+                        <img src="./assets/hero-section.png" alt="App Screen" style="width: 90%; height: auto; border-radius: 16px;">
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. BESPOKE "HOW IT WORKS" (Interactive Micro-Demos) -->
-        <section class="section" id="how-it-works">
+        <!-- 3. Infinite Kinetic Marquee -->
+        <div class="marquee-section">
+            <div class="marquee-track">
+                <div class="marquee-item"><i data-lucide="zap" style="color: var(--accent-blue); width: 18px;"></i> 0.8s Instant Handshake</div>
+                <div class="marquee-item"><i data-lucide="shield-check" style="color: var(--accent-emerald); width: 18px;"></i> 100% End-to-End Encrypted</div>
+                <div class="marquee-item"><i data-lucide="leaf" style="color: #16A34A; width: 18px;"></i> 100% Eco-Friendly &amp; Zero Waste</div>
+                <div class="marquee-item"><i data-lucide="smartphone" style="color: var(--accent-purple); width: 18px;"></i> Apple &amp; Google Ready</div>
+                <div class="marquee-item"><i data-lucide="globe" style="color: var(--accent-cyan); width: 18px;"></i> No App Needed for Receivers</div>
+                <!-- Duplicate for Seamless Infinite Loop -->
+                <div class="marquee-item"><i data-lucide="zap" style="color: var(--accent-blue); width: 18px;"></i> 0.8s Instant Handshake</div>
+                <div class="marquee-item"><i data-lucide="shield-check" style="color: var(--accent-emerald); width: 18px;"></i> 100% End-to-End Encrypted</div>
+                <div class="marquee-item"><i data-lucide="leaf" style="color: #16A34A; width: 18px;"></i> 100% Eco-Friendly &amp; Zero Waste</div>
+                <div class="marquee-item"><i data-lucide="smartphone" style="color: var(--accent-purple); width: 18px;"></i> Apple &amp; Google Ready</div>
+                <div class="marquee-item"><i data-lucide="globe" style="color: var(--accent-cyan); width: 18px;"></i> No App Needed for Receivers</div>
+            </div>
+        </div>
+
+        <!-- 4. Old Way vs The Eventzone Way (Impact Matrix) -->
+        <section class="section" id="matrix">
             <div class="section-header">
                 <div class="badge-pill">
-                    <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
-                    How It Works
+                    <i data-lucide="scale" style="width: 14px; height: 14px;"></i>
+                    Why Switch
                 </div>
-                <h2 class="section-title">Frictionless 3-Step Journey</h2>
-                <p class="section-desc">Experience effortless contact exchange in less than two minutes</p>
+                <h2 class="section-title">The Old Way vs. The Eventzone Way</h2>
+                <p class="section-desc">See why over 1,000+ top leaders have ditched paper cards forever</p>
             </div>
 
-            <div class="steps-interactive-grid">
-                <!-- Step 1: Craft Identity -->
-                <div class="glass-card step-journey-card">
-                    <div class="step-header-row">
-                        <span class="step-seq-pill">STEP 01</span>
-                        <i data-lucide="user-check" style="color: var(--accent-blue); width: 22px; height: 22px;"></i>
+            <div class="comparison-grid">
+                <!-- Old Way Card -->
+                <div class="comparison-card card-old-way">
+                    <span class="comparison-badge badge-old">
+                        <i data-lucide="x-circle" style="width: 15px; height: 15px;"></i> Traditional Paper Cards
+                    </span>
+                    <h3 style="font-size: 1.8rem;">Expensive, Outdated &amp; Easily Lost</h3>
+                    <ul class="comparison-points-list">
+                        <li class="comparison-point-item">
+                            <i data-lucide="x" style="color: #EF4444; width: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>88% thrown in the trash</strong> within the first 7 days of receiving.</span>
+                        </li>
+                        <li class="comparison-point-item">
+                            <i data-lucide="x" style="color: #EF4444; width: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <span>Requires expensive reprinting whenever your role, number, or social link changes.</span>
+                        </li>
+                        <li class="comparison-point-item">
+                            <i data-lucide="x" style="color: #EF4444; width: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <span>Zero analytics—you have no idea if anyone actually opened or saved your info.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Eventzone Way Card -->
+                <div class="comparison-card card-new-way">
+                    <span class="comparison-badge badge-new">
+                        <i data-lucide="sparkles" style="width: 15px; height: 15px;"></i> The Eventzone Experience
+                    </span>
+                    <h3 style="font-size: 1.8rem;">Dynamic, Connected &amp; Forever Free</h3>
+                    <ul class="comparison-points-list">
+                        <li class="comparison-point-item">
+                            <i data-lucide="check-circle-2" style="color: var(--accent-emerald); width: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>1-Tap Instant Sync:</strong> Saves your verified vCard directly to iOS/Android address books.</span>
+                        </li>
+                        <li class="comparison-point-item">
+                            <i data-lucide="check-circle-2" style="color: var(--accent-emerald); width: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Edit Anytime:</strong> Update your links, socials, and phone in real time with zero reprinting costs.</span>
+                        </li>
+                        <li class="comparison-point-item">
+                            <i data-lucide="check-circle-2" style="color: var(--accent-emerald); width: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Live Analytics:</strong> Track scans, clicks, and networking leaderboard ranking.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Interactive 3D Live Card Customizer Studio -->
+        <section class="section" id="studio">
+            <div class="section-header">
+                <div class="badge-pill">
+                    <i data-lucide="palette" style="width: 14px; height: 14px;"></i>
+                    Interactive Card Studio
+                </div>
+                <h2 class="section-title">Design Your Signature Finish</h2>
+                <p class="section-desc">Select a theme finish below to preview your high-tech digital card in real-time 3D</p>
+            </div>
+
+            <div class="studio-stage-box card-surface">
+                <div class="studio-controls-col">
+                    <div>
+                        <h3 style="font-size: 1.8rem; margin-bottom: 0.6rem;">Tailor Your Professional DNA</h3>
+                        <p style="font-size: 1rem;">Choose from premium metallic materials and interactive glowing holographic finishes:</p>
                     </div>
 
-                    <!-- Micro-Demo 1: Live Profile Switcher -->
-                    <div class="step-preview-widget">
-                        <div class="mini-profile-card">
-                            <div class="mini-avatar">HV</div>
-                            <div>
-                                <h5 style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">Hachemi Vance</h5>
-                                <span class="mini-role-tag">Tech Founder</span>
-                            </div>
+                    <div class="studio-finish-picker">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Select Material Finish</span>
+                        <div class="finish-buttons-grid">
+                            <button class="finish-btn active" onclick="setFinishTheme('titanium', this)">
+                                <span class="finish-swatch-circle" style="background: #2563EB;"></span> Titanium Cobalt
+                            </button>
+                            <button class="finish-btn" onclick="setFinishTheme('obsidian', this)">
+                                <span class="finish-swatch-circle" style="background: #0F172A;"></span> Obsidian Matte
+                            </button>
+                            <button class="finish-btn" onclick="setFinishTheme('emerald', this)">
+                                <span class="finish-swatch-circle" style="background: #10B981;"></span> Emerald Cyber
+                            </button>
+                            <button class="finish-btn" onclick="setFinishTheme('violet', this)">
+                                <span class="finish-swatch-circle" style="background: #7C3AED;"></span> Cyber Violet
+                            </button>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Craft Your Identity</h3>
-                        <p style="font-size: 0.95rem;">Configure your card with custom themes, bio, portfolio links, and social channels with zero coding.</p>
+                    <div style="padding-top: 1rem; border-top: 1px solid var(--border-light); display: flex; gap: 1.5rem;">
+                        <div>
+                            <span style="font-size: 1.3rem; font-weight: 800; color: var(--accent-blue);" id="cardTypeLabel">NFC + Dynamic QR</span>
+                            <p style="font-size: 0.82rem;">Works with all modern smartphones</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Step 2: Scan & Transmit -->
-                <div class="glass-card step-journey-card">
-                    <div class="step-header-row">
-                        <span class="step-seq-pill">STEP 02</span>
-                        <i data-lucide="scan" style="color: var(--accent-cyan); width: 22px; height: 22px;"></i>
-                    </div>
-
-                    <!-- Micro-Demo 2: Animated Laser QR Code Scanner -->
-                    <div class="step-preview-widget">
-                        <div class="qr-scanner-box">
-                            <div class="scanner-laser-line"></div>
-                            <i data-lucide="qr-code" style="width: 54px; height: 54px; color: var(--text-primary);"></i>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Scan &amp; Transmit</h3>
-                        <p style="font-size: 0.95rem;">Share your dynamic QR code instantly, or tap NFC to transfer your full contact vCard directly into their phonebook.</p>
-                    </div>
-                </div>
-
-                <!-- Step 3: Smart Auto-Sync -->
-                <div class="glass-card step-journey-card">
-                    <div class="step-header-row">
-                        <span class="step-seq-pill">STEP 03</span>
-                        <i data-lucide="refresh-cw" style="color: var(--accent-emerald); width: 22px; height: 22px;"></i>
-                    </div>
-
-                    <!-- Micro-Demo 3: Auto-Sync Stack Widget -->
-                    <div class="step-preview-widget">
-                        <div class="sync-stack-box">
-                            <div class="sync-item-pill synced">
-                                <span>Sarah Miller (VC)</span>
-                                <i data-lucide="check-circle-2" style="width: 15px; height: 15px; color: var(--accent-emerald);"></i>
+                <!-- 3D Interactive Card Preview -->
+                <div class="studio-3d-viewport" id="cardViewport">
+                    <div class="custom-live-card" id="studioCard">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--custom-card-accent); object-fit: cover;">
+                                <div>
+                                    <h4 style="font-size: 1.05rem; font-weight: 700;">Alex Vance</h4>
+                                    <span style="font-size: 0.78rem; color: #94A3B8;">Product Architect</span>
+                                </div>
                             </div>
-                            <div class="sync-item-pill synced">
-                                <span>David Kim (Design)</span>
-                                <i data-lucide="check-circle-2" style="width: 15px; height: 15px; color: var(--accent-emerald);"></i>
+                            <div style="width: 38px; height: 38px; background: #FFFFFF; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="qr-code" style="color: #0F172A; width: 24px; height: 24px;"></i>
                             </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Auto-Categorize &amp; Sync</h3>
-                        <p style="font-size: 0.95rem;">Tag leads automatically, sync to your CRM, and chat in-app without ever entering a phone number manually.</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 0.8rem;">
+                            <div style="display: flex; gap: 0.6rem; color: #94A3B8;">
+                                <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i>
+                                <i data-lucide="globe" style="width: 16px; height: 16px;"></i>
+                                <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                            </div>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--custom-card-accent); letter-spacing: 0.05em;">NFC CERTIFIED</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. BESPOKE ASYMMETRIC BENTO GRID (Live Interactive Studio) -->
+        <!-- 6. Kinetic Capabilities Showcase -->
         <section class="section" id="features">
             <div class="section-header">
                 <div class="badge-pill">
                     <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
-                    Core Capabilities
+                    Capabilities
                 </div>
-                <h2 class="section-title">Built for Modern High-Performers</h2>
-                <p class="section-desc">Experience high-touch networking with interactive tools</p>
+                <h2 class="section-title">Engineered for Frictionless Networking</h2>
+                <p class="section-desc">Click through our four core capability modules below</p>
             </div>
 
-            <div class="bento-showcase-grid">
-                <!-- Bento 1: Live Interactive 3D Business Card Studio -->
-                <div class="glass-card bento-card-studio">
-                    <div class="studio-top-info">
-                        <span class="badge-pill" style="width: fit-content;">Interactive Studio</span>
-                        <h3 style="font-size: 1.8rem; margin-top: 0.5rem;">Dynamic Digital Card Engine</h3>
-                        <p style="font-size: 1rem;">
-                            Customize your card's visual DNA. Select an accent theme below to see live holographic rendering in action:
-                        </p>
-                        
-                        <!-- Interactive Theme Switcher Swatches -->
-                        <div class="studio-theme-swatches">
-                            <div class="swatch-dot active" style="background: #2563EB;" onclick="setStudioTheme('#2563EB', 'rgba(37, 99, 235, 0.3)', this)"></div>
-                            <div class="swatch-dot" style="background: #0891B2;" onclick="setStudioTheme('#0891B2', 'rgba(8, 145, 178, 0.3)', this)"></div>
-                            <div class="swatch-dot" style="background: #10B981;" onclick="setStudioTheme('#10B981', 'rgba(16, 185, 129, 0.3)', this)"></div>
-                            <div class="swatch-dot" style="background: #7C3AED;" onclick="setStudioTheme('#7C3AED', 'rgba(124, 58, 237, 0.3)', this)"></div>
-                        </div>
-                    </div>
+            <!-- Kinetic Tabs Nav -->
+            <div class="kinetic-tabs-nav">
+                <button class="kinetic-tab-btn active" onclick="switchKineticTab('scanner', this)">
+                    <i data-lucide="camera" style="width: 16px; height: 16px;"></i> AI Paper Scanner
+                </button>
+                <button class="kinetic-tab-btn" onclick="switchKineticTab('crm', this)">
+                    <i data-lucide="tags" style="width: 16px; height: 16px;"></i> Smart CRM &amp; Tags
+                </button>
+                <button class="kinetic-tab-btn" onclick="switchKineticTab('analytics', this)">
+                    <i data-lucide="bar-chart-3" style="width: 16px; height: 16px;"></i> Growth Analytics
+                </button>
+            </div>
 
-                    <!-- Live 3D Interactive Card Element -->
-                    <div class="live-card-viewport">
-                        <div class="hologram-card" id="hologramCard">
-                            <div class="card-inner-top">
-                                <div class="card-user-info">
-                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="card-avatar">
-                                    <div class="card-name-title">
-                                        <h4>Alex Vance</h4>
-                                        <span>Product Architect &bull; Eventzone</span>
-                                    </div>
-                                </div>
-                                <div class="card-qr-mini">
-                                    <i data-lucide="qr-code" style="width: 32px; height: 32px; color: #0F172A;"></i>
-                                </div>
-                            </div>
-
-                            <div class="card-inner-bottom">
-                                <div class="card-social-icons">
-                                    <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i>
-                                    <i data-lucide="twitter" style="width: 16px; height: 16px;"></i>
-                                    <i data-lucide="globe" style="width: 16px; height: 16px;"></i>
-                                    <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
-                                </div>
-                                <div class="card-badge-nfc">
-                                    <i data-lucide="wifi" style="width: 14px; height: 14px;"></i> NFC Ready
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Kinetic Showcase Display Panel -->
+            <div class="kinetic-display-panel card-surface">
+                <!-- Info Column -->
+                <div class="kinetic-info-col" id="kineticInfo">
+                    <span class="badge-pill" style="width: fit-content;" id="kineticBadge">AI Optical Character Recognition</span>
+                    <h3 style="font-size: 2rem;" id="kineticTitle">Instant Paper-to-Digital Scanner</h3>
+                    <p style="font-size: 1.05rem;" id="kineticDesc">
+                        Still receiving old paper cards from clients? Snap a single photo with Eventzone's AI engine to extract names, emails, numbers, and companies automatically with 99.8% precision.
+                    </p>
                 </div>
 
-                <!-- Bento 2: AI OCR Camera Scanner -->
-                <div class="glass-card bento-scanner-card">
-                    <div>
-                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(8, 145, 178, 0.1); color: var(--accent-cyan); display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="camera" style="width: 22px; height: 22px;"></i>
+                <!-- Interactive Widget Column -->
+                <div class="kinetic-widget-col" id="kineticWidget">
+                    <!-- Scanner Demo Widget -->
+                    <div style="width: 100%; max-width: 320px; background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem; position: relative; box-shadow: var(--shadow-card);" id="scannerWidget">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); animation: laserScan 2.4s infinite ease-in-out;"></div>
+                        <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
+                            <i data-lucide="scan-line" style="color: var(--accent-blue);"></i>
+                            <span style="font-size: 0.85rem; font-weight: 700;">SCANNING BUSINESS CARD</span>
                         </div>
-                        <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">AI Paper Scanner</h3>
-                        <p style="font-size: 0.95rem;">Digitize stacks of physical paper cards into structured contacts with optical character recognition.</p>
-                    </div>
-
-                    <div class="ai-scanner-visual">
-                        <div class="ai-laser-sweep"></div>
-                        <div class="ai-detection-tag">SCANNING: Sarah Jenkins</div>
-                        <div class="ai-detection-tag" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald); border-color: var(--accent-emerald);">PHONE EXTRACTED: +1 (555) 019-2834</div>
-                    </div>
-                </div>
-
-                <!-- Bento 3: Interactive Tags & CRM Filter -->
-                <div class="glass-card bento-tags-card">
-                    <div>
-                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(124, 58, 237, 0.1); color: var(--accent-purple); display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="tags" style="width: 22px; height: 22px;"></i>
+                        <div style="display: flex; flex-direction: column; gap: 0.4rem; font-family: monospace; font-size: 0.8rem;">
+                            <span style="color: var(--accent-emerald);">[Name] &rarr; Sarah Jenkins</span>
+                            <span style="color: var(--accent-blue);">[Role] &rarr; Managing Director</span>
+                            <span style="color: var(--accent-purple);">[Phone] &rarr; +1 (555) 019-2834</span>
                         </div>
-                        <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Smart CRM &amp; Tagging</h3>
-                        <p style="font-size: 0.95rem;">Group your relationships effortlessly. Click tags below to preview active filter grouping:</p>
-                    </div>
-
-                    <div class="tags-interactive-cloud">
-                        <span class="interactive-tag selected" onclick="toggleTag(this)">#Investor</span>
-                        <span class="interactive-tag selected" onclick="toggleTag(this)">#TechSummit2026</span>
-                        <span class="interactive-tag" onclick="toggleTag(this)">#KeynoteSpeaker</span>
-                        <span class="interactive-tag" onclick="toggleTag(this)">#ClientLead</span>
-                        <span class="interactive-tag" onclick="toggleTag(this)">#Designer</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Platform Download Cards -->
-        <section class="section" id="download">
+        <!-- 7. Asymmetrical 3-Step Journey -->
+        <section class="section" id="how-it-works">
             <div class="section-header">
                 <div class="badge-pill">
-                    <i data-lucide="smartphone" style="width: 14px; height: 14px; color: var(--accent-emerald);"></i>
-                    Mobile Apps
+                    <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+                    Workflow
                 </div>
-                <h2 class="section-title">Get Eventzone On Your Device</h2>
-                <p class="section-desc">Experience frictionless networking wherever you go</p>
+                <h2 class="section-title">From Handshake to Closed Deal</h2>
+                <p class="section-desc">Experience effortless networking in 3 simple steps</p>
             </div>
 
-            <div class="platform-grid">
-                <!-- iOS Card -->
-                <div class="glass-card platform-card">
-                    <div class="platform-top">
-                        <div class="platform-icon-large">
-                            <img src="./assets/apple-black.svg" alt="Apple" style="width: 48px; height: 48px;">
-                        </div>
-                        <h3>Experience networking on <span>iOS</span>.</h3>
-                        <p>Beautifully designed for your iPhone. Share your digital business card with a simple tap and integrate with Apple Wallet.</p>
-                    </div>
-                    <div class="platform-bottom">
-                        <a href="#" class="btn btn-store">
-                            <img src="./assets/apple-black.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
-                            Available soon
-                        </a>
-                    </div>
+            <div class="steps-timeline-grid">
+                <div class="step-timeline-card card-surface">
+                    <div class="step-num-badge">01</div>
+                    <h3 style="font-size: 1.35rem;">Create Your Profile</h3>
+                    <p style="font-size: 0.95rem;">Configure your card with custom themes, bio, portfolio links, and social channels with zero coding required.</p>
                 </div>
 
-                <!-- Android Card -->
-                <div class="glass-card platform-card">
-                    <div class="platform-top">
-                        <div class="platform-icon-large">
-                            <img src="./assets/android.svg" alt="Android" style="width: 48px; height: 48px;">
-                        </div>
-                        <h3>Unleash your network on <span>Android</span>.</h3>
-                        <p>Built natively for Android devices. Connect instantly, organize leads with smart tags, and manage your contacts flawlessly.</p>
-                    </div>
-                    <div class="platform-bottom">
-                        <a href="#" class="btn btn-primary">
-                            <img src="./assets/googleplay-black.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain; filter: brightness(0) invert(1);">
-                            Google Play
-                        </a>
-                    </div>
+                <div class="step-timeline-card card-surface">
+                    <div class="step-num-badge">02</div>
+                    <h3 style="font-size: 1.35rem;">Tap or Scan</h3>
+                    <p style="font-size: 0.95rem;">Share your dynamic QR code or tap your NFC card. The recipient gets your full vCard saved without needing any app.</p>
+                </div>
+
+                <div class="step-timeline-card card-surface">
+                    <div class="step-num-badge">03</div>
+                    <h3 style="font-size: 1.35rem;">Auto-Sync &amp; Chat</h3>
+                    <p style="font-size: 0.95rem;">Organize leads with custom tags, start direct conversations in-app, and sync effortlessly to your favorite CRM.</p>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ Section -->
+        <!-- 8. Searchable FAQ Accordion -->
         <section class="section" id="faq">
             <div class="section-header">
                 <div class="badge-pill">
@@ -1853,85 +1443,76 @@
                     FAQ
                 </div>
                 <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-desc">Clear answers to everything you need to know</p>
+                <p class="section-desc">Instant answers to everything you need to know</p>
             </div>
 
-            <div class="faq-accordion">
+            <!-- Instant Search Input -->
+            <div class="faq-search-wrapper">
+                <i data-lucide="search" class="faq-search-icon" style="width: 18px; height: 18px;"></i>
+                <input type="text" class="faq-search-input" id="faqSearch" placeholder="Type to search questions (e.g. security, QR, limits)..." oninput="filterFaqs()">
+            </div>
+
+            <div class="faq-items-stack" id="faqList">
                 <!-- Item 1 -->
-                <div class="glass-card faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question-row">
-                        <div class="faq-num-title">
-                            <span class="faq-seq">01</span>
-                            <h4 class="faq-question-text">Is my contact data secure?</h4>
-                        </div>
-                        <i data-lucide="chevron-down" class="faq-chevron"></i>
+                <div class="faq-accordion-card card-surface" onclick="toggleFaq(this)">
+                    <div class="faq-header-row">
+                        <h4 class="faq-question-text">Is my contact data secure?</h4>
+                        <i data-lucide="chevron-down" class="faq-chevron-icon"></i>
                     </div>
-                    <div class="faq-answer-panel">
-                        <div class="faq-answer-content">
+                    <div class="faq-body-panel">
+                        <div class="faq-answer-inner">
                             Yes, we use industry-standard encryption to ensure that your personal and professional details are secure. You have full control over what information is visible on your digital business card and who can access it.
                         </div>
                     </div>
                 </div>
 
                 <!-- Item 2 -->
-                <div class="glass-card faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question-row">
-                        <div class="faq-num-title">
-                            <span class="faq-seq">02</span>
-                            <h4 class="faq-question-text">Do people need the app to scan my card?</h4>
-                        </div>
-                        <i data-lucide="chevron-down" class="faq-chevron"></i>
+                <div class="faq-accordion-card card-surface" onclick="toggleFaq(this)">
+                    <div class="faq-header-row">
+                        <h4 class="faq-question-text">Do people need the app to scan my card?</h4>
+                        <i data-lucide="chevron-down" class="faq-chevron-icon"></i>
                     </div>
-                    <div class="faq-answer-panel">
-                        <div class="faq-answer-content">
+                    <div class="faq-body-panel">
+                        <div class="faq-answer-inner">
                             No! Anyone with a standard smartphone camera can scan your Eventzone QR code. It will open a responsive web profile where they can save your contact details directly to their phone's address book with one tap.
                         </div>
                     </div>
                 </div>
 
                 <!-- Item 3 -->
-                <div class="glass-card faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question-row">
-                        <div class="faq-num-title">
-                            <span class="faq-seq">03</span>
-                            <h4 class="faq-question-text">Can I customize the design of my digital business card?</h4>
-                        </div>
-                        <i data-lucide="chevron-down" class="faq-chevron"></i>
+                <div class="faq-accordion-card card-surface" onclick="toggleFaq(this)">
+                    <div class="faq-header-row">
+                        <h4 class="faq-question-text">Can I customize the design of my digital business card?</h4>
+                        <i data-lucide="chevron-down" class="faq-chevron-icon"></i>
                     </div>
-                    <div class="faq-answer-panel">
-                        <div class="faq-answer-content">
+                    <div class="faq-body-panel">
+                        <div class="faq-answer-inner">
                             Yes, Eventzone allows you to fully personalize your card. You can choose custom colors, upload your profile picture, and add your social media links to match your personal brand perfectly.
                         </div>
                     </div>
                 </div>
 
                 <!-- Item 4 -->
-                <div class="glass-card faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question-row">
-                        <div class="faq-num-title">
-                            <span class="faq-seq">04</span>
-                            <h4 class="faq-question-text">How do I share my Eventzone profile with someone?</h4>
-                        </div>
-                        <i data-lucide="chevron-down" class="faq-chevron"></i>
+                <div class="faq-accordion-card card-surface" onclick="toggleFaq(this)">
+                    <div class="faq-header-row">
+                        <h4 class="faq-question-text">How do I share my Eventzone profile with someone?</h4>
+                        <i data-lucide="chevron-down" class="faq-chevron-icon"></i>
                     </div>
-                    <div class="faq-answer-panel">
-                        <div class="faq-answer-content">
+                    <div class="faq-body-panel">
+                        <div class="faq-answer-inner">
                             Sharing is effortless. You can let them scan your unique QR code directly from the app, or send your personalized profile link via text, email, or any social media platform.
                         </div>
                     </div>
                 </div>
 
                 <!-- Item 5 -->
-                <div class="glass-card faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question-row">
-                        <div class="faq-num-title">
-                            <span class="faq-seq">05</span>
-                            <h4 class="faq-question-text">Is there a limit to how many links I can add to my profile?</h4>
-                        </div>
-                        <i data-lucide="chevron-down" class="faq-chevron"></i>
+                <div class="faq-accordion-card card-surface" onclick="toggleFaq(this)">
+                    <div class="faq-header-row">
+                        <h4 class="faq-question-text">Is there a limit to how many links I can add to my profile?</h4>
+                        <i data-lucide="chevron-down" class="faq-chevron-icon"></i>
                     </div>
-                    <div class="faq-answer-panel">
-                        <div class="faq-answer-content">
+                    <div class="faq-body-panel">
+                        <div class="faq-answer-inner">
                             No limits! You can add as many contact methods, websites, portfolios, and social media profiles as you need to showcase your complete professional identity.
                         </div>
                     </div>
@@ -1939,37 +1520,37 @@
             </div>
         </section>
 
-        <!-- Bottom CTA -->
-        <section class="section">
-            <div class="cta-banner">
-                <div class="cta-content">
+        <!-- 9. Grand Finale Heroic CTA -->
+        <section class="section" id="download">
+            <div class="cta-grand-card">
+                <div class="cta-content-col" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div class="badge-pill" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #FFFFFF;">
                         <i data-lucide="rocket" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
                         Let's start now
                     </div>
-                    <h2 class="cta-heading">Start Building Your Smart Network Today.</h2>
-                    <a href="#download" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.05rem;">
-                        Get Started <i data-lucide="arrow-up-right" style="width: 20px; height: 20px;"></i>
+                    <h2 class="cta-heading-text">Start Building Your Smart Network Today.</h2>
+                    <a href="#demo" class="btn btn-primary" style="padding: 1rem 2.2rem; font-size: 1.05rem; width: fit-content;">
+                        Get Started Free <i data-lucide="arrow-up-right" style="width: 20px; height: 20px;"></i>
                     </a>
                 </div>
 
-                <div class="cta-interactive">
-                    <div class="community-proof">
-                        <div class="avatar-stack">
+                <div class="cta-actions-col" style="display: flex; flex-direction: column; gap: 2rem;">
+                    <div class="community-avatars-row">
+                        <div class="avatar-group">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
                             <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User Avatar">
                             <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="User Avatar">
                             <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="User Avatar">
-                            <div class="avatar-count">+1k</div>
+                            <div class="avatar-plus-count">+1k</div>
                         </div>
-                        <p class="proof-text">Joined by 1,000+ professionals worldwide.</p>
+                        <p style="font-size: 0.95rem; color: #94A3B8;">Joined by 1,000+ professionals worldwide.</p>
                     </div>
 
-                    <div class="cta-buttons-row">
-                        <a href="#download" class="btn btn-store" style="background: #1E293B; border-color: #334155; color: #FFFFFF;">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="#" class="btn btn-store" style="background: #1E293B; border-color: #334155; color: #FFFFFF;">
                             <img src="./assets/apple-black.svg" alt="App Store" style="width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1);"> Available soon
                         </a>
-                        <a href="#download" class="btn btn-store" style="background: #1E293B; border-color: #334155; color: #FFFFFF;">
+                        <a href="#" class="btn btn-store" style="background: #1E293B; border-color: #334155; color: #FFFFFF;">
                             <img src="./assets/googleplay-black.svg" alt="Google Play" style="width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1);"> Google Play
                         </a>
                     </div>
@@ -1977,109 +1558,228 @@
             </div>
         </section>
 
-        <!-- Footer -->
+        <!-- 10. Footer -->
         <footer>
             <a href="#" class="logo-wrap">
                 <img src="./assets/logo.png" alt="Eventzone" class="logo-img" style="height: 24px;">
             </a>
-            <p class="footer-copyright">&copy; 2026 Eventzone. All rights reserved.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Eventzone. All rights reserved.</p>
         </footer>
 
     </div>
 
     <script>
-        // 1. Initialize Icons
+        // 1. Initialize Lucide Icons
         lucide.createIcons();
 
-        // 2. Scroll Progress Bar Tracking
+        // 2. Top Scroll Progress Line Tracking
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const progress = (scrollTop / docHeight) * 100;
-            const bar = document.getElementById('progressBar');
-            if (bar) {
-                bar.style.width = `${progress}%`;
+            const line = document.getElementById('progressLine');
+            if (line) {
+                line.style.width = `${progress}%`;
             }
         });
 
-        // 3. 3D Card Interactive Tilt in Hero
-        const stage = document.getElementById('heroStage');
-        const card = document.getElementById('mockupCard');
+        // 3. Interactive NFC Tap Simulator
+        function triggerNfcSimulation() {
+            const wave = document.getElementById('nfcWave');
+            const toast = document.getElementById('contactToast');
+            const card = document.getElementById('nfcDemoCard');
 
-        if (stage && card) {
-            stage.addEventListener('mousemove', (e) => {
-                const rect = stage.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const rotateX = (-y / rect.height) * 18;
-                const rotateY = (x / rect.width) * 18;
-                
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-            });
+            // Card bounce
+            if (card) {
+                card.style.transform = 'translateY(-12px) scale(1.05)';
+                setTimeout(() => { card.style.transform = 'none'; }, 300);
+            }
 
-            stage.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
-            });
-        }
+            // Wave ripple
+            if (wave) {
+                wave.classList.remove('active');
+                void wave.offsetWidth; // Trigger reflow
+                wave.classList.add('active');
+            }
 
-        // 4. Mission Interactive Hub Tabs
-        function switchHubTab(btn, tabName) {
-            document.querySelectorAll('.hub-tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-
-        // 5. Interactive Studio Theme Swatches
-        function setStudioTheme(accentColor, glowColor, swatch) {
-            document.querySelectorAll('.swatch-dot').forEach(s => s.classList.remove('active'));
-            swatch.classList.add('active');
-            
-            const root = document.documentElement;
-            root.style.setProperty('--card-accent', accentColor);
-            root.style.setProperty('--card-glow', glowColor);
-        }
-
-        // 6. Interactive CRM Tag Toggle
-        function toggleTag(tagEl) {
-            tagEl.classList.toggle('selected');
-        }
-
-        // 7. FAQ Accordion Logic
-        function toggleFaq(item) {
-            const isActive = item.classList.contains('active');
-            
-            document.querySelectorAll('.faq-item').forEach(faq => {
-                faq.classList.remove('active');
-            });
-            
-            if (!isActive) {
-                item.classList.add('active');
+            // Toast slide in
+            if (toast) {
+                toast.classList.add('visible');
+                setTimeout(() => {
+                    toast.classList.remove('visible');
+                }, 3500);
             }
         }
 
-        // 8. GSAP Scroll-Driven Animations
+        // 4. Interactive 3D Card Studio Theme Switcher
+        function setFinishTheme(theme, btn) {
+            document.querySelectorAll('.finish-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const root = document.documentElement;
+            const label = document.getElementById('cardTypeLabel');
+
+            if (theme === 'titanium') {
+                root.style.setProperty('--custom-card-bg', 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)');
+                root.style.setProperty('--custom-card-accent', '#2563EB');
+                root.style.setProperty('--custom-card-glow', 'rgba(37, 99, 235, 0.35)');
+                if (label) label.textContent = 'Titanium Cobalt Finish';
+            } else if (theme === 'obsidian') {
+                root.style.setProperty('--custom-card-bg', 'linear-gradient(135deg, #000000 0%, #0F172A 100%)');
+                root.style.setProperty('--custom-card-accent', '#FFFFFF');
+                root.style.setProperty('--custom-card-glow', 'rgba(255, 255, 255, 0.2)');
+                if (label) label.textContent = 'Obsidian Matte Finish';
+            } else if (theme === 'emerald') {
+                root.style.setProperty('--custom-card-bg', 'linear-gradient(135deg, #064E3B 0%, #0F172A 100%)');
+                root.style.setProperty('--custom-card-accent', '#10B981');
+                root.style.setProperty('--custom-card-glow', 'rgba(16, 185, 129, 0.35)');
+                if (label) label.textContent = 'Emerald Cyber Finish';
+            } else if (theme === 'violet') {
+                root.style.setProperty('--custom-card-bg', 'linear-gradient(135deg, #4C1D95 0%, #0F172A 100%)');
+                root.style.setProperty('--custom-card-accent', '#8B5CF6');
+                root.style.setProperty('--custom-card-glow', 'rgba(139, 92, 246, 0.35)');
+                if (label) label.textContent = 'Cyber Violet Finish';
+            }
+        }
+
+        // 5. 3D Interactive Card Cursor Tilt in Studio
+        const cardViewport = document.getElementById('cardViewport');
+        const studioCard = document.getElementById('studioCard');
+
+        if (cardViewport && studioCard) {
+            cardViewport.addEventListener('mousemove', (e) => {
+                const rect = cardViewport.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const rotateX = (-y / rect.height) * 22;
+                const rotateY = (x / rect.width) * 22;
+                
+                studioCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+            });
+
+            cardViewport.addEventListener('mouseleave', () => {
+                studioCard.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        }
+
+        // 6. Kinetic Feature Showcase Tabs
+        function switchKineticTab(tab, btn) {
+            document.querySelectorAll('.kinetic-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const badge = document.getElementById('kineticBadge');
+            const title = document.getElementById('kineticTitle');
+            const desc = document.getElementById('kineticDesc');
+            const widget = document.getElementById('kineticWidget');
+
+            if (tab === 'scanner') {
+                badge.textContent = 'AI Optical Character Recognition';
+                title.textContent = 'Instant Paper-to-Digital Scanner';
+                desc.textContent = "Still receiving old paper cards from clients? Snap a single photo with Eventzone's AI engine to extract names, emails, numbers, and companies automatically with 99.8% precision.";
+                widget.innerHTML = `
+                    <div style="width: 100%; max-width: 320px; background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem; position: relative; box-shadow: var(--shadow-card);">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); animation: laserScan 2.4s infinite ease-in-out;"></div>
+                        <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
+                            <i data-lucide="scan-line" style="color: var(--accent-blue);"></i>
+                            <span style="font-size: 0.85rem; font-weight: 700;">SCANNING BUSINESS CARD</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.4rem; font-family: monospace; font-size: 0.8rem;">
+                            <span style="color: var(--accent-emerald);">[Name] &rarr; Sarah Jenkins</span>
+                            <span style="color: var(--accent-blue);">[Role] &rarr; Managing Director</span>
+                            <span style="color: var(--accent-purple);">[Phone] &rarr; +1 (555) 019-2834</span>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'crm') {
+                badge.textContent = 'Relationship Management';
+                title.textContent = 'Smart Tags & Contact Categorization';
+                desc.textContent = 'Group your leads by conference, industry, or investment stage. Attach private meeting notes so you always remember exactly what you discussed.';
+                widget.innerHTML = `
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; max-width: 300px;">
+                        <span style="background: var(--accent-blue); color: #fff; padding: 0.4rem 0.9rem; border-radius: 99px; font-size: 0.82rem; font-weight: 600;">#TechSummit2026</span>
+                        <span style="background: #10B981; color: #fff; padding: 0.4rem 0.9rem; border-radius: 99px; font-size: 0.82rem; font-weight: 600;">#AngelInvestor</span>
+                        <span style="background: #E2E8F0; color: #0F172A; padding: 0.4rem 0.9rem; border-radius: 99px; font-size: 0.82rem; font-weight: 600;">#KeynoteSpeaker</span>
+                        <span style="background: #E2E8F0; color: #0F172A; padding: 0.4rem 0.9rem; border-radius: 99px; font-size: 0.82rem; font-weight: 600;">#DesignPartner</span>
+                    </div>
+                `;
+            } else if (tab === 'analytics') {
+                badge.textContent = 'Real-Time Insights';
+                title.textContent = 'Networking Velocity & Leaderboard';
+                desc.textContent = 'Track how often your digital card is viewed, which links get clicked, and compare your networking engagement on our community leaderboard.';
+                widget.innerHTML = `
+                    <div style="width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; font-size: 0.9rem;">Weekly Profile Views</span>
+                            <span style="color: var(--accent-emerald); font-weight: 800;">+148% &uarr;</span>
+                        </div>
+                        <div style="height: 60px; display: flex; align-items: flex-end; gap: 8px;">
+                            <div style="flex: 1; height: 35%; background: #CBD5E1; border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 60%; background: #CBD5E1; border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 45%; background: #CBD5E1; border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 85%; background: #CBD5E1; border-radius: 4px;"></div>
+                            <div style="flex: 1; height: 100%; background: var(--accent-blue); border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            lucide.createIcons();
+        }
+
+        // 7. Instant Search Filter for FAQ
+        function filterFaqs() {
+            const query = document.getElementById('faqSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.faq-accordion-card');
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 8. FAQ Accordion Toggle
+        function toggleFaq(card) {
+            const isActive = card.classList.contains('active');
+            document.querySelectorAll('.faq-accordion-card').forEach(c => c.classList.remove('active'));
+            if (!isActive) {
+                card.classList.add('active');
+            }
+        }
+
+        // 9. GSAP Scroll Animations
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // Hero Entrance Animation
-                const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
-                
-                heroTl.from('.badge-pill', { opacity: 0, y: -20, delay: 0.1 })
-                      .from('.hero-headline', { opacity: 0, y: 30 }, '-=0.6')
-                      .from('.hero-subtitle', { opacity: 0, y: 25 }, '-=0.6')
-                      .from('.hero-actions', { opacity: 0, y: 20 }, '-=0.5')
-                      .from('.hero-stats', { opacity: 0, y: 20 }, '-=0.5')
-                      .from('#mockupCard', { opacity: 0, scale: 0.9, rotateY: -15, duration: 1.2 }, '-=0.9')
-                      .from('.floating-pill', { opacity: 0, scale: 0.8, stagger: 0.2 }, '-=0.6');
+                // Hero Reveal
+                gsap.from('.hero-content > *', {
+                    opacity: 0,
+                    y: 30,
+                    stagger: 0.15,
+                    duration: 0.9,
+                    ease: 'power3.out'
+                });
 
-                // Section Headers Reveal
+                gsap.from('.nfc-tap-stage', {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.96,
+                    duration: 1,
+                    delay: 0.4,
+                    ease: 'power3.out'
+                });
+
+                // Section Headers
                 gsap.utils.toArray('.section-header').forEach(header => {
                     gsap.from(header, {
                         scrollTrigger: {
                             trigger: header,
-                            start: 'top 85%',
-                            toggleActions: 'play none none none'
+                            start: 'top 85%'
                         },
                         opacity: 0,
                         y: 35,
@@ -2088,36 +1788,47 @@
                     });
                 });
 
-                // Mission Hub Reveal
-                gsap.from('.mission-hub-container', {
+                // Comparison Cards
+                gsap.from('.comparison-card', {
                     scrollTrigger: {
-                        trigger: '.mission-hub-container',
+                        trigger: '.comparison-grid',
                         start: 'top 80%'
                     },
                     opacity: 0,
                     y: 40,
-                    scale: 0.98,
+                    stagger: 0.2,
+                    duration: 0.9,
+                    ease: 'power2.out'
+                });
+
+                // Studio Stage
+                gsap.from('.studio-stage-box', {
+                    scrollTrigger: {
+                        trigger: '.studio-stage-box',
+                        start: 'top 80%'
+                    },
+                    opacity: 0,
+                    y: 40,
                     duration: 1,
                     ease: 'power3.out'
                 });
 
-                // Steps Cards Stagger
-                gsap.from('.step-journey-card', {
+                // Kinetic Showcase
+                gsap.from('.kinetic-display-panel', {
                     scrollTrigger: {
-                        trigger: '.steps-interactive-grid',
+                        trigger: '.kinetic-display-panel',
                         start: 'top 80%'
                     },
                     opacity: 0,
                     y: 40,
-                    stagger: 0.18,
-                    duration: 0.85,
-                    ease: 'power2.out'
+                    duration: 1,
+                    ease: 'power3.out'
                 });
 
-                // Bento Cards Stagger
-                gsap.from('.bento-showcase-grid > div', {
+                // Step Timeline
+                gsap.from('.step-timeline-card', {
                     scrollTrigger: {
-                        trigger: '.bento-showcase-grid',
+                        trigger: '.steps-timeline-grid',
                         start: 'top 80%'
                     },
                     opacity: 0,
@@ -2125,44 +1836,6 @@
                     stagger: 0.15,
                     duration: 0.85,
                     ease: 'power2.out'
-                });
-
-                // Platform Cards Stagger
-                gsap.from('.platform-card', {
-                    scrollTrigger: {
-                        trigger: '.platform-grid',
-                        start: 'top 80%'
-                    },
-                    opacity: 0,
-                    y: 35,
-                    stagger: 0.2,
-                    duration: 0.9,
-                    ease: 'power2.out'
-                });
-
-                // FAQ Items Stagger
-                gsap.from('.faq-item', {
-                    scrollTrigger: {
-                        trigger: '.faq-accordion',
-                        start: 'top 85%'
-                    },
-                    opacity: 0,
-                    y: 25,
-                    stagger: 0.1,
-                    duration: 0.7,
-                    ease: 'power2.out'
-                });
-
-                // CTA Banner Reveal
-                gsap.from('.cta-banner', {
-                    scrollTrigger: {
-                        trigger: '.cta-banner',
-                        start: 'top 85%'
-                    },
-                    opacity: 0,
-                    y: 40,
-                    duration: 1,
-                    ease: 'power3.out'
                 });
             }
         });
