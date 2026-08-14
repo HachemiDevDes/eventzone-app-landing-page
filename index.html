@@ -44,31 +44,36 @@
             --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             
-            --bg-void: #05070D;
-            --bg-canvas: #080C16;
-            --bg-surface: #0E1424;
-            --bg-card: rgba(14, 20, 36, 0.65);
-            --bg-card-hover: rgba(20, 29, 52, 0.85);
-            --bg-glass: rgba(255, 255, 255, 0.03);
+            /* Luminous Light Mode Palette */
+            --bg-canvas: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --bg-card: rgba(255, 255, 255, 0.88);
+            --bg-card-hover: rgba(255, 255, 255, 0.98);
+            --bg-glass: rgba(255, 255, 255, 0.75);
+            --bg-subtle: #F1F5F9;
             
-            --text-primary: #FFFFFF;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
+            --text-primary: #0F172A;     /* Slate 900 */
+            --text-secondary: #475569;   /* Slate 600 */
+            --text-muted: #94A3B8;       /* Slate 400 */
             
-            --accent-blue: #2563EB;
+            --accent-blue: #2563EB;      /* Cobalt Blue */
+            --accent-blue-dark: #1D4ED8;
             --accent-blue-light: #3B82F6;
-            --accent-blue-glow: rgba(37, 99, 235, 0.35);
-            --accent-cyan: #06B6D4;
+            --accent-blue-subtle: rgba(37, 99, 235, 0.08);
+            --accent-blue-glow: rgba(37, 99, 235, 0.25);
+            
+            --accent-cyan: #0891B2;
             --accent-emerald: #10B981;
-            --accent-purple: #8B5CF6;
+            --accent-purple: #7C3AED;
             
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(255, 255, 255, 0.18);
-            --border-active: rgba(59, 130, 246, 0.5);
+            --border-subtle: #E2E8F0;
+            --border-highlight: #CBD5E1;
+            --border-active: #3B82F6;
             
-            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
-            --shadow-elevation: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
-            --shadow-glow: 0 0 50px rgba(37, 99, 235, 0.25);
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
+            --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 8px 16px -4px rgba(15, 23, 42, 0.04);
+            --shadow-elevation: 0 25px 60px -15px rgba(15, 23, 42, 0.12);
             
             --radius-sm: 12px;
             --radius-md: 18px;
@@ -77,7 +82,7 @@
 
             /* Interactive Card Studio Var */
             --card-accent: #2563EB;
-            --card-glow: rgba(37, 99, 235, 0.4);
+            --card-glow: rgba(37, 99, 235, 0.25);
         }
 
         * {
@@ -93,7 +98,7 @@
         }
 
         body {
-            background-color: var(--bg-void);
+            background-color: var(--bg-canvas);
             color: var(--text-primary);
             font-family: var(--font-body);
             line-height: 1.6;
@@ -102,8 +107,20 @@
             min-height: 100vh;
         }
 
-        /* Ambient Background Lighting */
-        .ambient-canvas {
+        /* Top Scroll Progress Bar */
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            z-index: 1000;
+            transition: width 0.1s linear;
+        }
+
+        /* Ambient Background Mesh */
+        .ambient-mesh {
             position: fixed;
             top: 0;
             left: 0;
@@ -114,52 +131,39 @@
             overflow: hidden;
         }
 
-        .ambient-glow {
+        .ambient-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
-            transition: transform 0.5s ease;
+            filter: blur(140px);
+            opacity: 0.6;
             will-change: transform;
         }
 
-        .glow-1 {
+        .orb-1 {
             width: 650px;
             height: 650px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(37, 99, 235, 0) 70%);
+            background: radial-gradient(circle, rgba(219, 234, 254, 0.8) 0%, rgba(219, 234, 254, 0) 70%);
             top: -150px;
             right: -100px;
         }
 
-        .glow-2 {
+        .orb-2 {
             width: 750px;
             height: 750px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(6, 182, 212, 0) 70%);
+            background: radial-gradient(circle, rgba(224, 242, 254, 0.7) 0%, rgba(224, 242, 254, 0) 70%);
             top: 35%;
             left: -200px;
         }
 
-        .glow-3 {
+        .orb-3 {
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, rgba(139, 92, 246, 0) 70%);
+            background: radial-gradient(circle, rgba(237, 233, 254, 0.7) 0%, rgba(237, 233, 254, 0) 70%);
             bottom: 5%;
             right: 5%;
         }
 
-        /* Mouse Cursor Spotlight */
-        .cursor-spotlight {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.07) 0%, rgba(37, 99, 235, 0) 65%);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-        }
-
-        /* App Wrapper */
+        /* Page Layout Container */
         .page-wrapper {
             position: relative;
             z-index: 2;
@@ -171,7 +175,7 @@
         /* Typography */
         h1, h2, h3, h4 {
             font-family: var(--font-heading);
-            letter-spacing: -0.03em;
+            letter-spacing: -0.035em;
             color: var(--text-primary);
             line-height: 1.15;
             font-weight: 700;
@@ -189,16 +193,15 @@
             align-items: center;
             gap: 0.6rem;
             padding: 0.4rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: #FFFFFF;
             border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(12px);
             border-radius: var(--radius-full);
             font-size: 0.82rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--accent-blue);
             letter-spacing: 0.03em;
             text-transform: uppercase;
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-sm);
         }
 
         .pulse-dot {
@@ -206,7 +209,7 @@
             height: 8px;
             border-radius: 50%;
             background: var(--accent-emerald);
-            box-shadow: 0 0 12px var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-emerald);
             animation: livePulse 2s infinite ease-in-out;
         }
 
@@ -215,12 +218,12 @@
             50% { opacity: 0.4; transform: scale(0.8); }
         }
 
-        /* Glassmorphism Panels */
+        /* Luminous Glass Cards */
         .glass-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: var(--radius-lg);
             position: relative;
             overflow: hidden;
@@ -228,28 +231,12 @@
                         border-color 0.35s ease, 
                         box-shadow 0.35s ease,
                         background 0.35s ease;
-            box-shadow: var(--shadow-subtle), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            box-shadow: var(--shadow-md);
         }
 
         .glass-card:hover {
             border-color: var(--border-highlight);
-            box-shadow: var(--shadow-elevation), 0 0 35px rgba(37, 99, 235, 0.14);
-        }
-
-        /* Dynamic Card Spotlight */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255, 255, 255, 0.06), transparent 40%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-        }
-
-        .glass-card:hover::before {
-            opacity: 1;
+            box-shadow: var(--shadow-lg), 0 0 25px rgba(37, 99, 235, 0.06);
         }
 
         /* Buttons */
@@ -273,31 +260,43 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue) 0%, #1D4ED8 100%);
+            background: var(--accent-blue);
             color: #FFFFFF;
-            box-shadow: 0 8px 25px -4px var(--accent-blue-glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 20px -4px var(--accent-blue-glow);
         }
 
         .btn-primary:hover {
+            background: var(--accent-blue-dark);
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px -2px rgba(37, 99, 235, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 25px -2px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-dark {
+            background: #0F172A;
+            color: #FFFFFF;
+            box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.3);
+        }
+
+        .btn-dark:hover {
+            background: #1E293B;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -2px rgba(15, 23, 42, 0.45);
         }
 
         .btn-store {
-            background: rgba(14, 20, 36, 0.85);
+            background: #FFFFFF;
             border: 1px solid var(--border-subtle);
             color: var(--text-primary);
             padding: 0.75rem 1.4rem;
-            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-sm);
             font-size: 0.9rem;
         }
 
         .btn-store:hover {
-            background: rgba(26, 38, 68, 0.95);
+            background: var(--bg-subtle);
             border-color: var(--border-highlight);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow-md);
         }
 
         /* ---------------------------------------------------- */
@@ -314,13 +313,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(10, 15, 28, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             border: 1px solid var(--border-subtle);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 0.75rem 1.4rem;
             border-radius: var(--radius-full);
-            box-shadow: var(--shadow-subtle), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow-sm);
         }
 
         .logo-wrap {
@@ -332,7 +331,6 @@
         .logo-img {
             height: 26px;
             width: auto;
-            filter: brightness(0) invert(1);
             transition: transform 0.3s ease;
         }
 
@@ -357,7 +355,23 @@
         }
 
         .nav-link:hover {
-            color: var(--text-primary);
+            color: var(--accent-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+            transition: width 0.25s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .nav-cta-btn {
@@ -389,10 +403,11 @@
             font-weight: 700;
             line-height: 1.08;
             letter-spacing: -0.04em;
+            color: var(--text-primary);
         }
 
         .hero-headline span {
-            background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #1D4ED8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -432,13 +447,13 @@
             font-family: var(--font-heading);
             font-size: 1.6rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--accent-blue);
             letter-spacing: -0.02em;
         }
 
         .stat-label {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
@@ -468,7 +483,7 @@
             width: 110%;
             height: 110%;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, var(--accent-blue-glow) 0%, rgba(37, 99, 235, 0) 70%);
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0) 70%);
             filter: blur(40px);
             z-index: 1;
             pointer-events: none;
@@ -476,8 +491,8 @@
         }
 
         @keyframes auraBreath {
-            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.95); }
-            100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+            0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.95); }
+            100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.08); }
         }
 
         .mockup-img {
@@ -487,20 +502,19 @@
             position: relative;
             z-index: 2;
             border-radius: 20px;
-            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8));
+            filter: drop-shadow(0 20px 40px rgba(15, 23, 42, 0.15));
         }
 
         .floating-pill {
             position: absolute;
-            background: rgba(14, 20, 36, 0.88);
-            border: 1px solid var(--border-highlight);
-            backdrop-filter: blur(16px);
+            background: #FFFFFF;
+            border: 1px solid var(--border-subtle);
             border-radius: var(--radius-full);
             padding: 0.55rem 1.1rem;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            box-shadow: var(--shadow-lg);
             z-index: 10;
             font-size: 0.85rem;
             font-weight: 600;
@@ -562,7 +576,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(180deg, rgba(16, 24, 46, 0.85) 0%, rgba(10, 14, 26, 0.98) 100%);
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+            border: 1px solid var(--border-subtle);
         }
 
         .mission-hub-top {
@@ -582,7 +597,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            background: rgba(8, 12, 22, 0.7);
+            background: #F1F5F9;
             border: 1px solid var(--border-subtle);
             padding: 0.35rem;
             border-radius: var(--radius-full);
@@ -612,9 +627,9 @@
         }
 
         .hub-tab-btn.active {
-            background: var(--accent-blue);
-            color: #FFFFFF;
-            box-shadow: 0 4px 15px var(--accent-blue-glow);
+            background: #FFFFFF;
+            color: var(--accent-blue);
+            box-shadow: var(--shadow-sm);
         }
 
         /* Spatial Showcase Frame */
@@ -623,9 +638,9 @@
             width: 100%;
             max-width: 900px;
             border-radius: var(--radius-lg);
-            border: 1px solid var(--border-highlight);
-            background: rgba(6, 9, 18, 0.95);
-            box-shadow: var(--shadow-elevation), 0 0 60px rgba(37, 99, 235, 0.15);
+            border: 1px solid var(--border-subtle);
+            background: #FFFFFF;
+            box-shadow: var(--shadow-elevation);
             overflow: visible;
         }
 
@@ -639,15 +654,15 @@
         /* Floating Telemetry Badges on Mission Showcase */
         .telemetry-chip {
             position: absolute;
-            background: rgba(14, 20, 36, 0.92);
-            border: 1px solid var(--border-highlight);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-subtle);
             backdrop-filter: blur(18px);
             border-radius: var(--radius-md);
             padding: 0.9rem 1.2rem;
             display: flex;
             align-items: center;
             gap: 1rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            box-shadow: var(--shadow-lg);
             z-index: 10;
             pointer-events: none;
             animation: floatSlow 6s infinite ease-in-out;
@@ -717,6 +732,7 @@
             align-items: flex-start;
             gap: 1.5rem;
             min-height: 420px;
+            background: #FFFFFF;
         }
 
         .step-header-row {
@@ -730,18 +746,18 @@
             font-family: var(--font-heading);
             font-size: 0.85rem;
             font-weight: 700;
-            color: var(--accent-blue-light);
-            background: rgba(37, 99, 235, 0.12);
+            color: var(--accent-blue);
+            background: var(--accent-blue-subtle);
             padding: 0.3rem 0.8rem;
             border-radius: var(--radius-full);
-            border: 1px solid rgba(37, 99, 235, 0.25);
+            border: 1px solid rgba(37, 99, 235, 0.15);
         }
 
         /* Interactive Micro-Widgets Inside Steps */
         .step-preview-widget {
             width: 100%;
             height: 160px;
-            background: rgba(8, 12, 22, 0.8);
+            background: #F8FAFC;
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
             overflow: hidden;
@@ -756,13 +772,12 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            background: rgba(20, 29, 52, 0.9);
-            border: 1px solid var(--border-highlight);
+            background: #FFFFFF;
+            border: 1px solid var(--border-subtle);
             padding: 0.8rem 1rem;
             border-radius: var(--radius-sm);
             width: 85%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
         .mini-avatar {
@@ -780,12 +795,13 @@
 
         .mini-role-tag {
             font-size: 0.75rem;
-            color: var(--accent-blue-light);
-            background: rgba(37, 99, 235, 0.15);
+            color: var(--accent-blue);
+            background: var(--accent-blue-subtle);
             padding: 0.15rem 0.5rem;
             border-radius: 4px;
             display: inline-block;
             margin-top: 2px;
+            font-weight: 600;
         }
 
         /* Step 2: Animated Laser QR Code Scanner */
@@ -793,13 +809,14 @@
             position: relative;
             width: 100px;
             height: 100px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-highlight);
+            background: #FFFFFF;
+            border: 1px solid var(--border-subtle);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .scanner-laser-line {
@@ -808,8 +825,8 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 12px var(--accent-cyan), 0 0 4px #FFFFFF;
+            background: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-blue);
             animation: laserScan 2.4s infinite ease-in-out;
         }
 
@@ -830,17 +847,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(20, 29, 52, 0.85);
+            background: #FFFFFF;
             border: 1px solid var(--border-subtle);
             padding: 0.45rem 0.8rem;
             border-radius: 8px;
             font-size: 0.82rem;
             color: var(--text-secondary);
+            box-shadow: var(--shadow-sm);
         }
 
         .sync-item-pill.synced {
             border-color: rgba(16, 185, 129, 0.4);
             color: var(--text-primary);
+            font-weight: 600;
         }
 
         /* ---------------------------------------------------- */
@@ -862,7 +881,7 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 2rem;
-            background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.15), transparent 60%), var(--bg-card);
+            background: radial-gradient(circle at 80% 20%, rgba(219, 234, 254, 0.6), transparent 60%), #FFFFFF;
         }
 
         .studio-top-info {
@@ -885,14 +904,15 @@
             height: 24px;
             border-radius: 50%;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 2px solid #FFFFFF;
+            box-shadow: var(--shadow-sm);
             transition: all 0.25s ease;
         }
 
         .swatch-dot:hover, .swatch-dot.active {
-            transform: scale(1.2);
-            border-color: #FFFFFF;
-            box-shadow: 0 0 12px currentColor;
+            transform: scale(1.25);
+            border-color: #0F172A;
+            box-shadow: 0 0 10px currentColor;
         }
 
         /* Live 3D Interactive Card */
@@ -911,14 +931,15 @@
             width: 100%;
             max-width: 380px;
             height: 210px;
-            background: linear-gradient(135deg, rgba(26, 38, 68, 0.9) 0%, rgba(10, 15, 28, 0.95) 100%);
+            background: #0F172A;
+            color: #FFFFFF;
             border: 1px solid var(--card-accent);
             border-radius: 18px;
             padding: 1.6rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 35px var(--card-glow);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25), 0 0 30px var(--card-glow);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -959,11 +980,12 @@
         .card-name-title h4 {
             font-size: 1.1rem;
             font-weight: 700;
+            color: #FFFFFF;
         }
 
         .card-name-title span {
             font-size: 0.8rem;
-            color: var(--text-secondary);
+            color: #94A3B8;
         }
 
         .card-qr-mini {
@@ -981,14 +1003,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
             padding-top: 0.9rem;
         }
 
         .card-social-icons {
             display: flex;
             gap: 0.75rem;
-            color: var(--text-secondary);
+            color: #94A3B8;
         }
 
         .card-badge-nfc {
@@ -1009,12 +1031,13 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 1.4rem;
+            background: #FFFFFF;
         }
 
         .ai-scanner-visual {
             height: 120px;
-            background: rgba(8, 12, 22, 0.9);
-            border: 1px solid var(--border-highlight);
+            background: #F8FAFC;
+            border: 1px solid var(--border-subtle);
             border-radius: var(--radius-sm);
             position: relative;
             overflow: hidden;
@@ -1028,12 +1051,13 @@
         .ai-detection-tag {
             font-size: 0.75rem;
             font-family: monospace;
-            background: rgba(6, 182, 212, 0.15);
+            background: rgba(8, 145, 178, 0.1);
             color: var(--accent-cyan);
             border-left: 2px solid var(--accent-cyan);
             padding: 0.2rem 0.5rem;
             width: fit-content;
             border-radius: 0 4px 4px 0;
+            font-weight: 600;
             animation: pulseFade 2s infinite alternate;
         }
 
@@ -1048,7 +1072,7 @@
             width: 100%;
             height: 2px;
             background: var(--accent-cyan);
-            box-shadow: 0 0 10px var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
             animation: laserScan 2s infinite ease-in-out;
         }
 
@@ -1059,6 +1083,7 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 1.4rem;
+            background: #FFFFFF;
         }
 
         .tags-interactive-cloud {
@@ -1068,7 +1093,7 @@
         }
 
         .interactive-tag {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-subtle);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
             padding: 0.35rem 0.8rem;
@@ -1088,7 +1113,7 @@
         .interactive-tag.selected {
             background: var(--accent-blue);
             color: #FFFFFF;
-            border-color: var(--accent-blue-light);
+            border-color: var(--accent-blue);
             box-shadow: 0 4px 12px var(--accent-blue-glow);
         }
 
@@ -1107,6 +1132,7 @@
             flex-direction: column;
             justify-content: space-between;
             min-height: 340px;
+            background: #FFFFFF;
         }
 
         .platform-top {
@@ -1129,7 +1155,7 @@
         }
 
         .platform-card h3 span {
-            color: var(--accent-blue-light);
+            color: var(--accent-blue);
         }
 
         .platform-bottom {
@@ -1150,6 +1176,7 @@
         .faq-item {
             cursor: pointer;
             transition: all 0.3s ease;
+            background: #FFFFFF;
         }
 
         .faq-question-row {
@@ -1171,8 +1198,8 @@
             font-family: var(--font-heading);
             font-size: 0.95rem;
             font-weight: 700;
-            color: var(--accent-blue-light);
-            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent-blue);
+            background: var(--accent-blue-subtle);
             padding: 0.2rem 0.6rem;
             border-radius: 6px;
         }
@@ -1189,13 +1216,13 @@
         }
 
         .faq-item.active {
-            border-color: var(--border-active);
-            background: var(--bg-card-hover);
+            border-color: var(--accent-blue-light);
+            box-shadow: var(--shadow-md);
         }
 
         .faq-item.active .faq-chevron {
             transform: rotate(180deg);
-            color: var(--accent-blue-light);
+            color: var(--accent-blue);
         }
 
         .faq-answer-panel {
@@ -1221,19 +1248,21 @@
         }
 
         /* ---------------------------------------------------- */
-        /* BOTTOM CTA BANNER                                    */
+        /* BOTTOM CTA BANNER (High-Contrast Heroic Card)        */
         /* ---------------------------------------------------- */
         .cta-banner {
-            padding: 4rem 3.5rem;
-            background: linear-gradient(135deg, rgba(20, 30, 58, 0.9) 0%, rgba(10, 15, 28, 0.95) 100%);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 4.5rem 3.5rem;
+            background: #0F172A;
+            color: #FFFFFF;
+            border: 1px solid #1E293B;
+            border-radius: var(--radius-lg);
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
             gap: 3rem;
             align-items: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.7), 0 0 50px rgba(37, 99, 235, 0.15);
+            box-shadow: var(--shadow-elevation);
         }
 
         .cta-banner::after {
@@ -1241,9 +1270,9 @@
             position: absolute;
             top: -50%;
             right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--accent-blue-glow) 0%, transparent 70%);
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -1259,6 +1288,7 @@
         .cta-heading {
             font-size: clamp(2rem, 3.5vw, 2.6rem);
             font-weight: 700;
+            color: #FFFFFF;
         }
 
         .cta-interactive {
@@ -1284,7 +1314,7 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            border: 2px solid var(--bg-void);
+            border: 2px solid #0F172A;
             margin-left: -12px;
             object-fit: cover;
         }
@@ -1299,7 +1329,7 @@
             border-radius: 50%;
             background: var(--accent-blue);
             color: #FFFFFF;
-            border: 2px solid var(--bg-void);
+            border: 2px solid #0F172A;
             margin-left: -12px;
             display: flex;
             align-items: center;
@@ -1311,7 +1341,7 @@
 
         .proof-text {
             font-size: 0.95rem;
-            color: var(--text-secondary);
+            color: #94A3B8;
             line-height: 1.4;
         }
 
@@ -1422,15 +1452,15 @@
 </head>
 <body>
 
-    <!-- Ambient Canvas Glows -->
-    <div class="ambient-canvas">
-        <div class="ambient-glow glow-1"></div>
-        <div class="ambient-glow glow-2"></div>
-        <div class="ambient-glow glow-3"></div>
-    </div>
+    <!-- Top Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="progressBar"></div>
 
-    <!-- Mouse Cursor Spotlight -->
-    <div class="cursor-spotlight" id="cursorSpotlight"></div>
+    <!-- Luminous Ambient Background Orbs -->
+    <div class="ambient-mesh">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
 
     <div class="page-wrapper">
 
@@ -1471,11 +1501,11 @@
 
                 <div class="hero-actions">
                     <a href="#download" class="btn btn-store">
-                        <img src="./assets/apple.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
+                        <img src="./assets/apple-black.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
                         Available soon
                     </a>
                     <a href="#download" class="btn btn-store">
-                        <img src="./assets/googleplay.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain;">
+                        <img src="./assets/googleplay-black.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain;">
                         Google Play
                     </a>
                 </div>
@@ -1503,12 +1533,12 @@
                     <img src="./assets/hero-section.png" alt="Eventzone App Interface" class="mockup-img">
                     
                     <div class="floating-pill pill-pos-1">
-                        <i data-lucide="zap" style="width: 16px; height: 16px; color: #F59E0B;"></i>
+                        <i data-lucide="zap" style="width: 16px; height: 16px; color: #D97706;"></i>
                         <span>Dynamic Live QR</span>
                     </div>
 
                     <div class="floating-pill pill-pos-2">
-                        <i data-lucide="shield-check" style="width: 16px; height: 16px; color: #10B981;"></i>
+                        <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--accent-emerald);"></i>
                         <span>End-to-End Secure</span>
                     </div>
                 </div>
@@ -1520,7 +1550,7 @@
             <div class="glass-card mission-hub-container">
                 <div class="mission-hub-top">
                     <div class="badge-pill">
-                        <i data-lucide="compass" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
+                        <i data-lucide="compass" style="width: 14px; height: 14px;"></i>
                         Our Mission
                     </div>
                     <h2 class="section-title">Never lose a valuable contact again.</h2>
@@ -1531,13 +1561,13 @@
 
                 <!-- Interactive Feature Filter Tabs -->
                 <div class="hub-tabs-row">
-                    <button class="hub-tab-btn active" onclick="switchHubTab(this, 'Leaderboard & Analytics')">
+                    <button class="hub-tab-btn active" onclick="switchHubTab(this, 'Analytics & Growth')">
                         <i data-lucide="bar-chart-3" style="width: 15px; height: 15px;"></i> Analytics &amp; Growth
                     </button>
-                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'Smart Connections')">
+                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'Contact Leaderboard')">
                         <i data-lucide="users" style="width: 15px; height: 15px;"></i> Contact Leaderboard
                     </button>
-                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'In-App Messenger')">
+                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'Direct Messaging')">
                         <i data-lucide="message-square" style="width: 15px; height: 15px;"></i> Direct Messaging
                     </button>
                 </div>
@@ -1546,7 +1576,7 @@
                 <div class="hub-showcase-stage">
                     <!-- Telemetry Chip 1 -->
                     <div class="telemetry-chip chip-left">
-                        <div class="telemetry-icon-circle" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">
+                        <div class="telemetry-icon-circle" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald);">
                             <i data-lucide="trending-up" style="width: 20px; height: 20px;"></i>
                         </div>
                         <div class="telemetry-info">
@@ -1557,7 +1587,7 @@
 
                     <!-- Telemetry Chip 2 -->
                     <div class="telemetry-chip chip-right">
-                        <div class="telemetry-icon-circle" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+                        <div class="telemetry-icon-circle" style="background: rgba(245, 158, 11, 0.12); color: #D97706;">
                             <i data-lucide="award" style="width: 20px; height: 20px;"></i>
                         </div>
                         <div class="telemetry-info">
@@ -1568,7 +1598,7 @@
 
                     <!-- Telemetry Chip 3 -->
                     <div class="telemetry-chip chip-bottom">
-                        <div class="telemetry-icon-circle" style="background: rgba(37, 99, 235, 0.15); color: var(--accent-blue-light);">
+                        <div class="telemetry-icon-circle" style="background: var(--accent-blue-subtle); color: var(--accent-blue);">
                             <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
                         </div>
                         <div class="telemetry-info">
@@ -1586,7 +1616,7 @@
         <section class="section" id="how-it-works">
             <div class="section-header">
                 <div class="badge-pill">
-                    <i data-lucide="sparkles" style="width: 14px; height: 14px; color: var(--accent-cyan);"></i>
+                    <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
                     How It Works
                 </div>
                 <h2 class="section-title">Frictionless 3-Step Journey</h2>
@@ -1598,16 +1628,16 @@
                 <div class="glass-card step-journey-card">
                     <div class="step-header-row">
                         <span class="step-seq-pill">STEP 01</span>
-                        <i data-lucide="user-check" style="color: var(--accent-blue-light); width: 22px; height: 22px;"></i>
+                        <i data-lucide="user-check" style="color: var(--accent-blue); width: 22px; height: 22px;"></i>
                     </div>
 
                     <!-- Micro-Demo 1: Live Profile Switcher -->
                     <div class="step-preview-widget">
                         <div class="mini-profile-card">
-                            <div class="mini-avatar" id="stepAvatar">HV</div>
+                            <div class="mini-avatar">HV</div>
                             <div>
-                                <h5 style="font-size: 0.9rem; font-weight: 700;" id="stepName">Hachemi Vance</h5>
-                                <span class="mini-role-tag" id="stepRole">Tech Founder</span>
+                                <h5 style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">Hachemi Vance</h5>
+                                <span class="mini-role-tag">Tech Founder</span>
                             </div>
                         </div>
                     </div>
@@ -1629,7 +1659,7 @@
                     <div class="step-preview-widget">
                         <div class="qr-scanner-box">
                             <div class="scanner-laser-line"></div>
-                            <i data-lucide="qr-code" style="width: 54px; height: 54px; color: #FFFFFF;"></i>
+                            <i data-lucide="qr-code" style="width: 54px; height: 54px; color: var(--text-primary);"></i>
                         </div>
                     </div>
 
@@ -1672,7 +1702,7 @@
         <section class="section" id="features">
             <div class="section-header">
                 <div class="badge-pill">
-                    <i data-lucide="layers" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
+                    <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
                     Core Capabilities
                 </div>
                 <h2 class="section-title">Built for Modern High-Performers</h2>
@@ -1691,10 +1721,10 @@
                         
                         <!-- Interactive Theme Switcher Swatches -->
                         <div class="studio-theme-swatches">
-                            <div class="swatch-dot active" style="background: #2563EB;" onclick="setStudioTheme('#2563EB', 'rgba(37, 99, 235, 0.4)', this)"></div>
-                            <div class="swatch-dot" style="background: #06B6D4;" onclick="setStudioTheme('#06B6D4', 'rgba(6, 182, 212, 0.4)', this)"></div>
-                            <div class="swatch-dot" style="background: #10B981;" onclick="setStudioTheme('#10B981', 'rgba(16, 185, 129, 0.4)', this)"></div>
-                            <div class="swatch-dot" style="background: #8B5CF6;" onclick="setStudioTheme('#8B5CF6', 'rgba(139, 92, 246, 0.4)', this)"></div>
+                            <div class="swatch-dot active" style="background: #2563EB;" onclick="setStudioTheme('#2563EB', 'rgba(37, 99, 235, 0.3)', this)"></div>
+                            <div class="swatch-dot" style="background: #0891B2;" onclick="setStudioTheme('#0891B2', 'rgba(8, 145, 178, 0.3)', this)"></div>
+                            <div class="swatch-dot" style="background: #10B981;" onclick="setStudioTheme('#10B981', 'rgba(16, 185, 129, 0.3)', this)"></div>
+                            <div class="swatch-dot" style="background: #7C3AED;" onclick="setStudioTheme('#7C3AED', 'rgba(124, 58, 237, 0.3)', this)"></div>
                         </div>
                     </div>
 
@@ -1710,7 +1740,7 @@
                                     </div>
                                 </div>
                                 <div class="card-qr-mini">
-                                    <i data-lucide="qr-code" style="width: 32px; height: 32px; color: #0B0F19;"></i>
+                                    <i data-lucide="qr-code" style="width: 32px; height: 32px; color: #0F172A;"></i>
                                 </div>
                             </div>
 
@@ -1732,7 +1762,7 @@
                 <!-- Bento 2: AI OCR Camera Scanner -->
                 <div class="glass-card bento-scanner-card">
                     <div>
-                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); display: flex; align-items: center; justify-content: center;">
+                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(8, 145, 178, 0.1); color: var(--accent-cyan); display: flex; align-items: center; justify-content: center;">
                             <i data-lucide="camera" style="width: 22px; height: 22px;"></i>
                         </div>
                         <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">AI Paper Scanner</h3>
@@ -1742,14 +1772,14 @@
                     <div class="ai-scanner-visual">
                         <div class="ai-laser-sweep"></div>
                         <div class="ai-detection-tag">SCANNING: Sarah Jenkins</div>
-                        <div class="ai-detection-tag" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border-color: var(--accent-emerald);">PHONE EXTRACTED: +1 (555) 019-2834</div>
+                        <div class="ai-detection-tag" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald); border-color: var(--accent-emerald);">PHONE EXTRACTED: +1 (555) 019-2834</div>
                     </div>
                 </div>
 
                 <!-- Bento 3: Interactive Tags & CRM Filter -->
                 <div class="glass-card bento-tags-card">
                     <div>
-                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); display: flex; align-items: center; justify-content: center;">
+                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(124, 58, 237, 0.1); color: var(--accent-purple); display: flex; align-items: center; justify-content: center;">
                             <i data-lucide="tags" style="width: 22px; height: 22px;"></i>
                         </div>
                         <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Smart CRM &amp; Tagging</h3>
@@ -1783,14 +1813,14 @@
                 <div class="glass-card platform-card">
                     <div class="platform-top">
                         <div class="platform-icon-large">
-                            <img src="./assets/apple.svg" alt="Apple" style="width: 48px; height: 48px;">
+                            <img src="./assets/apple-black.svg" alt="Apple" style="width: 48px; height: 48px;">
                         </div>
                         <h3>Experience networking on <span>iOS</span>.</h3>
                         <p>Beautifully designed for your iPhone. Share your digital business card with a simple tap and integrate with Apple Wallet.</p>
                     </div>
                     <div class="platform-bottom">
                         <a href="#" class="btn btn-store">
-                            <img src="./assets/apple.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
+                            <img src="./assets/apple-black.svg" alt="App Store" style="width: 18px; height: 18px; object-fit: contain;">
                             Available soon
                         </a>
                     </div>
@@ -1807,7 +1837,7 @@
                     </div>
                     <div class="platform-bottom">
                         <a href="#" class="btn btn-primary">
-                            <img src="./assets/googleplay.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain; filter: brightness(0) invert(1);">
+                            <img src="./assets/googleplay-black.svg" alt="Google Play" style="width: 18px; height: 18px; object-fit: contain; filter: brightness(0) invert(1);">
                             Google Play
                         </a>
                     </div>
@@ -1819,7 +1849,7 @@
         <section class="section" id="faq">
             <div class="section-header">
                 <div class="badge-pill">
-                    <i data-lucide="help-circle" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
+                    <i data-lucide="help-circle" style="width: 14px; height: 14px;"></i>
                     FAQ
                 </div>
                 <h2 class="section-title">Frequently Asked Questions</h2>
@@ -1911,10 +1941,10 @@
 
         <!-- Bottom CTA -->
         <section class="section">
-            <div class="glass-card cta-banner">
+            <div class="cta-banner">
                 <div class="cta-content">
-                    <div class="badge-pill">
-                        <i data-lucide="rocket" style="width: 14px; height: 14px; color: var(--accent-cyan);"></i>
+                    <div class="badge-pill" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #FFFFFF;">
+                        <i data-lucide="rocket" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
                         Let's start now
                     </div>
                     <h2 class="cta-heading">Start Building Your Smart Network Today.</h2>
@@ -1936,10 +1966,10 @@
                     </div>
 
                     <div class="cta-buttons-row">
-                        <a href="#download" class="btn btn-store">
+                        <a href="#download" class="btn btn-store" style="background: #1E293B; border-color: #334155; color: #FFFFFF;">
                             <img src="./assets/apple-black.svg" alt="App Store" style="width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1);"> Available soon
                         </a>
-                        <a href="#download" class="btn btn-store">
+                        <a href="#download" class="btn btn-store" style="background: #1E293B; border-color: #334155; color: #FFFFFF;">
                             <img src="./assets/googleplay-black.svg" alt="Google Play" style="width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1);"> Google Play
                         </a>
                     </div>
@@ -1961,25 +1991,15 @@
         // 1. Initialize Icons
         lucide.createIcons();
 
-        // 2. Mouse Spotlight Tracking on Canvas & Cards
-        const spotlight = document.getElementById('cursorSpotlight');
-        const cards = document.querySelectorAll('.glass-card');
-
-        window.addEventListener('pointermove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            
-            if (spotlight) {
-                spotlight.style.left = `${x}px`;
-                spotlight.style.top = `${y}px`;
+        // 2. Scroll Progress Bar Tracking
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            const bar = document.getElementById('progressBar');
+            if (bar) {
+                bar.style.width = `${progress}%`;
             }
-
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const cardX = x - rect.left;
-                const cardY = y - rect.top;
-                card.style.setProperty('--mouse-x', `${cardX}px`);
-                card.style.setProperty('--mouse-y', `${cardY}px`);
-            });
         });
 
         // 3. 3D Card Interactive Tilt in Hero
@@ -2037,7 +2057,7 @@
             }
         }
 
-        // 8. GSAP Scroll Animations
+        // 8. GSAP Scroll-Driven Animations
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
