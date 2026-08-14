@@ -84,6 +84,10 @@
             --custom-card-bg: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
             --custom-card-accent: #2563EB;
             --custom-card-glow: rgba(37, 99, 235, 0.35);
+
+            /* Workflow Step 1 Customizer Var */
+            --step1-card-bg: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            --step1-accent: #2563EB;
         }
 
         * {
@@ -887,7 +891,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 7. ASYMMETRICAL 3-STEP JOURNEY                       */
+        /* 7. HIGH-INTERACTION 3-STEP JOURNEY (WORKFLOW)        */
         /* ---------------------------------------------------- */
         .steps-timeline-grid {
             display: grid;
@@ -896,27 +900,202 @@
             position: relative;
         }
 
-        .step-timeline-card {
-            padding: 2.8rem 2.2rem;
+        .interactive-step-card {
+            padding: 2.5rem 2.2rem;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 1.4rem;
+            justify-content: space-between;
+            gap: 2rem;
             background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .step-num-badge {
+        .interactive-step-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-blue-light);
+            box-shadow: var(--shadow-float);
+        }
+
+        .step-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .step-badge-pill {
             font-family: var(--font-heading);
-            font-size: 1.2rem;
+            font-size: 0.85rem;
             font-weight: 800;
             color: var(--accent-blue);
             background: var(--accent-blue-subtle);
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-sm);
+            padding: 0.35rem 0.9rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .step-icon-bubble {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--bg-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .step-info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .step-info-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .step-info-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Step 1: Mini Live Card Customizer Widget */
+        .step1-mini-card-widget {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step1-preview-card {
+            background: var(--step1-card-bg);
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: all 0.3s ease;
+        }
+
+        .step1-swatches-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .step1-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .step1-swatch:hover, .step1-swatch.active {
+            transform: scale(1.18);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 0 2px var(--accent-blue);
+        }
+
+        /* Step 2: Live QR Scanner Reticle Widget */
+        .step2-qr-widget {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .step2-qr-container {
+            width: 100px;
+            height: 100px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .step2-laser-scan {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-blue);
+            animation: laserSweep 2s infinite ease-in-out;
+        }
+
+        /* Step 3: Interactive Contact Tag & CRM Widget */
+        .step3-crm-widget {
+            background: #F8FAFC;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .step3-msg-bubble {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 0.7rem 0.9rem;
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .step3-tags-row {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .step3-tag-pill {
+            background: #E2E8F0;
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.7rem;
+            border-radius: 99px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .step3-tag-pill.active, .step3-tag-pill:hover {
+            background: var(--accent-blue);
+            color: #FFFFFF;
         }
 
         /* ---------------------------------------------------- */
@@ -1233,6 +1412,7 @@
                     <li><a href="#matrix" class="nav-link">Why Eventzone</a></li>
                     <li><a href="#studio" class="nav-link">Card Studio</a></li>
                     <li><a href="#features" class="nav-link">Capabilities</a></li>
+                    <li><a href="#workflow" class="nav-link">Workflow</a></li>
                     <li><a href="#faq" class="nav-link">FAQ</a></li>
                 </ul>
 
@@ -1525,35 +1705,129 @@
             </div>
         </section>
 
-        <!-- 7. Asymmetrical 3-Step Journey -->
-        <section class="section" id="how-it-works">
+        <!-- 7. HIGH-INTERACTION 3-STEP JOURNEY (WORKFLOW) -->
+        <section class="section" id="workflow">
             <div class="section-header">
                 <div class="badge-pill">
                     <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
                     Workflow
                 </div>
                 <h2 class="section-title">From Handshake to Closed Deal</h2>
-                <p class="section-desc">Experience effortless networking in 3 simple steps</p>
+                <p class="section-desc">Experience effortless networking in 3 interactive steps</p>
             </div>
 
             <div class="steps-timeline-grid">
-                <div class="step-timeline-card card-surface">
-                    <div class="step-num-badge">01</div>
-                    <h3 style="font-size: 1.35rem;">Create Your Profile</h3>
-                    <p style="font-size: 0.95rem;">Configure your card with custom themes, bio, portfolio links, and social channels with zero coding required.</p>
+                
+                <!-- Step 01 Card: Interactive Card Theme Builder -->
+                <div class="interactive-step-card">
+                    <div class="step-card-header">
+                        <span class="step-badge-pill">
+                            <i data-lucide="palette" style="width: 13px; height: 13px;"></i> 01 &bull; Setup
+                        </span>
+                        <div class="step-icon-bubble">
+                            <i data-lucide="sliders" style="width: 18px; height: 18px;"></i>
+                        </div>
+                    </div>
+
+                    <div class="step-info-block">
+                        <h3 class="step-info-title">Craft Your Card</h3>
+                        <p class="step-info-text">Personalize themes, bio, social channels, and rich portfolio links in under 60 seconds.</p>
+                    </div>
+
+                    <!-- Interactive Micro-Widget: Color Preset Customizer -->
+                    <div class="step1-mini-card-widget">
+                        <div class="step1-preview-card" id="step1Card">
+                            <div style="display: flex; align-items: center; gap: 0.7rem;">
+                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #2563EB; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff;" id="step1AvatarRing">AV</div>
+                                <div>
+                                    <div style="font-size: 0.85rem; font-weight: 700; color: #fff;">Alex Vance</div>
+                                    <div style="font-size: 0.7rem; color: #94A3B8;">Product Architect</div>
+                                </div>
+                            </div>
+                            <span style="font-size: 0.68rem; font-weight: 700; background: rgba(255,255,255,0.15); padding: 0.2rem 0.5rem; border-radius: 99px;" id="step1FinishBadge">Cobalt</span>
+                        </div>
+
+                        <div class="step1-swatches-row">
+                            <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">PICK ACCENT:</span>
+                            <div style="display: flex; gap: 0.4rem;">
+                                <div class="step1-swatch active" style="background: #2563EB;" onclick="setStep1Theme('cobalt', this)"></div>
+                                <div class="step1-swatch" style="background: #10B981;" onclick="setStep1Theme('emerald', this)"></div>
+                                <div class="step1-swatch" style="background: #7C3AED;" onclick="setStep1Theme('violet', this)"></div>
+                                <div class="step1-swatch" style="background: #0F172A;" onclick="setStep1Theme('obsidian', this)"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="step-timeline-card card-surface">
-                    <div class="step-num-badge">02</div>
-                    <h3 style="font-size: 1.35rem;">Tap or Scan</h3>
-                    <p style="font-size: 0.95rem;">Share your dynamic QR code with any smartphone. The recipient gets your full vCard saved without needing any app.</p>
+                <!-- Step 02 Card: Interactive Laser QR Handshake -->
+                <div class="interactive-step-card" onclick="triggerStep2Scan()">
+                    <div class="step-card-header">
+                        <span class="step-badge-pill">
+                            <i data-lucide="qr-code" style="width: 13px; height: 13px;"></i> 02 &bull; Connect
+                        </span>
+                        <div class="step-icon-bubble">
+                            <i data-lucide="zap" style="width: 18px; height: 18px;"></i>
+                        </div>
+                    </div>
+
+                    <div class="step-info-block">
+                        <h3 class="step-info-title">Instant QR Handshake</h3>
+                        <p class="step-info-text">Share your live QR code. Anyone with a smartphone camera scans and instantly receives your vCard—zero app required.</p>
+                    </div>
+
+                    <!-- Interactive Micro-Widget: Live QR Scanner Simulator -->
+                    <div class="step2-qr-widget" id="step2Widget">
+                        <div class="step2-qr-container">
+                            <i data-lucide="qr-code" style="color: #0F172A; width: 60px; height: 60px;"></i>
+                            <div class="step2-laser-scan"></div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; color: var(--accent-blue);" id="step2Status">
+                            <i data-lucide="scan" style="width: 14px; height: 14px;"></i> Click card to trigger 0.8s QR scan
+                        </div>
+                    </div>
                 </div>
 
-                <div class="step-timeline-card card-surface">
-                    <div class="step-num-badge">03</div>
-                    <h3 style="font-size: 1.35rem;">Auto-Sync &amp; Chat</h3>
-                    <p style="font-size: 0.95rem;">Organize leads with custom tags, start direct conversations in-app, and sync effortlessly to your favorite CRM.</p>
+                <!-- Step 03 Card: Interactive Auto-Sync, Tags & Chat -->
+                <div class="interactive-step-card">
+                    <div class="step-card-header">
+                        <span class="step-badge-pill">
+                            <i data-lucide="message-square" style="width: 13px; height: 13px;"></i> 03 &bull; Close
+                        </span>
+                        <div class="step-icon-bubble">
+                            <i data-lucide="check-check" style="width: 18px; height: 18px;"></i>
+                        </div>
+                    </div>
+
+                    <div class="step-info-block">
+                        <h3 class="step-info-title">Auto-Sync &amp; Chat</h3>
+                        <p class="step-info-text">Organize leads with custom pipeline tags, start direct conversations in-app, and sync effortlessly to your CRM.</p>
+                    </div>
+
+                    <!-- Interactive Micro-Widget: Interactive Message & Pipeline Tags -->
+                    <div class="step3-crm-widget">
+                        <div class="step3-msg-bubble">
+                            <i data-lucide="message-circle" style="color: var(--accent-blue); width: 16px; height: 16px; flex-shrink: 0;"></i>
+                            <span>"Great meeting! Here is our pitch deck."</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                            <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted);">PIPELINE TAGS:</span>
+                            <div class="step3-tags-row">
+                                <span class="step3-tag-pill active" onclick="toggleStep3Tag(this)">#TechSummit</span>
+                                <span class="step3-tag-pill" onclick="toggleStep3Tag(this)">#Investor</span>
+                                <span class="step3-tag-pill" onclick="toggleStep3Tag(this)">#HotLead</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-light); padding-top: 0.5rem; font-size: 0.72rem; color: var(--accent-emerald); font-weight: 700;">
+                            <span style="display: flex; align-items: center; gap: 0.3rem;">
+                                <i data-lucide="check-circle" style="width: 12px; height: 12px;"></i> Synced to Contacts &amp; CRM
+                            </span>
+                            <span style="color: #64748B;">Instant</span>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
@@ -1790,7 +2064,53 @@
             }
         }
 
-        // 5. 3D Interactive Card Cursor Tilt in Studio
+        // 5. Workflow Step 1 Theme Swatcher
+        function setStep1Theme(theme, el) {
+            document.querySelectorAll('.step1-swatch').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+
+            const card = document.getElementById('step1Card');
+            const ring = document.getElementById('step1AvatarRing');
+            const badge = document.getElementById('step1FinishBadge');
+
+            if (theme === 'cobalt') {
+                card.style.background = 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)';
+                ring.style.background = '#2563EB';
+                badge.textContent = 'Cobalt';
+            } else if (theme === 'emerald') {
+                card.style.background = 'linear-gradient(135deg, #064E3B 0%, #0F172A 100%)';
+                ring.style.background = '#10B981';
+                badge.textContent = 'Emerald';
+            } else if (theme === 'violet') {
+                card.style.background = 'linear-gradient(135deg, #4C1D95 0%, #0F172A 100%)';
+                ring.style.background = '#7C3AED';
+                badge.textContent = 'Violet';
+            } else if (theme === 'obsidian') {
+                card.style.background = 'linear-gradient(135deg, #000000 0%, #0F172A 100%)';
+                ring.style.background = '#64748B';
+                badge.textContent = 'Obsidian';
+            }
+        }
+
+        // 6. Workflow Step 2 QR Scan Simulation
+        function triggerStep2Scan() {
+            const status = document.getElementById('step2Status');
+            if (status) {
+                status.innerHTML = `<i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: #10B981;"></i> <span style="color: #10B981;">0.8s Handshake Verified ✓</span>`;
+                lucide.createIcons();
+                setTimeout(() => {
+                    status.innerHTML = `<i data-lucide="scan" style="width: 14px; height: 14px;"></i> Click card to trigger 0.8s QR scan`;
+                    lucide.createIcons();
+                }, 3500);
+            }
+        }
+
+        // 7. Workflow Step 3 Pipeline Tag Toggler
+        function toggleStep3Tag(tag) {
+            tag.classList.toggle('active');
+        }
+
+        // 8. 3D Interactive Card Cursor Tilt in Studio
         const cardViewport = document.getElementById('cardViewport');
         const studioCard = document.getElementById('studioCard');
 
@@ -1811,7 +2131,7 @@
             });
         }
 
-        // 6. Kinetic Feature Showcase Tabs
+        // 9. Kinetic Feature Showcase Tabs
         function switchKineticTab(tab, btn) {
             document.querySelectorAll('.kinetic-tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -1875,7 +2195,7 @@
             lucide.createIcons();
         }
 
-        // 7. Instant Search Filter for FAQ
+        // 10. Instant Search Filter for FAQ
         function filterFaqs() {
             const query = document.getElementById('faqSearch').value.toLowerCase();
             const cards = document.querySelectorAll('.faq-accordion-card');
@@ -1890,7 +2210,7 @@
             });
         }
 
-        // 8. FAQ Accordion Toggle
+        // 11. FAQ Accordion Toggle
         function toggleFaq(card) {
             const isActive = card.classList.contains('active');
             document.querySelectorAll('.faq-accordion-card').forEach(c => c.classList.remove('active'));
@@ -1899,7 +2219,7 @@
             }
         }
 
-        // 9. GSAP Scroll Animations
+        // 12. GSAP Scroll Animations
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
@@ -1973,16 +2293,16 @@
                     ease: 'power3.out'
                 });
 
-                // Step Timeline
-                gsap.from('.step-timeline-card', {
+                // Interactive Step Cards
+                gsap.from('.interactive-step-card', {
                     scrollTrigger: {
                         trigger: '.steps-timeline-grid',
                         start: 'top 80%'
                     },
                     opacity: 0,
-                    y: 35,
-                    stagger: 0.15,
-                    duration: 0.85,
+                    y: 40,
+                    stagger: 0.18,
+                    duration: 0.9,
                     ease: 'power2.out'
                 });
             }
