@@ -47,8 +47,8 @@
             --bg-void: #05070D;
             --bg-canvas: #080C16;
             --bg-surface: #0E1424;
-            --bg-card: rgba(16, 24, 44, 0.65);
-            --bg-card-hover: rgba(22, 33, 58, 0.85);
+            --bg-card: rgba(14, 20, 36, 0.65);
+            --bg-card-hover: rgba(20, 29, 52, 0.85);
             --bg-glass: rgba(255, 255, 255, 0.03);
             
             --text-primary: #FFFFFF;
@@ -60,6 +60,7 @@
             --accent-blue-glow: rgba(37, 99, 235, 0.35);
             --accent-cyan: #06B6D4;
             --accent-emerald: #10B981;
+            --accent-purple: #8B5CF6;
             
             --border-subtle: rgba(255, 255, 255, 0.08);
             --border-highlight: rgba(255, 255, 255, 0.18);
@@ -73,6 +74,10 @@
             --radius-md: 18px;
             --radius-lg: 24px;
             --radius-full: 9999px;
+
+            /* Interactive Card Studio Var */
+            --card-accent: #2563EB;
+            --card-glow: rgba(37, 99, 235, 0.4);
         }
 
         * {
@@ -113,33 +118,33 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(120px);
-            opacity: 0.45;
+            opacity: 0.4;
             transition: transform 0.5s ease;
             will-change: transform;
         }
 
         .glow-1 {
-            width: 600px;
-            height: 600px;
+            width: 650px;
+            height: 650px;
             background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(37, 99, 235, 0) 70%);
             top: -150px;
             right: -100px;
         }
 
         .glow-2 {
-            width: 700px;
-            height: 700px;
+            width: 750px;
+            height: 750px;
             background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(6, 182, 212, 0) 70%);
-            top: 40%;
+            top: 35%;
             left: -200px;
         }
 
         .glow-3 {
-            width: 550px;
-            height: 550px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, rgba(139, 92, 246, 0) 70%);
             bottom: 5%;
-            right: 10%;
+            right: 5%;
         }
 
         /* Mouse Cursor Spotlight */
@@ -148,11 +153,10 @@
             width: 700px;
             height: 700px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 65%);
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.07) 0%, rgba(37, 99, 235, 0) 65%);
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 1;
-            transition: opacity 0.3s ease;
         }
 
         /* App Wrapper */
@@ -189,10 +193,10 @@
             border: 1px solid var(--border-subtle);
             backdrop-filter: blur(12px);
             border-radius: var(--radius-full);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 600;
             color: var(--text-primary);
-            letter-spacing: 0.02em;
+            letter-spacing: 0.03em;
             text-transform: uppercase;
             box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
         }
@@ -229,18 +233,19 @@
 
         .glass-card:hover {
             border-color: var(--border-highlight);
-            box-shadow: var(--shadow-elevation), 0 0 30px rgba(37, 99, 235, 0.12);
+            box-shadow: var(--shadow-elevation), 0 0 35px rgba(37, 99, 235, 0.14);
         }
 
-        /* Dynamic Card Spotlight Gradient */
+        /* Dynamic Card Spotlight */
         .glass-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255, 255, 255, 0.05), transparent 40%);
+            background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255, 255, 255, 0.06), transparent 40%);
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 1;
         }
 
         .glass-card:hover::before {
@@ -264,6 +269,7 @@
             border: 1px solid transparent;
             position: relative;
             user-select: none;
+            z-index: 2;
         }
 
         .btn-primary {
@@ -276,33 +282,6 @@
             transform: translateY(-2px);
             box-shadow: 0 12px 30px -2px rgba(37, 99, 235, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
             border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-primary);
-            border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: var(--border-highlight);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-white {
-            background: #FFFFFF;
-            color: #05070D;
-            font-weight: 700;
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-white:hover {
-            background: #F1F5F9;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.3);
         }
 
         .btn-store {
@@ -342,11 +321,6 @@
             padding: 0.75rem 1.4rem;
             border-radius: var(--radius-full);
             box-shadow: var(--shadow-subtle), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            transition: border-color 0.3s ease;
-        }
-
-        .nav-container:hover {
-            border-color: var(--border-highlight);
         }
 
         .logo-wrap {
@@ -384,22 +358,6 @@
 
         .nav-link:hover {
             color: var(--text-primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--accent-blue-light);
-            border-radius: 2px;
-            transition: width 0.25s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
         }
 
         .nav-cta-btn {
@@ -532,7 +490,6 @@
             filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8));
         }
 
-        /* Floating Feature Badges around Hero */
         .floating-pill {
             position: absolute;
             background: rgba(14, 20, 36, 0.88);
@@ -570,10 +527,10 @@
         }
 
         /* ---------------------------------------------------- */
-        /* SECTION DIVIDERS & COMMON STYLES                     */
+        /* SECTION COMMON HEADERS                               */
         /* ---------------------------------------------------- */
         .section {
-            padding: 5.5rem 0;
+            padding: 6rem 0;
             position: relative;
         }
 
@@ -596,188 +553,543 @@
         }
 
         /* ---------------------------------------------------- */
-        /* MISSION SHOWCASE                                     */
+        /* 1. BESPOKE MISSION SECTION (Interactive Product Hub) */
         /* ---------------------------------------------------- */
-        .mission-panel {
-            padding: 3.5rem;
-            text-align: center;
+        .mission-hub-container {
+            padding: 3.5rem 3rem;
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            background: linear-gradient(180deg, rgba(14, 20, 36, 0.8) 0%, rgba(10, 14, 26, 0.95) 100%);
+            background: linear-gradient(180deg, rgba(16, 24, 46, 0.85) 0%, rgba(10, 14, 26, 0.98) 100%);
         }
 
-        .mission-lead {
-            font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-            font-weight: 700;
-            margin: 1.2rem 0 1rem;
-            max-width: 700px;
-        }
-
-        .mission-copy {
-            max-width: 640px;
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.8rem;
-        }
-
-        .mission-img-wrap {
-            width: 100%;
-            max-width: 920px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-elevation);
-            position: relative;
-        }
-
-        .mission-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .mission-img-wrap:hover .mission-img {
-            transform: scale(1.02);
-        }
-
-        /* ---------------------------------------------------- */
-        /* HOW IT WORKS                                         */
-        /* ---------------------------------------------------- */
-        .steps-wrapper {
-            position: relative;
-        }
-
-        .steps-svg-line {
-            position: absolute;
-            top: 80px;
-            left: 5%;
-            width: 90%;
-            height: 80px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+        .mission-hub-top {
+            text-align: center;
+            max-width: 750px;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
             position: relative;
             z-index: 2;
         }
 
-        .step-item {
-            padding: 2.4rem 1.8rem;
+        /* Interactive Tabs */
+        .hub-tabs-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(8, 12, 22, 0.7);
+            border: 1px solid var(--border-subtle);
+            padding: 0.35rem;
+            border-radius: var(--radius-full);
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hub-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 0.55rem 1.2rem;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hub-tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .hub-tab-btn.active {
+            background: var(--accent-blue);
+            color: #FFFFFF;
+            box-shadow: 0 4px 15px var(--accent-blue-glow);
+        }
+
+        /* Spatial Showcase Frame */
+        .hub-showcase-stage {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-highlight);
+            background: rgba(6, 9, 18, 0.95);
+            box-shadow: var(--shadow-elevation), 0 0 60px rgba(37, 99, 235, 0.15);
+            overflow: visible;
+        }
+
+        .hub-app-screenshot {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: calc(var(--radius-lg) - 1px);
+        }
+
+        /* Floating Telemetry Badges on Mission Showcase */
+        .telemetry-chip {
+            position: absolute;
+            background: rgba(14, 20, 36, 0.92);
+            border: 1px solid var(--border-highlight);
+            backdrop-filter: blur(18px);
+            border-radius: var(--radius-md);
+            padding: 0.9rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+            pointer-events: none;
+            animation: floatSlow 6s infinite ease-in-out;
+        }
+
+        .chip-left {
+            top: 20%;
+            left: -40px;
+            animation-delay: 0.5s;
+        }
+
+        .chip-right {
+            top: 45%;
+            right: -40px;
+            animation-delay: 3s;
+        }
+
+        .chip-bottom {
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 1.5s;
+        }
+
+        .telemetry-icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .telemetry-info {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 1.2rem;
+            gap: 0.15rem;
         }
 
-        .step-icon-badge-box {
-            position: relative;
-            width: 90px;
-            height: 90px;
-            margin-bottom: 0.5rem;
-        }
-
-        .step-icon-circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(14, 20, 36, 0.9) 100%);
-            border: 1px solid var(--border-highlight);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-blue-light);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            transition: all 0.35s ease;
-        }
-
-        .step-item:hover .step-icon-circle {
-            background: linear-gradient(135deg, var(--accent-blue) 0%, #1D4ED8 100%);
-            color: #FFFFFF;
-            transform: scale(1.06);
-            box-shadow: 0 12px 30px var(--accent-blue-glow);
-        }
-
-        .step-number-tag {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--bg-void);
-            border: 1px solid var(--border-highlight);
-            color: var(--text-primary);
+        .telemetry-val {
             font-family: var(--font-heading);
-            font-size: 0.82rem;
+            font-size: 1rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            color: var(--text-primary);
         }
 
-        .step-heading {
-            font-size: 1.35rem;
-            font-weight: 600;
-        }
-
-        .step-body {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
+        .telemetry-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
         }
 
         /* ---------------------------------------------------- */
-        /* FEATURES BENTO                                       */
+        /* 2. BESPOKE "HOW IT WORKS" (Interactive Micro-Demos)  */
         /* ---------------------------------------------------- */
-        .features-grid {
+        .steps-interactive-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.8rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
         }
 
-        .feature-box {
-            padding: 2.6rem 2.2rem;
+        .step-journey-card {
+            padding: 2.2rem 1.8rem;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 1.2rem;
+            gap: 1.5rem;
+            min-height: 420px;
         }
 
-        .feature-icon-wrap {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius-sm);
+        .step-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .step-seq-pill {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-blue-light);
             background: rgba(37, 99, 235, 0.12);
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-full);
             border: 1px solid rgba(37, 99, 235, 0.25);
+        }
+
+        /* Interactive Micro-Widgets Inside Steps */
+        .step-preview-widget {
+            width: 100%;
+            height: 160px;
+            background: rgba(8, 12, 22, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-blue-light);
+            position: relative;
+        }
+
+        /* Step 1: Interactive Profile Switcher */
+        .mini-profile-card {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(20, 29, 52, 0.9);
+            border: 1px solid var(--border-highlight);
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-sm);
+            width: 85%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
         }
 
-        .feature-box:hover .feature-icon-wrap {
+        .mini-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .mini-role-tag {
+            font-size: 0.75rem;
+            color: var(--accent-blue-light);
+            background: rgba(37, 99, 235, 0.15);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 2px;
+        }
+
+        /* Step 2: Animated Laser QR Code Scanner */
+        .qr-scanner-box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-highlight);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .scanner-laser-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--accent-cyan), 0 0 4px #FFFFFF;
+            animation: laserScan 2.4s infinite ease-in-out;
+        }
+
+        @keyframes laserScan {
+            0%, 100% { top: 5%; opacity: 0.3; }
+            50% { top: 90%; opacity: 1; }
+        }
+
+        /* Step 3: Auto-Sync Stack Widget */
+        .sync-stack-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            width: 85%;
+        }
+
+        .sync-item-pill {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(20, 29, 52, 0.85);
+            border: 1px solid var(--border-subtle);
+            padding: 0.45rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .sync-item-pill.synced {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: var(--text-primary);
+        }
+
+        /* ---------------------------------------------------- */
+        /* 3. BESPOKE ASYMMETRIC BENTO GRID (Live Interactive)  */
+        /* ---------------------------------------------------- */
+        .bento-showcase-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            grid-template-rows: auto auto;
+            gap: 1.8rem;
+        }
+
+        /* Card 1: 3D Interactive Business Card Studio (Large Bento) */
+        .bento-card-studio {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            padding: 2.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 2rem;
+            background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.15), transparent 60%), var(--bg-card);
+        }
+
+        .studio-top-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .studio-theme-swatches {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+        }
+
+        .swatch-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.25s ease;
+        }
+
+        .swatch-dot:hover, .swatch-dot.active {
+            transform: scale(1.2);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 12px currentColor;
+        }
+
+        /* Live 3D Interactive Card */
+        .live-card-viewport {
+            perspective: 1000px;
+            width: 100%;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hologram-card {
+            width: 100%;
+            max-width: 380px;
+            height: 210px;
+            background: linear-gradient(135deg, rgba(26, 38, 68, 0.9) 0%, rgba(10, 15, 28, 0.95) 100%);
+            border: 1px solid var(--card-accent);
+            border-radius: 18px;
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 35px var(--card-glow);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hologram-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+        }
+
+        .hologram-card:hover {
+            transform: translateY(-6px) rotateX(6deg) rotateY(-6deg);
+        }
+
+        .card-inner-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .card-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--card-accent);
+            object-fit: cover;
+        }
+
+        .card-name-title h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .card-name-title span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .card-qr-mini {
+            width: 44px;
+            height: 44px;
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-inner-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 0.9rem;
+        }
+
+        .card-social-icons {
+            display: flex;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .card-badge-nfc {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--card-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Card 2: AI OCR Camera Scanner */
+        .bento-scanner-card {
+            padding: 2.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.4rem;
+        }
+
+        .ai-scanner-visual {
+            height: 120px;
+            background: rgba(8, 12, 22, 0.9);
+            border: 1px solid var(--border-highlight);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
+            gap: 0.5rem;
+        }
+
+        .ai-detection-tag {
+            font-size: 0.75rem;
+            font-family: monospace;
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            border-left: 2px solid var(--accent-cyan);
+            padding: 0.2rem 0.5rem;
+            width: fit-content;
+            border-radius: 0 4px 4px 0;
+            animation: pulseFade 2s infinite alternate;
+        }
+
+        @keyframes pulseFade {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .ai-laser-sweep {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
+            animation: laserScan 2s infinite ease-in-out;
+        }
+
+        /* Card 3: Interactive Tags & CRM Filter */
+        .bento-tags-card {
+            padding: 2.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.4rem;
+        }
+
+        .tags-interactive-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .interactive-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 0.35rem 0.8rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .interactive-tag:hover {
+            border-color: var(--border-highlight);
+            color: var(--text-primary);
+        }
+
+        .interactive-tag.selected {
             background: var(--accent-blue);
             color: #FFFFFF;
-            transform: scale(1.08) rotate(3deg);
-            box-shadow: 0 8px 20px var(--accent-blue-glow);
-        }
-
-        .feature-title {
-            font-size: 1.4rem;
-        }
-
-        .feature-desc {
-            font-size: 0.98rem;
-            color: var(--text-secondary);
+            border-color: var(--accent-blue-light);
+            box-shadow: 0 4px 12px var(--accent-blue-glow);
         }
 
         /* ---------------------------------------------------- */
@@ -818,11 +1130,6 @@
 
         .platform-card h3 span {
             color: var(--accent-blue-light);
-        }
-
-        .platform-card p {
-            font-size: 1rem;
-            color: var(--text-secondary);
         }
 
         .platform-bottom {
@@ -1045,25 +1352,23 @@
                 align-items: center;
             }
 
-            .hero-actions {
+            .hero-actions, .hero-stats {
                 justify-content: center;
             }
 
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .steps-svg-line {
-                display: none;
-            }
-
-            .steps-grid {
+            .steps-interactive-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
 
-            .features-grid {
+            .bento-showcase-grid {
                 grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .bento-card-studio {
+                grid-column: 1 / -1;
+                grid-row: auto;
             }
 
             .platform-grid {
@@ -1076,29 +1381,26 @@
                 text-align: center;
             }
 
-            .cta-content {
+            .cta-content, .community-proof, .cta-buttons-row {
                 align-items: center;
-            }
-
-            .community-proof {
                 justify-content: center;
             }
 
-            .cta-buttons-row {
-                justify-content: center;
+            .telemetry-chip {
+                display: none;
             }
         }
 
         @media (max-width: 768px) {
             .nav-menu {
-                display: none; /* Modern compact nav on mobile */
+                display: none;
             }
 
             .hero-headline {
                 font-size: 2.3rem;
             }
 
-            .mission-panel {
+            .mission-hub-container {
                 padding: 2.2rem 1.4rem;
             }
 
@@ -1213,120 +1515,254 @@
             </div>
         </section>
 
-        <!-- Mission Section -->
+        <!-- 1. BESPOKE MISSION SECTION (Interactive Product Hub) -->
         <section class="section" id="about">
-            <div class="glass-card mission-panel">
-                <div class="badge-pill">
-                    <i data-lucide="compass" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
-                    Our Mission
+            <div class="glass-card mission-hub-container">
+                <div class="mission-hub-top">
+                    <div class="badge-pill">
+                        <i data-lucide="compass" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
+                        Our Mission
+                    </div>
+                    <h2 class="section-title">Never lose a valuable contact again.</h2>
+                    <p class="section-desc">
+                        We believe in a seamlessly connected professional future where individuals have complete control over their business identity, relationships, and networking velocity.
+                    </p>
                 </div>
-                
-                <h2 class="mission-lead">Never lose a contact again.</h2>
-                <p class="mission-copy">
-                    We believe in a seamlessly connected professional future where individuals have complete control over their business identity, relationships, and networking velocity.
-                </p>
 
-                <div class="mission-img-wrap">
-                    <img src="./assets/Our%20Mission.png" alt="Eventzone Mission Dashboard" class="mission-img">
+                <!-- Interactive Feature Filter Tabs -->
+                <div class="hub-tabs-row">
+                    <button class="hub-tab-btn active" onclick="switchHubTab(this, 'Leaderboard & Analytics')">
+                        <i data-lucide="bar-chart-3" style="width: 15px; height: 15px;"></i> Analytics &amp; Growth
+                    </button>
+                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'Smart Connections')">
+                        <i data-lucide="users" style="width: 15px; height: 15px;"></i> Contact Leaderboard
+                    </button>
+                    <button class="hub-tab-btn" onclick="switchHubTab(this, 'In-App Messenger')">
+                        <i data-lucide="message-square" style="width: 15px; height: 15px;"></i> Direct Messaging
+                    </button>
+                </div>
+
+                <!-- Spatial Device Stage with Floating Telemetry Chips -->
+                <div class="hub-showcase-stage">
+                    <!-- Telemetry Chip 1 -->
+                    <div class="telemetry-chip chip-left">
+                        <div class="telemetry-icon-circle" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">
+                            <i data-lucide="trending-up" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <div class="telemetry-info">
+                            <span class="telemetry-val">+48 Connections</span>
+                            <span class="telemetry-sub">This week &bull; 92% Acceptance</span>
+                        </div>
+                    </div>
+
+                    <!-- Telemetry Chip 2 -->
+                    <div class="telemetry-chip chip-right">
+                        <div class="telemetry-icon-circle" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+                            <i data-lucide="award" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <div class="telemetry-info">
+                            <span class="telemetry-val">Top 1% Networker</span>
+                            <span class="telemetry-sub">Tech &amp; Design Category</span>
+                        </div>
+                    </div>
+
+                    <!-- Telemetry Chip 3 -->
+                    <div class="telemetry-chip chip-bottom">
+                        <div class="telemetry-icon-circle" style="background: rgba(37, 99, 235, 0.15); color: var(--accent-blue-light);">
+                            <i data-lucide="zap" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <div class="telemetry-info">
+                            <span class="telemetry-val">0.8s Tap Handshake</span>
+                            <span class="telemetry-sub">Instant NFC &amp; QR sync speed</span>
+                        </div>
+                    </div>
+
+                    <img src="./assets/Our%20Mission.png" alt="Eventzone App Showcase" class="hub-app-screenshot">
                 </div>
             </div>
         </section>
 
-        <!-- How It Works -->
+        <!-- 2. BESPOKE "HOW IT WORKS" (Interactive Micro-Demos) -->
         <section class="section" id="how-it-works">
             <div class="section-header">
                 <div class="badge-pill">
                     <i data-lucide="sparkles" style="width: 14px; height: 14px; color: var(--accent-cyan);"></i>
                     How It Works
                 </div>
-                <h2 class="section-title">Simple in 3 Steps</h2>
-                <p class="section-desc">Start networking smarter in less than two minutes</p>
+                <h2 class="section-title">Frictionless 3-Step Journey</h2>
+                <p class="section-desc">Experience effortless contact exchange in less than two minutes</p>
             </div>
 
-            <div class="steps-wrapper">
-                <svg class="steps-svg-line" viewBox="0 0 1000 100" preserveAspectRatio="none">
-                    <path d="M 160 50 Q 330 100 500 50 Q 670 0 840 50" fill="none" stroke="rgba(37, 99, 235, 0.35)" stroke-width="2" stroke-dasharray="8 8"/>
-                </svg>
-
-                <div class="steps-grid">
-                    <div class="glass-card step-item">
-                        <div class="step-icon-badge-box">
-                            <div class="step-icon-circle">
-                                <i data-lucide="user" style="width: 32px; height: 32px;"></i>
-                            </div>
-                            <span class="step-number-tag">01</span>
-                        </div>
-                        <h3 class="step-heading">Create your profile</h3>
-                        <p class="step-body">Set up your digital identity with professional details, custom themes, and unlimited social links.</p>
+            <div class="steps-interactive-grid">
+                <!-- Step 1: Craft Identity -->
+                <div class="glass-card step-journey-card">
+                    <div class="step-header-row">
+                        <span class="step-seq-pill">STEP 01</span>
+                        <i data-lucide="user-check" style="color: var(--accent-blue-light); width: 22px; height: 22px;"></i>
                     </div>
 
-                    <div class="glass-card step-item">
-                        <div class="step-icon-badge-box">
-                            <div class="step-icon-circle">
-                                <i data-lucide="qr-code" style="width: 32px; height: 32px;"></i>
+                    <!-- Micro-Demo 1: Live Profile Switcher -->
+                    <div class="step-preview-widget">
+                        <div class="mini-profile-card">
+                            <div class="mini-avatar" id="stepAvatar">HV</div>
+                            <div>
+                                <h5 style="font-size: 0.9rem; font-weight: 700;" id="stepName">Hachemi Vance</h5>
+                                <span class="mini-role-tag" id="stepRole">Tech Founder</span>
                             </div>
-                            <span class="step-number-tag">02</span>
                         </div>
-                        <h3 class="step-heading">Scan or share</h3>
-                        <p class="step-body">Share your dynamic QR code instantly, or capture others' cards with the high-speed camera scanner.</p>
                     </div>
 
-                    <div class="glass-card step-item">
-                        <div class="step-icon-badge-box">
-                            <div class="step-icon-circle">
-                                <i data-lucide="users-round" style="width: 32px; height: 32px;"></i>
-                            </div>
-                            <span class="step-number-tag">03</span>
+                    <div>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Craft Your Identity</h3>
+                        <p style="font-size: 0.95rem;">Configure your card with custom themes, bio, portfolio links, and social channels with zero coding.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2: Scan & Transmit -->
+                <div class="glass-card step-journey-card">
+                    <div class="step-header-row">
+                        <span class="step-seq-pill">STEP 02</span>
+                        <i data-lucide="scan" style="color: var(--accent-cyan); width: 22px; height: 22px;"></i>
+                    </div>
+
+                    <!-- Micro-Demo 2: Animated Laser QR Code Scanner -->
+                    <div class="step-preview-widget">
+                        <div class="qr-scanner-box">
+                            <div class="scanner-laser-line"></div>
+                            <i data-lucide="qr-code" style="width: 54px; height: 54px; color: #FFFFFF;"></i>
                         </div>
-                        <h3 class="step-heading">Stay connected</h3>
-                        <p class="step-body">Organize connections with smart tags, chat in-app, and sync effortlessly across all your devices.</p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Scan &amp; Transmit</h3>
+                        <p style="font-size: 0.95rem;">Share your dynamic QR code instantly, or tap NFC to transfer your full contact vCard directly into their phonebook.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3: Smart Auto-Sync -->
+                <div class="glass-card step-journey-card">
+                    <div class="step-header-row">
+                        <span class="step-seq-pill">STEP 03</span>
+                        <i data-lucide="refresh-cw" style="color: var(--accent-emerald); width: 22px; height: 22px;"></i>
+                    </div>
+
+                    <!-- Micro-Demo 3: Auto-Sync Stack Widget -->
+                    <div class="step-preview-widget">
+                        <div class="sync-stack-box">
+                            <div class="sync-item-pill synced">
+                                <span>Sarah Miller (VC)</span>
+                                <i data-lucide="check-circle-2" style="width: 15px; height: 15px; color: var(--accent-emerald);"></i>
+                            </div>
+                            <div class="sync-item-pill synced">
+                                <span>David Kim (Design)</span>
+                                <i data-lucide="check-circle-2" style="width: 15px; height: 15px; color: var(--accent-emerald);"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.4rem;">Auto-Categorize &amp; Sync</h3>
+                        <p style="font-size: 0.95rem;">Tag leads automatically, sync to your CRM, and chat in-app without ever entering a phone number manually.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Showcase -->
+        <!-- 3. BESPOKE ASYMMETRIC BENTO GRID (Live Interactive Studio) -->
         <section class="section" id="features">
             <div class="section-header">
                 <div class="badge-pill">
                     <i data-lucide="layers" style="width: 14px; height: 14px; color: var(--accent-blue-light);"></i>
                     Core Capabilities
                 </div>
-                <h2 class="section-title">Built for Modern Professionals</h2>
-                <p class="section-desc">Everything you need to leave a powerful first impression</p>
+                <h2 class="section-title">Built for Modern High-Performers</h2>
+                <p class="section-desc">Experience high-touch networking with interactive tools</p>
             </div>
 
-            <div class="features-grid">
-                <div class="glass-card feature-box">
-                    <div class="feature-icon-wrap">
-                        <i data-lucide="qr-code" style="width: 26px; height: 26px;"></i>
+            <div class="bento-showcase-grid">
+                <!-- Bento 1: Live Interactive 3D Business Card Studio -->
+                <div class="glass-card bento-card-studio">
+                    <div class="studio-top-info">
+                        <span class="badge-pill" style="width: fit-content;">Interactive Studio</span>
+                        <h3 style="font-size: 1.8rem; margin-top: 0.5rem;">Dynamic Digital Card Engine</h3>
+                        <p style="font-size: 1rem;">
+                            Customize your card's visual DNA. Select an accent theme below to see live holographic rendering in action:
+                        </p>
+                        
+                        <!-- Interactive Theme Switcher Swatches -->
+                        <div class="studio-theme-swatches">
+                            <div class="swatch-dot active" style="background: #2563EB;" onclick="setStudioTheme('#2563EB', 'rgba(37, 99, 235, 0.4)', this)"></div>
+                            <div class="swatch-dot" style="background: #06B6D4;" onclick="setStudioTheme('#06B6D4', 'rgba(6, 182, 212, 0.4)', this)"></div>
+                            <div class="swatch-dot" style="background: #10B981;" onclick="setStudioTheme('#10B981', 'rgba(16, 185, 129, 0.4)', this)"></div>
+                            <div class="swatch-dot" style="background: #8B5CF6;" onclick="setStudioTheme('#8B5CF6', 'rgba(139, 92, 246, 0.4)', this)"></div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Dynamic Digital Cards</h3>
-                    <p class="feature-desc">Generate instant, customizable QR codes to share your phone, email, socials, and portfolio with a single tap. No app required for receivers.</p>
+
+                    <!-- Live 3D Interactive Card Element -->
+                    <div class="live-card-viewport">
+                        <div class="hologram-card" id="hologramCard">
+                            <div class="card-inner-top">
+                                <div class="card-user-info">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="card-avatar">
+                                    <div class="card-name-title">
+                                        <h4>Alex Vance</h4>
+                                        <span>Product Architect &bull; Eventzone</span>
+                                    </div>
+                                </div>
+                                <div class="card-qr-mini">
+                                    <i data-lucide="qr-code" style="width: 32px; height: 32px; color: #0B0F19;"></i>
+                                </div>
+                            </div>
+
+                            <div class="card-inner-bottom">
+                                <div class="card-social-icons">
+                                    <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i>
+                                    <i data-lucide="twitter" style="width: 16px; height: 16px;"></i>
+                                    <i data-lucide="globe" style="width: 16px; height: 16px;"></i>
+                                    <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                                </div>
+                                <div class="card-badge-nfc">
+                                    <i data-lucide="wifi" style="width: 14px; height: 14px;"></i> NFC Ready
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="glass-card feature-box">
-                    <div class="feature-icon-wrap">
-                        <i data-lucide="zap" style="width: 26px; height: 26px;"></i>
+                <!-- Bento 2: AI OCR Camera Scanner -->
+                <div class="glass-card bento-scanner-card">
+                    <div>
+                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="camera" style="width: 22px; height: 22px;"></i>
+                        </div>
+                        <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">AI Paper Scanner</h3>
+                        <p style="font-size: 0.95rem;">Digitize stacks of physical paper cards into structured contacts with optical character recognition.</p>
                     </div>
-                    <h3 class="feature-title">Instant Connection &amp; Chat</h3>
-                    <p class="feature-desc">Build your professional circle faster. Direct messaging, shared notes, and live relationship timeline built right into your contacts.</p>
+
+                    <div class="ai-scanner-visual">
+                        <div class="ai-laser-sweep"></div>
+                        <div class="ai-detection-tag">SCANNING: Sarah Jenkins</div>
+                        <div class="ai-detection-tag" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border-color: var(--accent-emerald);">PHONE EXTRACTED: +1 (555) 019-2834</div>
+                    </div>
                 </div>
 
-                <div class="glass-card feature-box">
-                    <div class="feature-icon-wrap">
-                        <i data-lucide="tags" style="width: 26px; height: 26px;"></i>
+                <!-- Bento 3: Interactive Tags & CRM Filter -->
+                <div class="glass-card bento-tags-card">
+                    <div>
+                        <div class="feature-icon-wrap" style="margin-bottom: 1rem; width: 44px; height: 44px; border-radius: 10px; background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="tags" style="width: 22px; height: 22px;"></i>
+                        </div>
+                        <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Smart CRM &amp; Tagging</h3>
+                        <p style="font-size: 0.95rem;">Group your relationships effortlessly. Click tags below to preview active filter grouping:</p>
                     </div>
-                    <h3 class="feature-title">Smart Contact Tagging</h3>
-                    <p class="feature-desc">Categorize leads, partners, and colleagues with color-coded custom tags and contextual meeting notes so you never forget where you met.</p>
-                </div>
 
-                <div class="glass-card feature-box">
-                    <div class="feature-icon-wrap">
-                        <i data-lucide="scan-line" style="width: 26px; height: 26px;"></i>
+                    <div class="tags-interactive-cloud">
+                        <span class="interactive-tag selected" onclick="toggleTag(this)">#Investor</span>
+                        <span class="interactive-tag selected" onclick="toggleTag(this)">#TechSummit2026</span>
+                        <span class="interactive-tag" onclick="toggleTag(this)">#KeynoteSpeaker</span>
+                        <span class="interactive-tag" onclick="toggleTag(this)">#ClientLead</span>
+                        <span class="interactive-tag" onclick="toggleTag(this)">#Designer</span>
                     </div>
-                    <h3 class="feature-title">AI Business Card Scanner</h3>
-                    <p class="feature-desc">Transform physical paper business cards into clean, organized digital contacts with our optical character recognition scanner.</p>
                 </div>
             </div>
         </section>
@@ -1532,13 +1968,11 @@
         window.addEventListener('pointermove', (e) => {
             const { clientX: x, clientY: y } = e;
             
-            // Move cursor spotlight
             if (spotlight) {
                 spotlight.style.left = `${x}px`;
                 spotlight.style.top = `${y}px`;
             }
 
-            // Update card internal gradients
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
                 const cardX = x - rect.left;
@@ -1569,22 +2003,41 @@
             });
         }
 
-        // 4. FAQ Accordion Logic
+        // 4. Mission Interactive Hub Tabs
+        function switchHubTab(btn, tabName) {
+            document.querySelectorAll('.hub-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // 5. Interactive Studio Theme Swatches
+        function setStudioTheme(accentColor, glowColor, swatch) {
+            document.querySelectorAll('.swatch-dot').forEach(s => s.classList.remove('active'));
+            swatch.classList.add('active');
+            
+            const root = document.documentElement;
+            root.style.setProperty('--card-accent', accentColor);
+            root.style.setProperty('--card-glow', glowColor);
+        }
+
+        // 6. Interactive CRM Tag Toggle
+        function toggleTag(tagEl) {
+            tagEl.classList.toggle('selected');
+        }
+
+        // 7. FAQ Accordion Logic
         function toggleFaq(item) {
             const isActive = item.classList.contains('active');
             
-            // Close all items
             document.querySelectorAll('.faq-item').forEach(faq => {
                 faq.classList.remove('active');
             });
             
-            // Toggle clicked
             if (!isActive) {
                 item.classList.add('active');
             }
         }
 
-        // 5. GSAP Scroll Animations
+        // 8. GSAP Scroll Animations
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof gsap !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
@@ -1600,7 +2053,7 @@
                       .from('#mockupCard', { opacity: 0, scale: 0.9, rotateY: -15, duration: 1.2 }, '-=0.9')
                       .from('.floating-pill', { opacity: 0, scale: 0.8, stagger: 0.2 }, '-=0.6');
 
-                // Scroll Trigger Batches for Sections
+                // Section Headers Reveal
                 gsap.utils.toArray('.section-header').forEach(header => {
                     gsap.from(header, {
                         scrollTrigger: {
@@ -1615,10 +2068,10 @@
                     });
                 });
 
-                // Mission Panel Reveal
-                gsap.from('.mission-panel', {
+                // Mission Hub Reveal
+                gsap.from('.mission-hub-container', {
                     scrollTrigger: {
-                        trigger: '.mission-panel',
+                        trigger: '.mission-hub-container',
                         start: 'top 80%'
                     },
                     opacity: 0,
@@ -1628,10 +2081,10 @@
                     ease: 'power3.out'
                 });
 
-                // How it works Cards Stagger
-                gsap.from('.step-item', {
+                // Steps Cards Stagger
+                gsap.from('.step-journey-card', {
                     scrollTrigger: {
-                        trigger: '.steps-grid',
+                        trigger: '.steps-interactive-grid',
                         start: 'top 80%'
                     },
                     opacity: 0,
@@ -1641,10 +2094,10 @@
                     ease: 'power2.out'
                 });
 
-                // Feature Cards Stagger
-                gsap.from('.feature-box', {
+                // Bento Cards Stagger
+                gsap.from('.bento-showcase-grid > div', {
                     scrollTrigger: {
-                        trigger: '.features-grid',
+                        trigger: '.bento-showcase-grid',
                         start: 'top 80%'
                     },
                     opacity: 0,
